@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		060810B853C2B51161DECB90 /* Pods_Fantastey.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 715B22B1060351F3D0C1907B /* Pods_Fantastey.framework */; };
 		DBA9F8BA253AF8B00024717F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA9F8B9253AF8B00024717F /* AppDelegate.swift */; };
 		DBA9F8BC253AF8B00024717F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA9F8BB253AF8B00024717F /* SceneDelegate.swift */; };
 		DBA9F8C3253AF8B00024717F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DBA9F8C1253AF8B00024717F /* Main.storyboard */; };
@@ -15,6 +16,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		715B22B1060351F3D0C1907B /* Pods_Fantastey.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Fantastey.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		92B1B6F804E75D6712F509B5 /* Pods-Fantastey.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fantastey.release.xcconfig"; path = "Target Support Files/Pods-Fantastey/Pods-Fantastey.release.xcconfig"; sourceTree = "<group>"; };
+		BFFFED77162D8E72EEFB9D34 /* Pods-Fantastey.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fantastey.debug.xcconfig"; path = "Target Support Files/Pods-Fantastey/Pods-Fantastey.debug.xcconfig"; sourceTree = "<group>"; };
 		DBA9F8B6253AF8B00024717F /* Fantastey.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Fantastey.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DBA9F8B9253AF8B00024717F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DBA9F8BB253AF8B00024717F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -29,17 +33,38 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				060810B853C2B51161DECB90 /* Pods_Fantastey.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4F54C7D65E567CE1DF3EF9F0 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				BFFFED77162D8E72EEFB9D34 /* Pods-Fantastey.debug.xcconfig */,
+				92B1B6F804E75D6712F509B5 /* Pods-Fantastey.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		DB67CD875F64AD82B9B59211 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				715B22B1060351F3D0C1907B /* Pods_Fantastey.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		DBA9F8AD253AF8B00024717F = {
 			isa = PBXGroup;
 			children = (
 				DBA9F8B8253AF8B00024717F /* Fantastey */,
 				DBA9F8B7253AF8B00024717F /* Products */,
+				4F54C7D65E567CE1DF3EF9F0 /* Pods */,
+				DB67CD875F64AD82B9B59211 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -71,9 +96,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = DBA9F8CC253AF8B00024717F /* Build configuration list for PBXNativeTarget "Fantastey" */;
 			buildPhases = (
+				E3B2A76E402BC6DA84B9DFE2 /* [CP] Check Pods Manifest.lock */,
 				DBA9F8B2253AF8B00024717F /* Sources */,
 				DBA9F8B3253AF8B00024717F /* Frameworks */,
 				DBA9F8B4253AF8B00024717F /* Resources */,
+				145EA78887949F67A2188798 /* [CP] Embed Pods Frameworks */,
+				6F0D6367B56D520139F763D4 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -129,6 +157,65 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		145EA78887949F67A2188798 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Fantastey/Pods-Fantastey-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Fantastey/Pods-Fantastey-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Fantastey/Pods-Fantastey-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		6F0D6367B56D520139F763D4 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Fantastey/Pods-Fantastey-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Fantastey/Pods-Fantastey-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Fantastey/Pods-Fantastey-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E3B2A76E402BC6DA84B9DFE2 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Fantastey-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		DBA9F8B2253AF8B00024717F /* Sources */ = {
@@ -278,6 +365,7 @@
 		};
 		DBA9F8CD253AF8B00024717F /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = BFFFED77162D8E72EEFB9D34 /* Pods-Fantastey.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -296,6 +384,7 @@
 		};
 		DBA9F8CE253AF8B00024717F /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 92B1B6F804E75D6712F509B5 /* Pods-Fantastey.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
