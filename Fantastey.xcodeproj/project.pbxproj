@@ -10,12 +10,12 @@
 		060810B853C2B51161DECB90 /* Pods_Fantastey.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 715B22B1060351F3D0C1907B /* Pods_Fantastey.framework */; };
 		DB0971D3253BDFB60040748F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = DB0971D2253BDFB60040748F /* GoogleService-Info.plist */; };
 		DB4EB2B2253F10BC007D4D24 /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB4EB2B1253F10BC007D4D24 /* LoginVC.swift */; };
-		DB4EB2B4253F1B28007D4D24 /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DB4EB2B3253F1B28007D4D24 /* Login.storyboard */; };
+		DB4EB2B8253F285F007D4D24 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DB4EB2BA253F285F007D4D24 /* Main.storyboard */; };
+		DB4EB2BD253F2A59007D4D24 /* AppHome.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DB4EB2BB253F2A59007D4D24 /* AppHome.storyboard */; };
 		DB5B2F23253BEEA200F38D30 /* RecipeSearchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5B2F22253BEEA200F38D30 /* RecipeSearchVC.swift */; };
 		DB5B2F25253BF83C00F38D30 /* RecipeDetailsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5B2F24253BF83C00F38D30 /* RecipeDetailsVC.swift */; };
 		DBA9F8BA253AF8B00024717F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA9F8B9253AF8B00024717F /* AppDelegate.swift */; };
 		DBA9F8BC253AF8B00024717F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA9F8BB253AF8B00024717F /* SceneDelegate.swift */; };
-		DBA9F8C3253AF8B00024717F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DBA9F8C1253AF8B00024717F /* Main.storyboard */; };
 		DBA9F8C5253AF8B00024717F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DBA9F8C4253AF8B00024717F /* Assets.xcassets */; };
 		DBA9F8C8253AF8B00024717F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DBA9F8C6253AF8B00024717F /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
@@ -26,13 +26,13 @@
 		BFFFED77162D8E72EEFB9D34 /* Pods-Fantastey.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fantastey.debug.xcconfig"; path = "Target Support Files/Pods-Fantastey/Pods-Fantastey.debug.xcconfig"; sourceTree = "<group>"; };
 		DB0971D2253BDFB60040748F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		DB4EB2B1253F10BC007D4D24 /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
-		DB4EB2B3253F1B28007D4D24 /* Login.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Login.storyboard; sourceTree = "<group>"; };
+		DB4EB2B9253F285F007D4D24 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		DB4EB2BC253F2A59007D4D24 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/AppHome.storyboard; sourceTree = "<group>"; };
 		DB5B2F22253BEEA200F38D30 /* RecipeSearchVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeSearchVC.swift; sourceTree = "<group>"; };
 		DB5B2F24253BF83C00F38D30 /* RecipeDetailsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeDetailsVC.swift; sourceTree = "<group>"; };
 		DBA9F8B6253AF8B00024717F /* Fantastey.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Fantastey.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DBA9F8B9253AF8B00024717F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DBA9F8BB253AF8B00024717F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		DBA9F8C2253AF8B00024717F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		DBA9F8C4253AF8B00024717F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DBA9F8C7253AF8B00024717F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		DBA9F8C9253AF8B00024717F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -62,11 +62,29 @@
 		DB4EB2B5253F1B34007D4D24 /* Storyboards */ = {
 			isa = PBXGroup;
 			children = (
-				DBA9F8C1253AF8B00024717F /* Main.storyboard */,
+				DB4EB2BB253F2A59007D4D24 /* AppHome.storyboard */,
 				DBA9F8C6253AF8B00024717F /* LaunchScreen.storyboard */,
-				DB4EB2B3253F1B28007D4D24 /* Login.storyboard */,
+				DB4EB2BA253F285F007D4D24 /* Main.storyboard */,
 			);
 			path = Storyboards;
+			sourceTree = "<group>";
+		};
+		DB4EB2B6253F2325007D4D24 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				DB4EB2B7253F2348007D4D24 /* View Controllers */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
+		DB4EB2B7253F2348007D4D24 /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				DB5B2F22253BEEA200F38D30 /* RecipeSearchVC.swift */,
+				DB5B2F24253BF83C00F38D30 /* RecipeDetailsVC.swift */,
+				DB4EB2B1253F10BC007D4D24 /* LoginVC.swift */,
+			);
+			path = "View Controllers";
 			sourceTree = "<group>";
 		};
 		DB67CD875F64AD82B9B59211 /* Frameworks */ = {
@@ -98,15 +116,13 @@
 		DBA9F8B8253AF8B00024717F /* Fantastey */ = {
 			isa = PBXGroup;
 			children = (
+				DB4EB2B6253F2325007D4D24 /* UI */,
 				DB4EB2B5253F1B34007D4D24 /* Storyboards */,
 				DB0971D2253BDFB60040748F /* GoogleService-Info.plist */,
 				DBA9F8B9253AF8B00024717F /* AppDelegate.swift */,
 				DBA9F8BB253AF8B00024717F /* SceneDelegate.swift */,
 				DBA9F8C4253AF8B00024717F /* Assets.xcassets */,
 				DBA9F8C9253AF8B00024717F /* Info.plist */,
-				DB5B2F22253BEEA200F38D30 /* RecipeSearchVC.swift */,
-				DB5B2F24253BF83C00F38D30 /* RecipeDetailsVC.swift */,
-				DB4EB2B1253F10BC007D4D24 /* LoginVC.swift */,
 			);
 			path = Fantastey;
 			sourceTree = "<group>";
@@ -173,10 +189,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				DBA9F8C8253AF8B00024717F /* LaunchScreen.storyboard in Resources */,
+				DB4EB2BD253F2A59007D4D24 /* AppHome.storyboard in Resources */,
 				DB0971D3253BDFB60040748F /* GoogleService-Info.plist in Resources */,
 				DBA9F8C5253AF8B00024717F /* Assets.xcassets in Resources */,
-				DB4EB2B4253F1B28007D4D24 /* Login.storyboard in Resources */,
-				DBA9F8C3253AF8B00024717F /* Main.storyboard in Resources */,
+				DB4EB2B8253F285F007D4D24 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -257,12 +273,20 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		DBA9F8C1253AF8B00024717F /* Main.storyboard */ = {
+		DB4EB2BA253F285F007D4D24 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				DBA9F8C2253AF8B00024717F /* Base */,
+				DB4EB2B9253F285F007D4D24 /* Base */,
 			);
 			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		DB4EB2BB253F2A59007D4D24 /* AppHome.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DB4EB2BC253F2A59007D4D24 /* Base */,
+			);
+			name = AppHome.storyboard;
 			sourceTree = "<group>";
 		};
 		DBA9F8C6253AF8B00024717F /* LaunchScreen.storyboard */ = {

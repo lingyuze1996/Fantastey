@@ -16,7 +16,7 @@ class LoginVC: UIViewController {
         // Do any additional setup after loading the view.
     }
     
-    @IBAction func back(_ sender: UIStoryboardSegue) {}
+    @IBAction func unwind(_ sender: UIStoryboardSegue) {}
     
 
     /*
