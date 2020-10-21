@@ -139,7 +139,6 @@
 				DBA9F8B3253AF8B00024717F /* Frameworks */,
 				DBA9F8B4253AF8B00024717F /* Resources */,
 				145EA78887949F67A2188798 /* [CP] Embed Pods Frameworks */,
-				6F0D6367B56D520139F763D4 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -214,23 +213,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Fantastey/Pods-Fantastey-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		6F0D6367B56D520139F763D4 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Fantastey/Pods-Fantastey-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Fantastey/Pods-Fantastey-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Fantastey/Pods-Fantastey-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		E3B2A76E402BC6DA84B9DFE2 /* [CP] Check Pods Manifest.lock */ = {

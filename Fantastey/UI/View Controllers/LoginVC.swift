@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FirebaseCore
 
 class LoginVC: UIViewController {
 

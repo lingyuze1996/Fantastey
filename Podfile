@@ -6,8 +6,6 @@ target 'Fantastey' do
   use_frameworks!
 
   # Pods for Fantastey
-  pod 'FirebaseUI/Auth'
-  pod 'FirebaseUI/Twitter'
   pod 'Firebase/Auth'
   pod 'Firebase/Core'
 
