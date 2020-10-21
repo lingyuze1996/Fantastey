@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		060810B853C2B51161DECB90 /* Pods_Fantastey.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 715B22B1060351F3D0C1907B /* Pods_Fantastey.framework */; };
 		DB0971D3253BDFB60040748F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = DB0971D2253BDFB60040748F /* GoogleService-Info.plist */; };
+		DB0F64712540441000F0929A /* customButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0F64702540441000F0929A /* customButton.swift */; };
 		DB4EB2B2253F10BC007D4D24 /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB4EB2B1253F10BC007D4D24 /* LoginVC.swift */; };
 		DB4EB2B8253F285F007D4D24 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DB4EB2BA253F285F007D4D24 /* Main.storyboard */; };
 		DB4EB2BD253F2A59007D4D24 /* AppHome.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DB4EB2BB253F2A59007D4D24 /* AppHome.storyboard */; };
@@ -25,6 +26,7 @@
 		92B1B6F804E75D6712F509B5 /* Pods-Fantastey.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fantastey.release.xcconfig"; path = "Target Support Files/Pods-Fantastey/Pods-Fantastey.release.xcconfig"; sourceTree = "<group>"; };
 		BFFFED77162D8E72EEFB9D34 /* Pods-Fantastey.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fantastey.debug.xcconfig"; path = "Target Support Files/Pods-Fantastey/Pods-Fantastey.debug.xcconfig"; sourceTree = "<group>"; };
 		DB0971D2253BDFB60040748F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		DB0F64702540441000F0929A /* customButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = customButton.swift; sourceTree = "<group>"; };
 		DB4EB2B1253F10BC007D4D24 /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
 		DB4EB2B9253F285F007D4D24 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		DB4EB2BC253F2A59007D4D24 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/AppHome.storyboard; sourceTree = "<group>"; };
@@ -59,6 +61,14 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		DB0F646F254043E400F0929A /* Custom Buttons */ = {
+			isa = PBXGroup;
+			children = (
+				DB0F64702540441000F0929A /* customButton.swift */,
+			);
+			path = "Custom Buttons";
+			sourceTree = "<group>";
+		};
 		DB4EB2B5253F1B34007D4D24 /* Storyboards */ = {
 			isa = PBXGroup;
 			children = (
@@ -72,6 +82,7 @@
 		DB4EB2B6253F2325007D4D24 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				DB0F646F254043E400F0929A /* Custom Buttons */,
 				DB4EB2B7253F2348007D4D24 /* View Controllers */,
 			);
 			path = UI;
@@ -244,6 +255,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DB0F64712540441000F0929A /* customButton.swift in Sources */,
 				DBA9F8BA253AF8B00024717F /* AppDelegate.swift in Sources */,
 				DBA9F8BC253AF8B00024717F /* SceneDelegate.swift in Sources */,
 				DB5B2F23253BEEA200F38D30 /* RecipeSearchVC.swift in Sources */,
