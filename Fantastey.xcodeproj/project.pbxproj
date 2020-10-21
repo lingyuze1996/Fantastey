@@ -15,6 +15,7 @@
 		DB4EB2BD253F2A59007D4D24 /* AppHome.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DB4EB2BB253F2A59007D4D24 /* AppHome.storyboard */; };
 		DB5B2F23253BEEA200F38D30 /* RecipeSearchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5B2F22253BEEA200F38D30 /* RecipeSearchVC.swift */; };
 		DB5B2F25253BF83C00F38D30 /* RecipeDetailsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5B2F24253BF83C00F38D30 /* RecipeDetailsVC.swift */; };
+		DB82B79D254067B8000B226C /* MyProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB82B79C254067B8000B226C /* MyProfileVC.swift */; };
 		DBA9F8BA253AF8B00024717F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA9F8B9253AF8B00024717F /* AppDelegate.swift */; };
 		DBA9F8BC253AF8B00024717F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA9F8BB253AF8B00024717F /* SceneDelegate.swift */; };
 		DBA9F8C5253AF8B00024717F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DBA9F8C4253AF8B00024717F /* Assets.xcassets */; };
@@ -32,6 +33,7 @@
 		DB4EB2BC253F2A59007D4D24 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/AppHome.storyboard; sourceTree = "<group>"; };
 		DB5B2F22253BEEA200F38D30 /* RecipeSearchVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeSearchVC.swift; sourceTree = "<group>"; };
 		DB5B2F24253BF83C00F38D30 /* RecipeDetailsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeDetailsVC.swift; sourceTree = "<group>"; };
+		DB82B79C254067B8000B226C /* MyProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProfileVC.swift; sourceTree = "<group>"; };
 		DBA9F8B6253AF8B00024717F /* Fantastey.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Fantastey.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DBA9F8B9253AF8B00024717F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DBA9F8BB253AF8B00024717F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -94,6 +96,7 @@
 				DB5B2F22253BEEA200F38D30 /* RecipeSearchVC.swift */,
 				DB5B2F24253BF83C00F38D30 /* RecipeDetailsVC.swift */,
 				DB4EB2B1253F10BC007D4D24 /* LoginVC.swift */,
+				DB82B79C254067B8000B226C /* MyProfileVC.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -258,6 +261,7 @@
 				DB0F64712540441000F0929A /* customButton.swift in Sources */,
 				DBA9F8BA253AF8B00024717F /* AppDelegate.swift in Sources */,
 				DBA9F8BC253AF8B00024717F /* SceneDelegate.swift in Sources */,
+				DB82B79D254067B8000B226C /* MyProfileVC.swift in Sources */,
 				DB5B2F23253BEEA200F38D30 /* RecipeSearchVC.swift in Sources */,
 				DB5B2F25253BF83C00F38D30 /* RecipeDetailsVC.swift in Sources */,
 				DB4EB2B2253F10BC007D4D24 /* LoginVC.swift in Sources */,

@@ -7,10 +7,13 @@
 //
 
 import UIKit
-import FirebaseCore
+import FirebaseAuth
 
 class LoginVC: UIViewController {
-
+    @IBOutlet weak var emailTextField: UITextField!
+    @IBOutlet weak var pwTextField: UITextField!
+    var handle: AuthStateDidChangeListenerHandle?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -19,6 +22,26 @@ class LoginVC: UIViewController {
     
     @IBAction func unwind(_ sender: UIStoryboardSegue) {}
     @IBAction func login(_ sender: Any) {
+        guard let email = emailTextField.text else {return}
+        guard let password = pwTextField.text else {return}
+        
+        Auth.auth().signIn(withEmail: email, password: password) { (result, error) in
+            print(error)
+        }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        handle = Auth.auth().addStateDidChangeListener({ (auth, user) in
+            if user != nil {
+                self.performSegue(withIdentifier: "loginSegue", sender: nil)
+            }
+        })
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        Auth.auth().removeStateDidChangeListener(handle!)
     }
     
 

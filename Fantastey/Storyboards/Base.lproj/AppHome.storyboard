@@ -263,10 +263,39 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="cGX-pS-Ooi" kind="relationship" relationship="rootViewController" id="ncC-NZ-xBc"/>
+                    </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Guq-sl-v3D" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1124" y="-931.48425787106453"/>
+        </scene>
+        <!--My Profile-->
+        <scene sceneID="UmQ-WA-24F">
+            <objects>
+                <viewController id="cGX-pS-Ooi" customClass="MyProfileVC" customModule="Fantastey" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="LpU-dm-F1u">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5PQ-rR-yq1">
+                                <rect key="frame" x="160" y="318" width="55" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Log Out"/>
+                                <connections>
+                                    <action selector="logOut:" destination="cGX-pS-Ooi" eventType="touchUpInside" id="J3w-Or-FTC"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="lgX-10-NHt"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="My Profile" id="O0i-ZL-X4F"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="rNC-E3-B4b" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1124" y="-193"/>
         </scene>
     </scenes>
     <resources>
