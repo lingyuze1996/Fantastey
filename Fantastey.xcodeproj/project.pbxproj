@@ -21,6 +21,7 @@
 		DBA8AB6825513E1D00811AD9 /* RecipeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA8AB6725513E1D00811AD9 /* RecipeCell.swift */; };
 		DBA8AB6C25518E5200811AD9 /* Recipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA8AB6B25518E5200811AD9 /* Recipe.swift */; };
 		DBA8AB7025518E9100811AD9 /* RecipeData.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA8AB6F25518E9100811AD9 /* RecipeData.swift */; };
+		DBA8AB772551956600811AD9 /* Secret.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA8AB762551956600811AD9 /* Secret.swift */; };
 		DBA9F8BA253AF8B00024717F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA9F8B9253AF8B00024717F /* AppDelegate.swift */; };
 		DBA9F8BC253AF8B00024717F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA9F8BB253AF8B00024717F /* SceneDelegate.swift */; };
 		DBA9F8C5253AF8B00024717F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DBA9F8C4253AF8B00024717F /* Assets.xcassets */; };
@@ -44,6 +45,7 @@
 		DBA8AB6725513E1D00811AD9 /* RecipeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeCell.swift; sourceTree = "<group>"; };
 		DBA8AB6B25518E5200811AD9 /* Recipe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Recipe.swift; sourceTree = "<group>"; };
 		DBA8AB6F25518E9100811AD9 /* RecipeData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeData.swift; sourceTree = "<group>"; };
+		DBA8AB762551956600811AD9 /* Secret.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secret.swift; sourceTree = "<group>"; };
 		DBA9F8B6253AF8B00024717F /* Fantastey.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Fantastey.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DBA9F8B9253AF8B00024717F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DBA9F8BB253AF8B00024717F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -168,6 +170,7 @@
 				DBA9F8BB253AF8B00024717F /* SceneDelegate.swift */,
 				DBA9F8C4253AF8B00024717F /* Assets.xcassets */,
 				DBA9F8C9253AF8B00024717F /* Info.plist */,
+				DBA8AB762551956600811AD9 /* Secret.swift */,
 			);
 			path = Fantastey;
 			sourceTree = "<group>";
@@ -298,6 +301,7 @@
 				DB82B79D254067B8000B226C /* MyProfileVC.swift in Sources */,
 				DB5B2F23253BEEA200F38D30 /* RecipeSearchVC.swift in Sources */,
 				DB5B2F25253BF83C00F38D30 /* RecipeDetailsVC.swift in Sources */,
+				DBA8AB772551956600811AD9 /* Secret.swift in Sources */,
 				DBA8AB7025518E9100811AD9 /* RecipeData.swift in Sources */,
 				DB4EB2B2253F10BC007D4D24 /* LoginVC.swift in Sources */,
 				DBA8AB6C25518E5200811AD9 /* Recipe.swift in Sources */,
