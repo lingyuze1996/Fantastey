@@ -26,7 +26,11 @@ class LoginVC: UIViewController {
         guard let password = pwTextField.text else {return}
         
         Auth.auth().signIn(withEmail: email, password: password) { (result, error) in
-            print(error)
+            if let error = error {
+                print(error)
+            }
+            
+            
         }
     }
     

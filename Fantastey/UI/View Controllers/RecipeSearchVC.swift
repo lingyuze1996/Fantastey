@@ -8,23 +8,42 @@
 
 import UIKit
 
-class RecipeSearchVC: UIViewController {
-
+class RecipeSearchVC: UIViewController {    
+    @IBOutlet weak var searchBar: UISearchBar!
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        
+        let searchController = UISearchController(searchResultsController: nil)
+        
+        searchController.searchBar.delegate = self
+        
+        searchController.searchBar.placeholder = "Search for a recipe"
+        searchController.obscuresBackgroundDuringPresentation = false
+        
+        navigationItem.searchController = searchController
+        navigationItem.hidesSearchBarWhenScrolling = false
+        definesPresentationContext = true
     }
     
-
-    /*
+    
+    
     // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+        if segue.identifier == "recipeSearchSegue" {
+            let destinationVC = segue.destination as! RecipeResultsVC
+            destinationVC.searchText = sender as? String
+        }
     }
-    */
+    
+}
 
+// MARK: - UISearchBar Delegate
+extension RecipeSearchVC: UISearchBarDelegate {
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        guard let searchText = searchBar.text, searchText.count > 0 else { return }
+        performSegue(withIdentifier: "recipeSearchSegue", sender: searchText)
+    }
+    
+    
 }

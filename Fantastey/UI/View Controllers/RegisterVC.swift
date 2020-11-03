@@ -38,7 +38,7 @@ class RegisterVC: UIViewController {
             }
             
             // Sign up Success
-            let alert = UIAlertController(title: "Success", message: "Your new account is ready", preferredStyle: .alert)
+            let alert = UIAlertController(title: "Success", message: "Congratulations!\nYour new account is ready.", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "OK", style: .default) { (action) in
                 self.navigationController?.popToRootViewController(animated: true)
             })
