@@ -8,27 +8,233 @@
 
 import UIKit
 
-class RecipeDetailsVC: UIViewController {
-    @IBOutlet weak var tableView: UITableView!
+class RecipeDetailsVC: UITableViewController {
+    private var SECTION_TITLE = 0
+    private var SECTION_IMAGE = 1
+    private var SECTION_INGREDIENTS = 2
+    private var SECTION_INSTRUCTIONS = 3
     
     weak var recipeBasics: RecipeBasics?
+    var recipe: Recipe?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
         
+        if let basics = recipeBasics {
+            let recipeId = basics.id
+            
+            recipe = Recipe(id: basics.id, title: basics.title, imageURL: basics.imageURL)
+            
+            retrieveIngredients(id: recipeId)
+            retrieveInstructions(id: recipeId)
+        }
+    }
+    
+    @IBAction func followAuthor(_ sender: Any) {
+    }
+    @IBAction func shareToTwitter(_ sender: Any) {
+    }
+    
+    // MARK: - Table view data source
+
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        return 4
+    }
+
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if section == SECTION_INGREDIENTS {
+            return recipe?.ingredients.count ?? 0
+        }
+        
+        if section == SECTION_INSTRUCTIONS {
+            return recipe?.steps.count ?? 0
+        }
+        
+        return 1
+    }
+
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        // Section Title
+        if indexPath.section == SECTION_TITLE {
+            
+            let titleCell = tableView.dequeueReusableCell(withIdentifier: "recipeTitleCell", for: indexPath) as! RecipeTitleCell
+            
+            if let basics = recipeBasics {
+                titleCell.authorLabel.text = "Author: Spoonacular"
+                titleCell.titleLabel.text = basics.title
+                titleCell.followButton.isHidden = true
+            }
+            
+            return titleCell
+        }
+        
+        // Section Image
+        if indexPath.section == SECTION_IMAGE {
+            let imageCell = tableView.dequeueReusableCell(withIdentifier: "recipeImageCell", for: indexPath) as! RecipeImageCell
+            if let imageURL = recipeBasics?.imageURL {
+                let jsonURL = URL(string: imageURL.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!)
+                let task = URLSession.shared.dataTask(with: jsonURL!) { (data, response, error) in
+                    if let error = error {
+                        print(error)
+                    } else {
+                        DispatchQueue.main.async {
+                            imageCell.recipeImageView.image = UIImage(data: data!)
+                        }
+                    }
+                }
+                
+                task.resume()
+            }
+            
+            return imageCell
+        }
+        
+        // Section Ingredients
+        if indexPath.section == SECTION_INGREDIENTS {
+            let ingredientCell = tableView.dequeueReusableCell(withIdentifier: "recipeIngredientCell", for: indexPath)
+            let ingredient = recipe?.ingredients[indexPath.row]
+            ingredientCell.textLabel?.text = ingredient?.name
+            ingredientCell.detailTextLabel?.text = "\(ingredient!.value) " + ingredient!.unit
+            
+            return ingredientCell
+        }
+        
+        // Section Instructions
+        let instructionCell = tableView.dequeueReusableCell(withIdentifier: "recipeInstructionCell", for: indexPath)
+        let step = recipe?.steps[indexPath.row]
+        instructionCell.textLabel?.numberOfLines = 0
+        instructionCell.textLabel?.lineBreakMode = .byWordWrapping
+        instructionCell.textLabel?.text = "Step " + "\(indexPath.row + 1):\n" + step!
+        
+        return instructionCell
+    }
+    
+
+    
+    // Override to support conditional editing of the table view.
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        if section == SECTION_INGREDIENTS {
+            return "Ingredients"
+        }
+        
+        if section == SECTION_INSTRUCTIONS {
+            return "Instructions"
+        }
+        
+        return nil
     }
     
 
     /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    // Override to support editing the table view.
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            // Delete the row from the data source
+            tableView.deleteRows(at: [indexPath], with: .fade)
+        } else if editingStyle == .insert {
+            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+        }
     }
     */
+
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
+
+    
+    // MARK: - Navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+    }
+    
+    // MARK: - Recipe Ingredients Retrieval
+    private func retrieveIngredients(id: Int) {
+        // Set query URL for recipe search from spoonacular API
+        var queryURL = "https://api.spoonacular.com/recipes/"
+        queryURL += "\(id)/"
+        queryURL += "ingredientWidget.json?"
+        queryURL += "apiKey=" + Secret.API_KEY
+        
+        let jsonURL = URL(string: queryURL.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!)
+        
+        let task = URLSession.shared.dataTask(with: jsonURL!) { (data, response, error) in
+            /*
+            DispatchQueue.main.async {
+                self.indicator.stopAnimating()
+                self.indicator.hidesWhenStopped = true
+            }*/
+            
+            if let error = error {
+                print(error)
+                return
+            }
+            
+            
+            do {
+                let decoder = JSONDecoder()
+                let ingredientsVolume = try decoder.decode(IngredientsVolume.self, from: data!)
+                let ingredients = ingredientsVolume.ingredients
+                self.recipe?.ingredients.append(contentsOf: ingredients)
+            } catch let err {
+                print(err)
+            }
+            
+            DispatchQueue.main.async {
+                self.tableView.reloadSections([self.SECTION_INSTRUCTIONS, self.SECTION_INGREDIENTS], with: .automatic)
+                //self.tableView.reloadData()
+            }
+        }
+        
+        task.resume()
+    }
+    
+    // MARK: - Recipe Instructions Retrieval
+    private func retrieveInstructions(id: Int) {
+        // Set query URL for recipe search from spoonacular API        
+        var queryURL = "https://api.spoonacular.com/recipes/"
+        queryURL += "\(id)/"
+        queryURL += "analyzedInstructions?"
+        queryURL += "apiKey=" + Secret.API_KEY
+        
+        let jsonURL = URL(string: queryURL.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!)
+        
+        let task = URLSession.shared.dataTask(with: jsonURL!) { (data, response, error) in
+            /*
+            DispatchQueue.main.async {
+                self.indicator.stopAnimating()
+                self.indicator.hidesWhenStopped = true
+            }*/
+            
+            if let error = error {
+                print(error)
+                return
+            }
+            
+            let jsonRoot = try? JSONSerialization.jsonObject(with: data!, options: [])
+            if let root = jsonRoot as? [Any] {
+                if root.count > 0, let rootDictionary = root[0] as? [String: Any] {
+                    if let steps = rootDictionary["steps"] as? [Any], steps.count > 0 {
+                        for step in steps {
+                            if let step = step as? [String: Any] {
+                                if let stepString = step["step"] as? String {
+                                    self.recipe?.steps.append(stepString)
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            
+            DispatchQueue.main.async {
+                //self.tableView.reloadData()
+                self.tableView.reloadSections([self.SECTION_INGREDIENTS, self.SECTION_INSTRUCTIONS], with: .automatic)
+            }
+        }
+        
+        task.resume()
+    }
+    
+
 
 }

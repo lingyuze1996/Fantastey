@@ -32,11 +32,6 @@ class RecipeResultsVC: UIViewController {
         guard let searchText = searchText else { return }
         
         performSearch(searchText: searchText)
-        
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-        
-        // Do any additional setup after loading the view.
     }
     
     
