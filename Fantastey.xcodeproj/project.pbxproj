@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		060810B853C2B51161DECB90 /* Pods_Fantastey.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 715B22B1060351F3D0C1907B /* Pods_Fantastey.framework */; };
 		C88EAF3F25529B9600A98845 /* Secret.swift in Sources */ = {isa = PBXBuildFile; fileRef = C88EAF3E25529B9600A98845 /* Secret.swift */; };
+		C88EAF4A2552F3B900A98845 /* AboutVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C88EAF492552F3B900A98845 /* AboutVC.swift */; };
 		DB0971D3253BDFB60040748F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = DB0971D2253BDFB60040748F /* GoogleService-Info.plist */; };
 		DB0F64712540441000F0929A /* customButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0F64702540441000F0929A /* customButton.swift */; };
 		DB49EB2625407216008EEB2C /* RegisterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB49EB2525407216008EEB2C /* RegisterVC.swift */; };
@@ -34,6 +35,7 @@
 		92B1B6F804E75D6712F509B5 /* Pods-Fantastey.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fantastey.release.xcconfig"; path = "Target Support Files/Pods-Fantastey/Pods-Fantastey.release.xcconfig"; sourceTree = "<group>"; };
 		BFFFED77162D8E72EEFB9D34 /* Pods-Fantastey.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fantastey.debug.xcconfig"; path = "Target Support Files/Pods-Fantastey/Pods-Fantastey.debug.xcconfig"; sourceTree = "<group>"; };
 		C88EAF3E25529B9600A98845 /* Secret.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secret.swift; sourceTree = "<group>"; };
+		C88EAF492552F3B900A98845 /* AboutVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutVC.swift; sourceTree = "<group>"; };
 		DB0971D2253BDFB60040748F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		DB0F64702540441000F0929A /* customButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = customButton.swift; sourceTree = "<group>"; };
 		DB49EB2525407216008EEB2C /* RegisterVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterVC.swift; sourceTree = "<group>"; };
@@ -114,6 +116,7 @@
 				DB82B79C254067B8000B226C /* MyProfileVC.swift */,
 				DB49EB2525407216008EEB2C /* RegisterVC.swift */,
 				DB9B3B1325503BB5001BC8BB /* RecipeResultsVC.swift */,
+				C88EAF492552F3B900A98845 /* AboutVC.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -306,6 +309,7 @@
 				DB82B79D254067B8000B226C /* MyProfileVC.swift in Sources */,
 				DB5B2F23253BEEA200F38D30 /* RecipeSearchVC.swift in Sources */,
 				DB5B2F25253BF83C00F38D30 /* RecipeDetailsVC.swift in Sources */,
+				C88EAF4A2552F3B900A98845 /* AboutVC.swift in Sources */,
 				DBA8AB7025518E9100811AD9 /* RecipeBasics.swift in Sources */,
 				DB4EB2B2253F10BC007D4D24 /* LoginVC.swift in Sources */,
 				DBA8AB6C25518E5200811AD9 /* Recipe.swift in Sources */,
