@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		060810B853C2B51161DECB90 /* Pods_Fantastey.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 715B22B1060351F3D0C1907B /* Pods_Fantastey.framework */; };
+		C88EAF3F25529B9600A98845 /* Secret.swift in Sources */ = {isa = PBXBuildFile; fileRef = C88EAF3E25529B9600A98845 /* Secret.swift */; };
 		DB0971D3253BDFB60040748F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = DB0971D2253BDFB60040748F /* GoogleService-Info.plist */; };
 		DB0F64712540441000F0929A /* customButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0F64702540441000F0929A /* customButton.swift */; };
 		DB49EB2625407216008EEB2C /* RegisterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB49EB2525407216008EEB2C /* RegisterVC.swift */; };
@@ -21,7 +22,6 @@
 		DBA8AB6825513E1D00811AD9 /* RecipeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA8AB6725513E1D00811AD9 /* RecipeCell.swift */; };
 		DBA8AB6C25518E5200811AD9 /* Recipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA8AB6B25518E5200811AD9 /* Recipe.swift */; };
 		DBA8AB7025518E9100811AD9 /* RecipeBasics.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA8AB6F25518E9100811AD9 /* RecipeBasics.swift */; };
-		DBA8AB772551956600811AD9 /* Secret.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA8AB762551956600811AD9 /* Secret.swift */; };
 		DBA8AB7A25519C9500811AD9 /* RecipeSearchVolume.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA8AB7925519C9500811AD9 /* RecipeSearchVolume.swift */; };
 		DBA9F8BA253AF8B00024717F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA9F8B9253AF8B00024717F /* AppDelegate.swift */; };
 		DBA9F8BC253AF8B00024717F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA9F8BB253AF8B00024717F /* SceneDelegate.swift */; };
@@ -33,6 +33,7 @@
 		715B22B1060351F3D0C1907B /* Pods_Fantastey.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Fantastey.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		92B1B6F804E75D6712F509B5 /* Pods-Fantastey.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fantastey.release.xcconfig"; path = "Target Support Files/Pods-Fantastey/Pods-Fantastey.release.xcconfig"; sourceTree = "<group>"; };
 		BFFFED77162D8E72EEFB9D34 /* Pods-Fantastey.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fantastey.debug.xcconfig"; path = "Target Support Files/Pods-Fantastey/Pods-Fantastey.debug.xcconfig"; sourceTree = "<group>"; };
+		C88EAF3E25529B9600A98845 /* Secret.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secret.swift; sourceTree = "<group>"; };
 		DB0971D2253BDFB60040748F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		DB0F64702540441000F0929A /* customButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = customButton.swift; sourceTree = "<group>"; };
 		DB49EB2525407216008EEB2C /* RegisterVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterVC.swift; sourceTree = "<group>"; };
@@ -46,7 +47,6 @@
 		DBA8AB6725513E1D00811AD9 /* RecipeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeCell.swift; sourceTree = "<group>"; };
 		DBA8AB6B25518E5200811AD9 /* Recipe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Recipe.swift; sourceTree = "<group>"; };
 		DBA8AB6F25518E9100811AD9 /* RecipeBasics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeBasics.swift; sourceTree = "<group>"; };
-		DBA8AB762551956600811AD9 /* Secret.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secret.swift; sourceTree = "<group>"; };
 		DBA8AB7925519C9500811AD9 /* RecipeSearchVolume.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeSearchVolume.swift; sourceTree = "<group>"; };
 		DBA9F8B6253AF8B00024717F /* Fantastey.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Fantastey.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DBA9F8B9253AF8B00024717F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -173,7 +173,7 @@
 				DBA9F8BB253AF8B00024717F /* SceneDelegate.swift */,
 				DBA9F8C4253AF8B00024717F /* Assets.xcassets */,
 				DBA9F8C9253AF8B00024717F /* Info.plist */,
-				DBA8AB762551956600811AD9 /* Secret.swift */,
+				C88EAF3E25529B9600A98845 /* Secret.swift */,
 			);
 			path = Fantastey;
 			sourceTree = "<group>";
@@ -296,6 +296,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DB9B3B1425503BB5001BC8BB /* RecipeResultsVC.swift in Sources */,
+				C88EAF3F25529B9600A98845 /* Secret.swift in Sources */,
 				DBA8AB7A25519C9500811AD9 /* RecipeSearchVolume.swift in Sources */,
 				DB0F64712540441000F0929A /* customButton.swift in Sources */,
 				DB49EB2625407216008EEB2C /* RegisterVC.swift in Sources */,
@@ -305,7 +306,6 @@
 				DB82B79D254067B8000B226C /* MyProfileVC.swift in Sources */,
 				DB5B2F23253BEEA200F38D30 /* RecipeSearchVC.swift in Sources */,
 				DB5B2F25253BF83C00F38D30 /* RecipeDetailsVC.swift in Sources */,
-				DBA8AB772551956600811AD9 /* Secret.swift in Sources */,
 				DBA8AB7025518E9100811AD9 /* RecipeBasics.swift in Sources */,
 				DB4EB2B2253F10BC007D4D24 /* LoginVC.swift in Sources */,
 				DBA8AB6C25518E5200811AD9 /* Recipe.swift in Sources */,
@@ -464,7 +464,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = SC4X683BNL;
+				DEVELOPMENT_TEAM = 332PS72MQ4;
 				INFOPLIST_FILE = Fantastey/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -483,7 +483,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = SC4X683BNL;
+				DEVELOPMENT_TEAM = 332PS72MQ4;
 				INFOPLIST_FILE = Fantastey/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
