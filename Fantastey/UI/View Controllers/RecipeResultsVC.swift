@@ -11,6 +11,10 @@ import UIKit
 class RecipeResultsVC: UIViewController {
     
     @IBOutlet weak var collectionView: UICollectionView!
+    
+    private let sectionInsets = UIEdgeInsets(top: 50.0, left: 20.0, bottom: 50.0, right: 20.0)
+    private let itemsPerRow: CGFloat = 3
+    
     var searchText: String!
     var indicator = UIActivityIndicatorView()
     var recipes = [RecipeBasics]()
@@ -35,15 +39,14 @@ class RecipeResultsVC: UIViewController {
         // Do any additional setup after loading the view.
     }
     
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using [segue destinationViewController].
-     // Pass the selected object to the new view controller.
-     }
-     */
+    
+    // MARK: - Navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "recipeDetailsSegue" {
+            let destinationVC = segue.destination as! RecipeDetailsVC
+            destinationVC.recipeBasics = sender as? RecipeBasics
+        }
+    }
     
     private func performSearch(searchText: String) {
         indicator.startAnimating()
@@ -105,6 +108,8 @@ extension RecipeResultsVC: UICollectionViewDataSource {
         
         // Cell Configuration
         let recipe = recipes[indexPath.row]
+        cell.recipeTitle.text = recipe.title
+        
         if let imageURL = recipe.imageURL {
             let jsonURL = URL(string: imageURL.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!)
             let task = URLSession.shared.dataTask(with: jsonURL!) { (data, response, error) in
@@ -126,12 +131,12 @@ extension RecipeResultsVC: UICollectionViewDataSource {
 
 // MARK: UICollectionViewDelegate
 extension RecipeResultsVC: UICollectionViewDelegate {
-    /*
-     // Uncomment this method to specify if the specified item should be highlighted during tracking
-     override func collectionView(_ collectionView: UICollectionView, shouldHighlightItemAt indexPath: IndexPath) -> Bool {
-     return true
-     }
-     */
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let recipeBasics = recipes[indexPath.row]
+        performSegue(withIdentifier: "recipeDetailsSegue", sender: recipeBasics)
+    }
+     
     
     /*
      // Uncomment this method to specify if the specified item should be selected
@@ -155,3 +160,22 @@ extension RecipeResultsVC: UICollectionViewDelegate {
      }
      */
 }
+
+// MARK: -
+extension RecipeResultsVC: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let paddingSpace = sectionInsets.left * (itemsPerRow + 1)
+        let availableWidth = view.frame.width - paddingSpace
+        let widthPerItem = availableWidth / itemsPerRow
+        return CGSize(width: widthPerItem, height: widthPerItem * 1.25)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return sectionInsets
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return sectionInsets.left
+    }
+}
+

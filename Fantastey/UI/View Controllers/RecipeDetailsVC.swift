@@ -11,10 +11,13 @@ import UIKit
 class RecipeDetailsVC: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     
+    weak var recipeBasics: RecipeBasics?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        
     }
     
 
