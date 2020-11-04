@@ -26,7 +26,7 @@ class RecipeDetailsVC: UITableViewController {
             recipe = Recipe(id: basics.id, title: basics.title, imageURL: basics.imageURL)
             
             retrieveIngredients(id: recipeId)
-            //retrieveInstructions(id: recipeId)
+            retrieveInstructions(id: recipeId)
         }
     }
     
@@ -47,7 +47,7 @@ class RecipeDetailsVC: UITableViewController {
         }
         
         if section == SECTION_INSTRUCTIONS {
-            return 3
+            return recipe?.steps.count ?? 0
         }
         
         return 1
@@ -55,6 +55,7 @@ class RecipeDetailsVC: UITableViewController {
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
+        // Section Title
         if indexPath.section == SECTION_TITLE {
             
             let titleCell = tableView.dequeueReusableCell(withIdentifier: "recipeTitleCell", for: indexPath) as! RecipeTitleCell
@@ -68,6 +69,7 @@ class RecipeDetailsVC: UITableViewController {
             return titleCell
         }
         
+        // Section Image
         if indexPath.section == SECTION_IMAGE {
             let imageCell = tableView.dequeueReusableCell(withIdentifier: "recipeImageCell", for: indexPath) as! RecipeImageCell
             if let imageURL = recipeBasics?.imageURL {
@@ -88,6 +90,7 @@ class RecipeDetailsVC: UITableViewController {
             return imageCell
         }
         
+        // Section Ingredients
         if indexPath.section == SECTION_INGREDIENTS {
             let ingredientCell = tableView.dequeueReusableCell(withIdentifier: "recipeIngredientCell", for: indexPath)
             let ingredient = recipe?.ingredients[indexPath.row]
@@ -97,9 +100,14 @@ class RecipeDetailsVC: UITableViewController {
             return ingredientCell
         }
         
-        let insructionsCell = tableView.dequeueReusableCell(withIdentifier: "recipeInstructionCell", for: indexPath)
+        // Section Instructions
+        let instructionCell = tableView.dequeueReusableCell(withIdentifier: "recipeInstructionCell", for: indexPath)
+        let step = recipe?.steps[indexPath.row]
+        instructionCell.textLabel?.numberOfLines = 0
+        instructionCell.textLabel?.lineBreakMode = .byWordWrapping
+        instructionCell.textLabel?.text = "Step " + "\(indexPath.row + 1):\n" + step!
         
-        return insructionsCell
+        return instructionCell
     }
     
 
@@ -168,15 +176,14 @@ class RecipeDetailsVC: UITableViewController {
                 let ingredientsVolume = try decoder.decode(IngredientsVolume.self, from: data!)
                 let ingredients = ingredientsVolume.ingredients
                 self.recipe?.ingredients.append(contentsOf: ingredients)
-                    
-                DispatchQueue.main.async {
-                    self.tableView.reloadData()
-                }
-                
             } catch let err {
                 print(err)
             }
             
+            DispatchQueue.main.async {
+                self.tableView.reloadSections([self.SECTION_INSTRUCTIONS, self.SECTION_INGREDIENTS], with: .automatic)
+                //self.tableView.reloadData()
+            }
         }
         
         task.resume()
@@ -204,21 +211,25 @@ class RecipeDetailsVC: UITableViewController {
                 return
             }
             
-            /*
-            do {
-                let decoder = JSONDecoder()
-                let resultsVolume = try decoder.decode(RecipeSearchVolume.self, from: data!)
-                if let recipeResults = resultsVolume.results {
-                    self.recipes.append(contentsOf: recipeResults)
-                    
-                    DispatchQueue.main.async {
-                        self.collectionView.reloadData()
+            let jsonRoot = try? JSONSerialization.jsonObject(with: data!, options: [])
+            if let root = jsonRoot as? [Any] {
+                if root.count > 0, let rootDictionary = root[0] as? [String: Any] {
+                    if let steps = rootDictionary["steps"] as? [Any], steps.count > 0 {
+                        for step in steps {
+                            if let step = step as? [String: Any] {
+                                if let stepString = step["step"] as? String {
+                                    self.recipe?.steps.append(stepString)
+                                }
+                            }
+                        }
                     }
                 }
-            } catch let err {
-                print(err)
-            }*/
+            }
             
+            DispatchQueue.main.async {
+                //self.tableView.reloadData()
+                self.tableView.reloadSections([self.SECTION_INGREDIENTS, self.SECTION_INSTRUCTIONS], with: .automatic)
+            }
         }
         
         task.resume()
