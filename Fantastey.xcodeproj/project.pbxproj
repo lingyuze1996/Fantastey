@@ -10,6 +10,10 @@
 		060810B853C2B51161DECB90 /* Pods_Fantastey.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 715B22B1060351F3D0C1907B /* Pods_Fantastey.framework */; };
 		C88EAF3F25529B9600A98845 /* Secret.swift in Sources */ = {isa = PBXBuildFile; fileRef = C88EAF3E25529B9600A98845 /* Secret.swift */; };
 		C88EAF4A2552F3B900A98845 /* AboutVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C88EAF492552F3B900A98845 /* AboutVC.swift */; };
+		C8EEA80725539505007B2717 /* Ingredient.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8EEA80625539505007B2717 /* Ingredient.swift */; };
+		C8EEA80A2553950F007B2717 /* IngredientsVolume.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8EEA8092553950F007B2717 /* IngredientsVolume.swift */; };
+		C8EEA80F2553955F007B2717 /* RecipeTitleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8EEA80D2553955F007B2717 /* RecipeTitleCell.swift */; };
+		C8EEA8102553955F007B2717 /* RecipeImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8EEA80E2553955F007B2717 /* RecipeImageCell.swift */; };
 		DB0971D3253BDFB60040748F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = DB0971D2253BDFB60040748F /* GoogleService-Info.plist */; };
 		DB0F64712540441000F0929A /* customButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0F64702540441000F0929A /* customButton.swift */; };
 		DB49EB2625407216008EEB2C /* RegisterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB49EB2525407216008EEB2C /* RegisterVC.swift */; };
@@ -36,6 +40,10 @@
 		BFFFED77162D8E72EEFB9D34 /* Pods-Fantastey.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fantastey.debug.xcconfig"; path = "Target Support Files/Pods-Fantastey/Pods-Fantastey.debug.xcconfig"; sourceTree = "<group>"; };
 		C88EAF3E25529B9600A98845 /* Secret.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secret.swift; sourceTree = "<group>"; };
 		C88EAF492552F3B900A98845 /* AboutVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutVC.swift; sourceTree = "<group>"; };
+		C8EEA80625539505007B2717 /* Ingredient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Ingredient.swift; sourceTree = "<group>"; };
+		C8EEA8092553950F007B2717 /* IngredientsVolume.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IngredientsVolume.swift; sourceTree = "<group>"; };
+		C8EEA80D2553955F007B2717 /* RecipeTitleCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecipeTitleCell.swift; sourceTree = "<group>"; };
+		C8EEA80E2553955F007B2717 /* RecipeImageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecipeImageCell.swift; sourceTree = "<group>"; };
 		DB0971D2253BDFB60040748F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		DB0F64702540441000F0929A /* customButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = customButton.swift; sourceTree = "<group>"; };
 		DB49EB2525407216008EEB2C /* RegisterVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterVC.swift; sourceTree = "<group>"; };
@@ -79,6 +87,15 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		C8EEA80C2553955F007B2717 /* Table View Cells */ = {
+			isa = PBXGroup;
+			children = (
+				C8EEA80D2553955F007B2717 /* RecipeTitleCell.swift */,
+				C8EEA80E2553955F007B2717 /* RecipeImageCell.swift */,
+			);
+			path = "Table View Cells";
+			sourceTree = "<group>";
+		};
 		DB0F646F254043E400F0929A /* Custom Buttons */ = {
 			isa = PBXGroup;
 			children = (
@@ -100,6 +117,7 @@
 		DB4EB2B6253F2325007D4D24 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				C8EEA80C2553955F007B2717 /* Table View Cells */,
 				DB9B3B0D25502EED001BC8BB /* Collection View Cells */,
 				DB0F646F254043E400F0929A /* Custom Buttons */,
 				DB4EB2B7253F2348007D4D24 /* View Controllers */,
@@ -141,6 +159,8 @@
 			isa = PBXGroup;
 			children = (
 				DBA8AB6B25518E5200811AD9 /* Recipe.swift */,
+				C8EEA8092553950F007B2717 /* IngredientsVolume.swift */,
+				C8EEA80625539505007B2717 /* Ingredient.swift */,
 				DBA8AB6F25518E9100811AD9 /* RecipeBasics.swift */,
 				DBA8AB7925519C9500811AD9 /* RecipeSearchVolume.swift */,
 			);
@@ -298,17 +318,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C8EEA80F2553955F007B2717 /* RecipeTitleCell.swift in Sources */,
 				DB9B3B1425503BB5001BC8BB /* RecipeResultsVC.swift in Sources */,
 				C88EAF3F25529B9600A98845 /* Secret.swift in Sources */,
 				DBA8AB7A25519C9500811AD9 /* RecipeSearchVolume.swift in Sources */,
 				DB0F64712540441000F0929A /* customButton.swift in Sources */,
+				C8EEA80725539505007B2717 /* Ingredient.swift in Sources */,
 				DB49EB2625407216008EEB2C /* RegisterVC.swift in Sources */,
 				DBA9F8BA253AF8B00024717F /* AppDelegate.swift in Sources */,
 				DBA9F8BC253AF8B00024717F /* SceneDelegate.swift in Sources */,
 				DBA8AB6825513E1D00811AD9 /* RecipeCell.swift in Sources */,
 				DB82B79D254067B8000B226C /* MyProfileVC.swift in Sources */,
 				DB5B2F23253BEEA200F38D30 /* RecipeSearchVC.swift in Sources */,
+				C8EEA80A2553950F007B2717 /* IngredientsVolume.swift in Sources */,
 				DB5B2F25253BF83C00F38D30 /* RecipeDetailsVC.swift in Sources */,
+				C8EEA8102553955F007B2717 /* RecipeImageCell.swift in Sources */,
 				C88EAF4A2552F3B900A98845 /* AboutVC.swift in Sources */,
 				DBA8AB7025518E9100811AD9 /* RecipeBasics.swift in Sources */,
 				DB4EB2B2253F10BC007D4D24 /* LoginVC.swift in Sources */,

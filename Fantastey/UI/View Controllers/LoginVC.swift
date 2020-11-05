@@ -28,6 +28,10 @@ class LoginVC: UIViewController {
         Auth.auth().signIn(withEmail: email, password: password) { (result, error) in
             if let error = error {
                 print(error)
+                let alert = UIAlertController(title: "Login Error", message: "The account or the password might be wrong, please check them again.", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                self.present(alert, animated: true, completion: nil)
+                return
             }
             
             
