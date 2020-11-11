@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 51;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -22,6 +22,7 @@
 		DB4EB2BD253F2A59007D4D24 /* AppHome.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DB4EB2BB253F2A59007D4D24 /* AppHome.storyboard */; };
 		DB5B2F23253BEEA200F38D30 /* RecipeSearchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5B2F22253BEEA200F38D30 /* RecipeSearchVC.swift */; };
 		DB5B2F25253BF83C00F38D30 /* RecipeDetailsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5B2F24253BF83C00F38D30 /* RecipeDetailsVC.swift */; };
+		DB68FE5A255A865600F0750F /* Swifter in Frameworks */ = {isa = PBXBuildFile; productRef = DB68FE59255A865600F0750F /* Swifter */; };
 		DB82B79D254067B8000B226C /* MyProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB82B79C254067B8000B226C /* MyProfileVC.swift */; };
 		DB9B3B1425503BB5001BC8BB /* RecipeResultsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9B3B1325503BB5001BC8BB /* RecipeResultsVC.swift */; };
 		DBA8AB6825513E1D00811AD9 /* RecipeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA8AB6725513E1D00811AD9 /* RecipeCell.swift */; };
@@ -72,6 +73,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				060810B853C2B51161DECB90 /* Pods_Fantastey.framework in Frameworks */,
+				DB68FE5A255A865600F0750F /* Swifter in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -219,6 +221,9 @@
 			dependencies = (
 			);
 			name = Fantastey;
+			packageProductDependencies = (
+				DB68FE59255A865600F0750F /* Swifter */,
+			);
 			productName = Fantastey;
 			productReference = DBA9F8B6253AF8B00024717F /* Fantastey.app */;
 			productType = "com.apple.product-type.application";
@@ -247,6 +252,9 @@
 				Base,
 			);
 			mainGroup = DBA9F8AD253AF8B00024717F;
+			packageReferences = (
+				DB68FE58255A865600F0750F /* XCRemoteSwiftPackageReference "Swifter" */,
+			);
 			productRefGroup = DBA9F8B7253AF8B00024717F /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -546,6 +554,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		DB68FE58255A865600F0750F /* XCRemoteSwiftPackageReference "Swifter" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/mattdonnelly/Swifter";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.4.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		DB68FE59255A865600F0750F /* Swifter */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DB68FE58255A865600F0750F /* XCRemoteSwiftPackageReference "Swifter" */;
+			productName = Swifter;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = DBA9F8AE253AF8B00024717F /* Project object */;
 }

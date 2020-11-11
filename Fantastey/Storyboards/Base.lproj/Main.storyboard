@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.3" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="11j-kO-Yb4">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="11j-kO-Yb4">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17126"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -25,9 +26,9 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <textInputTraits key="textInputTraits" secureTextEntry="YES" textContentType="password"/>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="u4x-0v-rW5" customClass="RoundButton" customModule="Fantastey" customModuleProvider="target">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="u4x-0v-rW5" customClass="RoundButton" customModule="Fantastey" customModuleProvider="target">
                                 <rect key="frame" x="60" y="418" width="294" height="34"/>
-                                <color key="backgroundColor" systemColor="linkColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" systemColor="linkColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <state key="normal" title="Sign In">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -43,13 +44,13 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Don't have an account?" textAlignment="natural" lineBreakMode="clip" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ay2-19-DnZ">
-                                <rect key="frame" x="92" y="532" width="160" height="30"/>
+                                <rect key="frame" x="91.5" y="532" width="161" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pxr-RE-QG2">
-                                <rect key="frame" x="260" y="532" width="52" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pxr-RE-QG2">
+                                <rect key="frame" x="260.5" y="532" width="52" height="30"/>
                                 <state key="normal" title="Sign up"/>
                                 <connections>
                                     <segue destination="V7b-kN-lf1" kind="show" identifier="registerSegue" id="Ypn-pm-Iw2"/>
@@ -61,19 +62,20 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vq5-51-7FD">
-                                <rect key="frame" x="170" y="562" width="133" height="30"/>
-                                <state key="normal" title="Login anonomously"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vq5-51-7FD">
+                                <rect key="frame" x="170" y="562" width="132" height="30"/>
+                                <state key="normal" title="Login anonymously"/>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="U3P-5X-OZv">
                                 <rect key="frame" x="60" y="468" width="294" height="34"/>
-                                <color key="backgroundColor" systemColor="linkColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" systemColor="linkColor"/>
                                 <state key="normal" title="Sign in with Twitter">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="ono-9W-FHc"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="u4x-0v-rW5" firstAttribute="top" secondItem="kS7-c7-Voe" secondAttribute="bottom" constant="40" id="3qF-4v-Mtl"/>
                             <constraint firstItem="pry-JO-L73" firstAttribute="centerX" secondItem="PbN-y2-vHQ" secondAttribute="centerX" constant="-75" id="4NZ-AG-AEo"/>
@@ -101,7 +103,6 @@
                             <constraint firstItem="ono-9W-FHc" firstAttribute="trailing" secondItem="UqU-nr-WdF" secondAttribute="trailing" constant="20" id="t52-fi-kLt"/>
                             <constraint firstItem="U3P-5X-OZv" firstAttribute="top" secondItem="u4x-0v-rW5" secondAttribute="bottom" constant="16" id="ys1-l3-nCZ"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="ono-9W-FHc"/>
                     </view>
                     <navigationItem key="navigationItem" id="O4p-aL-Gbg"/>
                     <connections>
@@ -165,9 +166,9 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" secureTextEntry="YES" textContentType="password"/>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8RL-l4-tJy" customClass="RoundButton" customModule="Fantastey" customModuleProvider="target">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8RL-l4-tJy" customClass="RoundButton" customModule="Fantastey" customModuleProvider="target">
                                 <rect key="frame" x="20" y="570" width="374" height="30"/>
-                                <color key="backgroundColor" systemColor="linkColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" systemColor="linkColor"/>
                                 <state key="normal" title="Sign Up">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
@@ -213,7 +214,8 @@
                                 </items>
                             </navigationBar>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="PqD-DB-mMz"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="PqD-DB-mMz" firstAttribute="trailing" secondItem="PYv-4Q-ye0" secondAttribute="trailing" constant="20" id="2yq-GQ-cuZ"/>
                             <constraint firstItem="PqD-DB-mMz" firstAttribute="trailing" secondItem="W4T-zt-Jb9" secondAttribute="trailing" constant="20" id="3x0-dL-rbR"/>
@@ -252,7 +254,6 @@
                             <constraint firstItem="ArD-GV-VZH" firstAttribute="trailing" secondItem="PqD-DB-mMz" secondAttribute="trailing" id="wDo-V1-YN8"/>
                             <constraint firstItem="PqD-DB-mMz" firstAttribute="trailing" secondItem="Dqp-uU-UTF" secondAttribute="trailing" constant="20" id="xdC-8X-dVm"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="PqD-DB-mMz"/>
                     </view>
                     <navigationItem key="navigationItem" title="Register a Fantastey Account" id="r3p-1N-jnZ"/>
                     <connections>
@@ -286,4 +287,12 @@
             <point key="canvasLocation" x="-7039" y="-1802"/>
         </scene>
     </scenes>
+    <resources>
+        <systemColor name="linkColor">
+            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
 </document>

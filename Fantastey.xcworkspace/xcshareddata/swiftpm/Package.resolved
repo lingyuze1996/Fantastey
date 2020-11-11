@@ -1,0 +1,16 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "Swifter",
+        "repositoryURL": "https://github.com/mattdonnelly/Swifter",
+        "state": {
+          "branch": null,
+          "revision": "480c30bdc59cba8be16d70a32207fe8b31fe1876",
+          "version": "2.4.0"
+        }
+      }
+    ]
+  },
+  "version": 1
+}

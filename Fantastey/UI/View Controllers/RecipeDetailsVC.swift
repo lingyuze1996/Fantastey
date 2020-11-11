@@ -36,7 +36,8 @@ class RecipeDetailsVC: UITableViewController {
         
         let url = URL(string: "Fantastey://")!
         swifter.authorize(withCallback: url, presentingFrom: self, success: { (token, response) in
-            swifter.postTweet(status: "Test Tweet from Swifter")
+            print("success")
+            //swifter.postTweet(status: "Test Tweet from Swifter")
         }, failure: { (error) in
             print(error)
         })
