@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Swifter
 
 class RecipeDetailsVC: UITableViewController {
     private var SECTION_TITLE = 0
@@ -30,9 +31,22 @@ class RecipeDetailsVC: UITableViewController {
         }
     }
     
-    @IBAction func followAuthor(_ sender: Any) {
-    }
     @IBAction func shareToTwitter(_ sender: Any) {
+        let swifter = Swifter(consumerKey: Secret.TWITTER_CONSUMER_KEY, consumerSecret: Secret.TWITTER_CONSUMER_SECRET)
+        
+        let url = URL(string: "Fantastey://")!
+        swifter.authorize(withCallback: url, presentingFrom: self, success: { (token, response) in
+            swifter.postTweet(status: "Test Tweet from Swifter")
+        }, failure: { (error) in
+            print(error)
+        })
+        
+        
+        
+    }
+    
+    private func doPostTweet(content: String) {
+        
     }
     
     // MARK: - Table view data source
@@ -154,7 +168,7 @@ class RecipeDetailsVC: UITableViewController {
         var queryURL = "https://api.spoonacular.com/recipes/"
         queryURL += "\(id)/"
         queryURL += "ingredientWidget.json?"
-        queryURL += "apiKey=" + Secret.API_KEY
+        queryURL += "apiKey=" + Secret.SPOONACULAR_API_KEY
         
         let jsonURL = URL(string: queryURL.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!)
         
@@ -195,7 +209,7 @@ class RecipeDetailsVC: UITableViewController {
         var queryURL = "https://api.spoonacular.com/recipes/"
         queryURL += "\(id)/"
         queryURL += "analyzedInstructions?"
-        queryURL += "apiKey=" + Secret.API_KEY
+        queryURL += "apiKey=" + Secret.SPOONACULAR_API_KEY
         
         let jsonURL = URL(string: queryURL.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!)
         

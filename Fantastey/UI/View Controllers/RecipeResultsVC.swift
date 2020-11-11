@@ -51,7 +51,7 @@ class RecipeResultsVC: UIViewController {
         var queryURL = "https://api.spoonacular.com/recipes/complexSearch?query="
         queryURL += searchText
         queryURL += "&number=100"
-        queryURL += "&apiKey=" + Secret.API_KEY
+        queryURL += "&apiKey=" + Secret.SPOONACULAR_API_KEY
         
         let jsonURL = URL(string: queryURL.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!)
         
