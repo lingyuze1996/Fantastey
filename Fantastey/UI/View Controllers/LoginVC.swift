@@ -8,16 +8,20 @@
 
 import UIKit
 import FirebaseAuth
+import GoogleSignIn
 
 class LoginVC: UIViewController {
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var pwTextField: UITextField!
+    @IBOutlet weak var loginWithGoogleButton: GIDSignInButton!
     var handle: AuthStateDidChangeListenerHandle?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        GIDSignIn.sharedInstance()?.presentingViewController = self
+        
+        loginWithGoogleButton.colorScheme = .dark
+        loginWithGoogleButton.style = .wide
     }
     
     @IBAction func unwind(_ sender: UIStoryboardSegue) {}
@@ -27,14 +31,11 @@ class LoginVC: UIViewController {
         
         Auth.auth().signIn(withEmail: email, password: password) { (result, error) in
             if let error = error {
-                print(error)
-                let alert = UIAlertController(title: "Login Error", message: "The account or the password might be wrong, please check them again.", preferredStyle: .alert)
+                let alert = UIAlertController(title: "Login Failed", message: "\(error)", preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
                 self.present(alert, animated: true, completion: nil)
                 return
             }
-            
-            
         }
     }
     
@@ -52,15 +53,4 @@ class LoginVC: UIViewController {
         Auth.auth().removeStateDidChangeListener(handle!)
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

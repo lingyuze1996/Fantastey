@@ -8,6 +8,7 @@ target 'Fantastey' do
   # Pods for Fantastey
   pod 'Firebase/Auth'
   pod 'Firebase/Core'
+  pod 'GoogleSignIn'
 
 end
 
