@@ -56,16 +56,6 @@
                                     <segue destination="V7b-kN-lf1" kind="show" identifier="registerSegue" id="Ypn-pm-Iw2"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Just try?" textAlignment="natural" lineBreakMode="clip" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pry-JO-L73">
-                                <rect key="frame" x="102" y="556" width="60" height="30"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vq5-51-7FD">
-                                <rect key="frame" x="170" y="556" width="132" height="30"/>
-                                <state key="normal" title="Login anonymously"/>
-                            </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mkb-Dt-D5N" customClass="GIDSignInButton">
                                 <rect key="frame" x="60" y="472" width="294" height="34"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -75,16 +65,11 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="u4x-0v-rW5" firstAttribute="top" secondItem="kS7-c7-Voe" secondAttribute="bottom" constant="40" id="3qF-4v-Mtl"/>
-                            <constraint firstItem="pry-JO-L73" firstAttribute="centerX" secondItem="PbN-y2-vHQ" secondAttribute="centerX" constant="-75" id="4NZ-AG-AEo"/>
-                            <constraint firstItem="Vq5-51-7FD" firstAttribute="leading" secondItem="pry-JO-L73" secondAttribute="trailing" constant="8" id="8P1-79-GBz"/>
-                            <constraint firstItem="Vq5-51-7FD" firstAttribute="top" secondItem="pry-JO-L73" secondAttribute="top" id="9Yu-kJ-RPv"/>
                             <constraint firstItem="ono-9W-FHc" firstAttribute="trailing" secondItem="u4x-0v-rW5" secondAttribute="trailing" constant="60" id="GAU-k8-wcV"/>
-                            <constraint firstItem="Vq5-51-7FD" firstAttribute="bottom" secondItem="pry-JO-L73" secondAttribute="bottom" id="Jar-hf-OUK"/>
                             <constraint firstItem="4TA-ji-Q1W" firstAttribute="top" secondItem="UqU-nr-WdF" secondAttribute="bottom" constant="100" id="Jt5-Vx-d8q"/>
                             <constraint firstItem="mkb-Dt-D5N" firstAttribute="trailing" secondItem="u4x-0v-rW5" secondAttribute="trailing" id="LAv-Jn-ckt"/>
                             <constraint firstItem="pxr-RE-QG2" firstAttribute="top" secondItem="ay2-19-DnZ" secondAttribute="top" id="N4R-Yx-c7b"/>
                             <constraint firstItem="mkb-Dt-D5N" firstAttribute="top" secondItem="u4x-0v-rW5" secondAttribute="bottom" constant="20" id="QbD-nP-p04"/>
-                            <constraint firstItem="pry-JO-L73" firstAttribute="top" secondItem="ay2-19-DnZ" secondAttribute="bottom" id="R2W-a1-3dj"/>
                             <constraint firstItem="ono-9W-FHc" firstAttribute="trailing" secondItem="kS7-c7-Voe" secondAttribute="trailing" constant="60" id="RFm-oT-cyj"/>
                             <constraint firstItem="mkb-Dt-D5N" firstAttribute="height" secondItem="u4x-0v-rW5" secondAttribute="height" id="Ts7-j8-zZJ"/>
                             <constraint firstItem="u4x-0v-rW5" firstAttribute="leading" secondItem="ono-9W-FHc" secondAttribute="leading" constant="60" id="VGR-WS-nTw"/>

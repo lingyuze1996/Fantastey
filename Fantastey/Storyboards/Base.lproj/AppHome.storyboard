@@ -374,7 +374,7 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="test@123.com" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="V8J-WF-IJD">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Not Set" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="V8J-WF-IJD">
                                 <rect key="frame" x="10" y="83" width="355" height="20"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <color key="textColor" systemColor="opaqueSeparatorColor"/>
@@ -386,7 +386,7 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Joanna" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rQm-t4-47r">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Not Set" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rQm-t4-47r">
                                 <rect key="frame" x="10" y="142" width="355" height="20"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <color key="textColor" systemColor="opaqueSeparatorColor"/>
@@ -398,7 +398,7 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Beginner" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jt3-D9-Te8">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Not Set" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jt3-D9-Te8">
                                 <rect key="frame" x="10" y="201" width="355" height="20"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <color key="textColor" systemColor="opaqueSeparatorColor"/>
@@ -521,7 +521,6 @@
                             <constraint firstItem="lgX-10-NHt" firstAttribute="bottom" secondItem="CWq-A0-jgj" secondAttribute="bottom" constant="10" id="a8g-t1-EPX"/>
                             <constraint firstItem="lgX-10-NHt" firstAttribute="trailing" secondItem="5PQ-rR-yq1" secondAttribute="trailing" constant="20" id="aBP-cr-o12"/>
                             <constraint firstItem="lgX-10-NHt" firstAttribute="trailing" secondItem="V8J-WF-IJD" secondAttribute="trailing" constant="10" id="aF3-DT-v3Z"/>
-                            <constraint firstItem="CWq-A0-jgj" firstAttribute="top" secondItem="5PQ-rR-yq1" secondAttribute="bottom" constant="10" id="d1H-Pq-EPN"/>
                             <constraint firstItem="V8J-WF-IJD" firstAttribute="leading" secondItem="lgX-10-NHt" secondAttribute="leading" constant="10" id="diu-tI-tlv"/>
                             <constraint firstItem="rQm-t4-47r" firstAttribute="leading" secondItem="lgX-10-NHt" secondAttribute="leading" constant="10" id="ecU-Rx-rrN"/>
                             <constraint firstItem="lgX-10-NHt" firstAttribute="trailing" secondItem="unx-sZ-kOi" secondAttribute="trailing" constant="10" id="fuT-h6-eOU"/>
@@ -540,9 +539,10 @@
                         <barButtonItem key="rightBarButtonItem" systemItem="edit" id="363-zh-gVQ"/>
                     </navigationItem>
                     <connections>
+                        <outlet property="cookingLevelLabel" destination="Jt3-D9-Te8" id="4kV-AP-NhT"/>
                         <outlet property="emailAccountLabel" destination="V8J-WF-IJD" id="j8X-UI-s40"/>
                         <outlet property="followingAuthorsTable" destination="5Ab-61-C0q" id="gAh-1g-2RC"/>
-                        <outlet property="prefferedNameLabel" destination="rQm-t4-47r" id="ZfX-m7-4Zv"/>
+                        <outlet property="preferredNameLabel" destination="rQm-t4-47r" id="ZfX-m7-4Zv"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rNC-E3-B4b" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

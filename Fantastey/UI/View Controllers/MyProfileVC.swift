@@ -12,16 +12,30 @@ import FirebaseAuth
 class MyProfileVC: UIViewController, UITableViewDelegate, UITableViewDataSource{
 
     @IBOutlet weak var emailAccountLabel: UILabel!
-    @IBOutlet weak var prefferedNameLabel: UILabel!
+    @IBOutlet weak var preferredNameLabel: UILabel!
+    @IBOutlet weak var cookingLevelLabel: UILabel!
     @IBOutlet weak var followingAuthorsTable: UITableView!
+    
+    var followings = [String]()
+    
+    var dbController: FirebaseController!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        dbController = (UIApplication.shared.delegate as! AppDelegate).dbController
+        
         emailAccountLabel.text = Auth.auth().currentUser?.email
-        //prefferedNameLabel.text = Auth.auth().currentUser?.displayName
+        preferredNameLabel.text = dbController.currentUser?.nickname ?? "Not Set"
+        cookingLevelLabel.text = dbController.currentUser?.cookingLevel ?? "Not Set"
+        
+        if let followings = dbController.currentUser?.followings, followings.count != 0 {
+            self.followings = followings
+            followingAuthorsTable.reloadData()
+        }
         
         followingAuthorsTable.delegate = self
         followingAuthorsTable.dataSource = self
-        followingAuthorsTable.reloadData()
     }
     
     @IBAction func logOut(_ sender: Any) {
@@ -40,18 +54,16 @@ class MyProfileVC: UIViewController, UITableViewDelegate, UITableViewDataSource{
     }
     // MARK: - Table view
     func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
         return 1
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 3
+        return followings.count
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = followingAuthorsTable.dequeueReusableCell(withIdentifier: "CELL", for: indexPath)
         cell.textLabel?.text = "Author"
-        cell.detailTextLabel?.text = "Notification: on"
+        cell.detailTextLabel?.text = followings[indexPath.row]
         return cell
     }
     

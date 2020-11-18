@@ -34,7 +34,7 @@
 		DBA9F8C5253AF8B00024717F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DBA9F8C4253AF8B00024717F /* Assets.xcassets */; };
 		DBA9F8C8253AF8B00024717F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DBA9F8C6253AF8B00024717F /* LaunchScreen.storyboard */; };
 		DBD46D982564C08C009C598A /* FirebaseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD46D972564C08C009C598A /* FirebaseController.swift */; };
-		DBD46D9B2564C611009C598A /* DatabaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD46D9A2564C611009C598A /* DatabaseProtocol.swift */; };
+		DBD46DA025655828009C598A /* AppUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD46D9F25655828009C598A /* AppUser.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -68,7 +68,7 @@
 		DBA9F8C7253AF8B00024717F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		DBA9F8C9253AF8B00024717F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DBD46D972564C08C009C598A /* FirebaseController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseController.swift; sourceTree = "<group>"; };
-		DBD46D9A2564C611009C598A /* DatabaseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseProtocol.swift; sourceTree = "<group>"; };
+		DBD46D9F25655828009C598A /* AppUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppUser.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -208,7 +208,6 @@
 			isa = PBXGroup;
 			children = (
 				DBD46D972564C08C009C598A /* FirebaseController.swift */,
-				DBD46D9A2564C611009C598A /* DatabaseProtocol.swift */,
 			);
 			path = Database;
 			sourceTree = "<group>";
@@ -221,6 +220,7 @@
 				C8EEA80625539505007B2717 /* Ingredient.swift */,
 				DBA8AB6F25518E9100811AD9 /* RecipeBasics.swift */,
 				DBA8AB7925519C9500811AD9 /* RecipeSearchVolume.swift */,
+				DBD46D9F25655828009C598A /* AppUser.swift */,
 			);
 			path = "Data Model";
 			sourceTree = "<group>";
@@ -373,6 +373,7 @@
 				DB0F64712540441000F0929A /* customButton.swift in Sources */,
 				C8EEA80725539505007B2717 /* Ingredient.swift in Sources */,
 				DB49EB2625407216008EEB2C /* RegisterVC.swift in Sources */,
+				DBD46DA025655828009C598A /* AppUser.swift in Sources */,
 				DBA9F8BA253AF8B00024717F /* AppDelegate.swift in Sources */,
 				DBA9F8BC253AF8B00024717F /* SceneDelegate.swift in Sources */,
 				DBA8AB6825513E1D00811AD9 /* RecipeCell.swift in Sources */,
@@ -386,7 +387,6 @@
 				DBA8AB7025518E9100811AD9 /* RecipeBasics.swift in Sources */,
 				DB4EB2B2253F10BC007D4D24 /* LoginVC.swift in Sources */,
 				DBA8AB6C25518E5200811AD9 /* Recipe.swift in Sources */,
-				DBD46D9B2564C611009C598A /* DatabaseProtocol.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

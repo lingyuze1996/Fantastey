@@ -14,17 +14,21 @@ class LoginVC: UIViewController {
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var pwTextField: UITextField!
     @IBOutlet weak var loginWithGoogleButton: GIDSignInButton!
+    var dbController: FirebaseController!
     var handle: AuthStateDidChangeListenerHandle?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        dbController = (UIApplication.shared.delegate as! AppDelegate).dbController
+        
         GIDSignIn.sharedInstance()?.presentingViewController = self
         
         loginWithGoogleButton.colorScheme = .dark
         loginWithGoogleButton.style = .wide
     }
     
-    @IBAction func unwind(_ sender: UIStoryboardSegue) {}
+    //@IBAction func unwind(_ sender: UIStoryboardSegue) {}
     @IBAction func login(_ sender: Any) {
         guard let email = emailTextField.text else {return}
         guard let password = pwTextField.text else {return}
@@ -36,6 +40,8 @@ class LoginVC: UIViewController {
                 self.present(alert, animated: true, completion: nil)
                 return
             }
+            
+            self.dbController.retrieveCurrentUser(id: result!.user.uid)
         }
     }
     

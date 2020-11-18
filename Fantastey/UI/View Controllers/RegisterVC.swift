@@ -16,7 +16,7 @@ class RegisterVC: UIViewController,UITextFieldDelegate  {
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var cookingLevelSC: UISegmentedControl!
     
-    var dbController: Database!
+    var dbController: FirebaseController!
     
     override func viewDidLoad() {
         super.viewDidLoad()

@@ -13,7 +13,7 @@ import Swifter
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
-    var dbController: Database?
+    var dbController: FirebaseController!
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 
@@ -56,6 +56,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
             if let err = error {
                 print(err)
             }
+            
+            let id = authResult!.user.uid
+            self.dbController.retrieveCurrentUser(id: id)
         }
     }
 
