@@ -7,9 +7,9 @@
 //
 
 import UIKit
+import Firebase
 
-class RecipeSearchVC: UIViewController {    
-    @IBOutlet weak var searchBar: UISearchBar!
+class RecipeSearchVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         

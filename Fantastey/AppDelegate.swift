@@ -13,10 +13,12 @@ import Swifter
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
+    var dbController: Database?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 
         FirebaseApp.configure()
+        dbController = FirebaseController()
         
         GIDSignIn.sharedInstance()?.clientID = FirebaseApp.app()?.options.clientID
         GIDSignIn.sharedInstance()?.delegate = self

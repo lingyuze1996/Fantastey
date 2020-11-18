@@ -16,12 +16,16 @@ class RegisterVC: UIViewController,UITextFieldDelegate  {
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var cookingLevelSC: UISegmentedControl!
     
+    var dbController: Database!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         emailTextField.delegate = self
         pwTextField1.delegate = self
         pwTextField2.delegate = self
         nameTextField.delegate = self
+        
+        dbController = (UIApplication.shared.delegate as! AppDelegate).dbController
     }
     
 
@@ -47,6 +51,12 @@ class RegisterVC: UIViewController,UITextFieldDelegate  {
                 self.navigationController?.popToRootViewController(animated: true)
             })
             self.present(alert, animated: true, completion: nil)
+            
+            // Upload cooking level to Firestore
+            let id = result!.user.uid
+            let nickname = self.nameTextField.text
+            let level = self.cookingLevelSC.titleForSegment(at: self.cookingLevelSC.selectedSegmentIndex)!
+            self.dbController.registerUser(id: id, nickname: nickname!, cookingLevel: level)
         }
         
         
@@ -67,7 +77,7 @@ class RegisterVC: UIViewController,UITextFieldDelegate  {
     */
 
     func textFieldShouldReturn(_ textField: UITextField) -> Bool { textField.resignFirstResponder()
-    return true
+        return true
     }
      
 }

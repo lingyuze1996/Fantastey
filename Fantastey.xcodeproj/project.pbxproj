@@ -33,6 +33,8 @@
 		DBA9F8BC253AF8B00024717F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA9F8BB253AF8B00024717F /* SceneDelegate.swift */; };
 		DBA9F8C5253AF8B00024717F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DBA9F8C4253AF8B00024717F /* Assets.xcassets */; };
 		DBA9F8C8253AF8B00024717F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DBA9F8C6253AF8B00024717F /* LaunchScreen.storyboard */; };
+		DBD46D982564C08C009C598A /* FirebaseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD46D972564C08C009C598A /* FirebaseController.swift */; };
+		DBD46D9B2564C611009C598A /* DatabaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD46D9A2564C611009C598A /* DatabaseProtocol.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -65,6 +67,8 @@
 		DBA9F8C4253AF8B00024717F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DBA9F8C7253AF8B00024717F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		DBA9F8C9253AF8B00024717F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DBD46D972564C08C009C598A /* FirebaseController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseController.swift; sourceTree = "<group>"; };
+		DBD46D9A2564C611009C598A /* DatabaseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseProtocol.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -160,11 +164,8 @@
 		DBA8AB6A25518DAC00811AD9 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				DBA8AB6B25518E5200811AD9 /* Recipe.swift */,
-				C8EEA8092553950F007B2717 /* IngredientsVolume.swift */,
-				C8EEA80625539505007B2717 /* Ingredient.swift */,
-				DBA8AB6F25518E9100811AD9 /* RecipeBasics.swift */,
-				DBA8AB7925519C9500811AD9 /* RecipeSearchVolume.swift */,
+				DBD46D962564C026009C598A /* Data Model */,
+				DBD46D952564C00F009C598A /* Database */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -201,6 +202,27 @@
 				C88EAF3E25529B9600A98845 /* Secret.swift */,
 			);
 			path = Fantastey;
+			sourceTree = "<group>";
+		};
+		DBD46D952564C00F009C598A /* Database */ = {
+			isa = PBXGroup;
+			children = (
+				DBD46D972564C08C009C598A /* FirebaseController.swift */,
+				DBD46D9A2564C611009C598A /* DatabaseProtocol.swift */,
+			);
+			path = Database;
+			sourceTree = "<group>";
+		};
+		DBD46D962564C026009C598A /* Data Model */ = {
+			isa = PBXGroup;
+			children = (
+				DBA8AB6B25518E5200811AD9 /* Recipe.swift */,
+				C8EEA8092553950F007B2717 /* IngredientsVolume.swift */,
+				C8EEA80625539505007B2717 /* Ingredient.swift */,
+				DBA8AB6F25518E9100811AD9 /* RecipeBasics.swift */,
+				DBA8AB7925519C9500811AD9 /* RecipeSearchVolume.swift */,
+			);
+			path = "Data Model";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -359,10 +381,12 @@
 				C8EEA80A2553950F007B2717 /* IngredientsVolume.swift in Sources */,
 				DB5B2F25253BF83C00F38D30 /* RecipeDetailsVC.swift in Sources */,
 				C8EEA8102553955F007B2717 /* RecipeImageCell.swift in Sources */,
+				DBD46D982564C08C009C598A /* FirebaseController.swift in Sources */,
 				C88EAF4A2552F3B900A98845 /* AboutVC.swift in Sources */,
 				DBA8AB7025518E9100811AD9 /* RecipeBasics.swift in Sources */,
 				DB4EB2B2253F10BC007D4D24 /* LoginVC.swift in Sources */,
 				DBA8AB6C25518E5200811AD9 /* Recipe.swift in Sources */,
+				DBD46D9B2564C611009C598A /* DatabaseProtocol.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
