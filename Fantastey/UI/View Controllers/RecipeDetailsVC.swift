@@ -17,6 +17,7 @@ class RecipeDetailsVC: UITableViewController {
     
     weak var recipeBasics: RecipeBasics?
     var recipe: Recipe?
+    var imageData: Data?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,18 +37,20 @@ class RecipeDetailsVC: UITableViewController {
         
         let url = URL(string: "Fantastey://")!
         swifter.authorize(withCallback: url, presentingFrom: self, success: { (token, response) in
-            print("success")
-            //swifter.postTweet(status: "Test Tweet from Swifter")
+            // Post tweet with recipe title and image
+            swifter.postTweet(status: "\(self.recipe!.title) from Fantastey!\n", media: self.imageData!)
+            
+            // Success Message
+            let alert = UIAlertController(title: "Success", message: "Recipe is shared to Twitter successfully!", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
         }, failure: { (error) in
-            print(error)
+            
+            // Error Message
+            let alert = UIAlertController(title: "Error", message: "Fail to share recipe to Twitter!", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
         })
-        
-        
-        
-    }
-    
-    private func doPostTweet(content: String) {
-        
     }
     
     // MARK: - Table view data source
@@ -93,6 +96,7 @@ class RecipeDetailsVC: UITableViewController {
                     if let error = error {
                         print(error)
                     } else {
+                        self.imageData = data
                         DispatchQueue.main.async {
                             imageCell.recipeImageView.image = UIImage(data: data!)
                         }
