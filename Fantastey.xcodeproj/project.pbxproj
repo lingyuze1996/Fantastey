@@ -10,6 +10,8 @@
 		060810B853C2B51161DECB90 /* Pods_Fantastey.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 715B22B1060351F3D0C1907B /* Pods_Fantastey.framework */; };
 		C88EAF3F25529B9600A98845 /* Secret.swift in Sources */ = {isa = PBXBuildFile; fileRef = C88EAF3E25529B9600A98845 /* Secret.swift */; };
 		C88EAF4A2552F3B900A98845 /* AboutVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C88EAF492552F3B900A98845 /* AboutVC.swift */; };
+		C8BA95112567574F004FA0F3 /* MapVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8BA95102567574F004FA0F3 /* MapVC.swift */; };
+		C8BA951425679B60004FA0F3 /* LocationSearchTableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8BA951325679B60004FA0F3 /* LocationSearchTableVC.swift */; };
 		C8EEA80725539505007B2717 /* Ingredient.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8EEA80625539505007B2717 /* Ingredient.swift */; };
 		C8EEA80A2553950F007B2717 /* IngredientsVolume.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8EEA8092553950F007B2717 /* IngredientsVolume.swift */; };
 		C8EEA80F2553955F007B2717 /* RecipeTitleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8EEA80D2553955F007B2717 /* RecipeTitleCell.swift */; };
@@ -46,6 +48,8 @@
 		BFFFED77162D8E72EEFB9D34 /* Pods-Fantastey.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fantastey.debug.xcconfig"; path = "Target Support Files/Pods-Fantastey/Pods-Fantastey.debug.xcconfig"; sourceTree = "<group>"; };
 		C88EAF3E25529B9600A98845 /* Secret.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secret.swift; sourceTree = "<group>"; };
 		C88EAF492552F3B900A98845 /* AboutVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutVC.swift; sourceTree = "<group>"; };
+		C8BA95102567574F004FA0F3 /* MapVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapVC.swift; sourceTree = "<group>"; };
+		C8BA951325679B60004FA0F3 /* LocationSearchTableVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationSearchTableVC.swift; sourceTree = "<group>"; };
 		C8EEA80625539505007B2717 /* Ingredient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Ingredient.swift; sourceTree = "<group>"; };
 		C8EEA8092553950F007B2717 /* IngredientsVolume.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IngredientsVolume.swift; sourceTree = "<group>"; };
 		C8EEA80D2553955F007B2717 /* RecipeTitleCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecipeTitleCell.swift; sourceTree = "<group>"; };
@@ -150,6 +154,8 @@
 				C88EAF492552F3B900A98845 /* AboutVC.swift */,
 				DBD9DBB825663A08003381E3 /* HomeVC.swift */,
 				DB5FEBBC256741D7008DF380 /* NewRecipeVC.swift */,
+				C8BA95102567574F004FA0F3 /* MapVC.swift */,
+				C8BA951325679B60004FA0F3 /* LocationSearchTableVC.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -389,11 +395,13 @@
 				DBD9DBB925663A08003381E3 /* HomeVC.swift in Sources */,
 				DBA9F8BC253AF8B00024717F /* SceneDelegate.swift in Sources */,
 				DBA8AB6825513E1D00811AD9 /* RecipeCell.swift in Sources */,
+				C8BA95112567574F004FA0F3 /* MapVC.swift in Sources */,
 				DB82B79D254067B8000B226C /* MyProfileVC.swift in Sources */,
 				DB5B2F23253BEEA200F38D30 /* RecipeSearchVC.swift in Sources */,
 				C8EEA80A2553950F007B2717 /* IngredientsVolume.swift in Sources */,
 				DB5B2F25253BF83C00F38D30 /* RecipeDetailsVC.swift in Sources */,
 				C8EEA8102553955F007B2717 /* RecipeImageCell.swift in Sources */,
+				C8BA951425679B60004FA0F3 /* LocationSearchTableVC.swift in Sources */,
 				DBD46D982564C08C009C598A /* FirebaseController.swift in Sources */,
 				C88EAF4A2552F3B900A98845 /* AboutVC.swift in Sources */,
 				DBA8AB7025518E9100811AD9 /* RecipeBasics.swift in Sources */,

@@ -16,6 +16,8 @@ class RegisterVC: UIViewController,UITextFieldDelegate  {
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var cookingLevelSC: UISegmentedControl!
     
+    @IBOutlet weak var backButton: UIBarButtonItem!
+    
     var dbController: FirebaseController!
     
     override func viewDidLoad() {
@@ -25,8 +27,7 @@ class RegisterVC: UIViewController,UITextFieldDelegate  {
         pwTextField2.delegate = self
         nameTextField.delegate = self
         
-        //因为我点不动两个password textfield（写着strong password
-//        报错：[Assert] View <(null):0x0> does not conform to UITextInput protocol），所以我先disable了这个auto-filling function
+        
         self.hideKeyboardWhenTappedAround()
         
         dbController = (UIApplication.shared.delegate as! AppDelegate).dbController
@@ -96,15 +97,17 @@ class RegisterVC: UIViewController,UITextFieldDelegate  {
         }
         return true
     }
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        if segue.identifier == "registerSegue" {
+//            _ = segue.destination as! LoginVC
+//
+//        }
+//    }
+    
 
     func textFieldShouldReturn(_ textField: UITextField) -> Bool { textField.resignFirstResponder()
         return true
@@ -120,6 +123,18 @@ class RegisterVC: UIViewController,UITextFieldDelegate  {
             alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))}
         self.present(alert, animated: true, completion: nil)
     }
+    
+    //发现我点返回箭头 返回不了了 于是有了这个func
+    
+//    @IBAction func backToLoginScreen(_ sender: Any) {
+//
+////        let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+////        let newViewController = storyBoard.instantiateViewController(withIdentifier: "LoginScreen") as! LoginVC
+////                self.present(newViewController, animated: true, completion: nil)
+//        print("here")
+//        _ = navigationController?.popViewController(animated: true)
+//    }
+
 }
 
 //https://stackoverflow.com/questions/24126678/close-ios-keyboard-by-touching-anywhere-using-swift

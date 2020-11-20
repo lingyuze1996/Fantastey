@@ -11,6 +11,10 @@ import FirebaseAuth
 import GoogleSignIn
 
 class LoginVC: UIViewController {
+    //just for testing
+    @IBOutlet weak var testmapBtn: UIButton!
+    
+    
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var pwTextField: UITextField!
     @IBOutlet weak var loginWithGoogleButton: GIDSignInButton!
