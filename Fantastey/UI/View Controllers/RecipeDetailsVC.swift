@@ -25,7 +25,7 @@ class RecipeDetailsVC: UITableViewController {
         if let basics = recipeBasics {
             let recipeId = basics.id
             
-            recipe = Recipe(id: basics.id, title: basics.title, imageURL: basics.imageURL)
+            recipe = Recipe(id: String(basics.id), title: basics.title, imageURL: basics.imageURL)
             
             retrieveIngredients(id: recipeId)
             retrieveInstructions(id: recipeId)

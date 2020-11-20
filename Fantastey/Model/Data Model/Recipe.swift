@@ -8,14 +8,15 @@
 
 import UIKit
 
-class Recipe: NSObject {
-    var id: Any
+class Recipe: NSObject, Codable {
+    var id: String?
     var title: String
     var imageURL: String?
+    var difficulty: String?
     var ingredients: [Ingredient]
     var steps: [String]
     
-    init(id: Any, title: String, imageURL: String?) {
+    init(id: String?, title: String, imageURL: String?) {
         self.id = id
         self.title = title
         self.imageURL = imageURL
@@ -23,6 +24,17 @@ class Recipe: NSObject {
         self.steps = []
     }
     
+    func setDifficulty(difficulty: String) {
+        self.difficulty = difficulty
+    }
     
+    private enum Keys: String, CodingKey {
+        case id
+        case title
+        case imageURL
+        case difficulty
+        case ingredients
+        case steps
+    }
     
 }

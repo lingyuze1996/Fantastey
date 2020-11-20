@@ -13,11 +13,13 @@ class FirebaseController: NSObject {
     var currentUser: AppUser?
     
     var db: Firestore
+    //var storage
     var usersCollection: CollectionReference
     var recipesCollection: CollectionReference
     
     override init() {
         db = Firestore.firestore()
+        //storage = Storage
         usersCollection = db.collection("users")
         recipesCollection = db.collection("recipes")
     }
@@ -42,5 +44,21 @@ class FirebaseController: NSObject {
                 }
             }
         }
+    }
+    
+    func uploadRecipe(recipe: Recipe) {
+        let encoder = JSONEncoder()
+        
+        // Upload recipe details to firestore and storage
+        do {
+            let recipeJSON = try encoder.encode(recipe)
+            let recipeDictionary = try JSONSerialization.jsonObject(with: recipeJSON, options: []) as! [String: Any]
+            recipesCollection.document().setData(recipeDictionary)
+            
+            
+        } catch let err {
+            print(err)
+        }
+        
     }
 }

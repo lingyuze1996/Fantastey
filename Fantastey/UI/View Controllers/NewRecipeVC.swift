@@ -17,6 +17,8 @@ class NewRecipeVC: UIViewController {
     private final var SECTION_INGREDIENTS = 0
     private final var SECTION_INSTRUCTIONS = 1
     
+    var dbController: FirebaseController!
+    
     var steps = [String]()
     var ingredients = [Ingredient]()
     
@@ -24,9 +26,10 @@ class NewRecipeVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Do any additional setup after loading the view.
         tableView.dataSource = self
         tableView.delegate = self
+        
+        dbController = (UIApplication.shared.delegate as! AppDelegate).dbController
     }
     
     @IBAction func selectImage(_ sender: Any) {
@@ -59,7 +62,15 @@ class NewRecipeVC: UIViewController {
     
     @IBAction func saveRecipe(_ sender: Any) {
         let title = titleTextField.text
-        let difficulty = difficultySC.titleForSegment(at: difficultySC.selectedSegmentIndex)
+        let difficulty = difficultySC.titleForSegment(at: difficultySC.selectedSegmentIndex)!
+        
+        let date = UInt(Date().timeIntervalSince1970)
+        let imageURL = "\(date)\(dbController.currentUser!.id)"
+        
+        let recipe = Recipe(id: nil, title: title!, imageURL: imageURL)
+        recipe.setDifficulty(difficulty: difficulty)
+        
+        dbController.uploadRecipe(recipe: recipe)
     }
     
     func validate() -> Bool {
@@ -80,7 +91,14 @@ class NewRecipeVC: UIViewController {
 // MARK: - Image Picker Controller Delegate Function
 extension NewRecipeVC: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        //if let pickedImage = info[.originalImage] as?
+        if let pickedImage = info[.originalImage] as? UIImage {
+            recipeImage.image = pickedImage
+        }
+        dismiss(animated: true, completion: nil)
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        dismiss(animated: true, completion: nil)
     }
 }
 
