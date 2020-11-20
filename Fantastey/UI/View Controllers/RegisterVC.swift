@@ -63,6 +63,7 @@ class RegisterVC: UIViewController,UITextFieldDelegate  {
             let nickname = self.nameTextField.text
             let level = self.cookingLevelSC.titleForSegment(at: self.cookingLevelSC.selectedSegmentIndex)!
             self.dbController.registerUser(id: id, nickname: nickname!, cookingLevel: level)
+            self.dbController.retrieveCurrentUser(id: id)
         }
         
         
@@ -75,18 +76,18 @@ class RegisterVC: UIViewController,UITextFieldDelegate  {
             return false
         }
         if pwTextField1.text != pwTextField2.text {
-            self.popAlertWindow("Error",  "Two password inputs do not match, please check again", false)
+            self.popAlertWindow("Error",  "Two password inputs do not match, please check again.", false)
             return false
         }
         if nameTextField.text == ""{
-            self.popAlertWindow("Error",  "Please provide a preffered name.", false)
+            self.popAlertWindow("Error",  "Please provide a preferred name.", false)
             return false
         }
         let preferredNameLength = nameTextField.text!.count
         
         if (preferredNameLength > 20)
         {
-            self.popAlertWindow("Error",  "The preferred name is now" + String(preferredNameLength) + " characters,which is too long.", false)
+            self.popAlertWindow("Error",  "The preferred name cannot exceed 20 characters.", false)
             return false
         }
         if cookingLevelSC.selectedSegmentIndex == -1 {

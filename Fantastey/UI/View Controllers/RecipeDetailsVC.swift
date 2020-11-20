@@ -10,10 +10,10 @@ import UIKit
 import Swifter
 
 class RecipeDetailsVC: UITableViewController {
-    private var SECTION_TITLE = 0
-    private var SECTION_IMAGE = 1
-    private var SECTION_INGREDIENTS = 2
-    private var SECTION_INSTRUCTIONS = 3
+    private final var SECTION_TITLE = 0
+    private final var SECTION_IMAGE = 1
+    private final var SECTION_INGREDIENTS = 2
+    private final var SECTION_INSTRUCTIONS = 3
     
     weak var recipeBasics: RecipeBasics?
     var recipe: Recipe?

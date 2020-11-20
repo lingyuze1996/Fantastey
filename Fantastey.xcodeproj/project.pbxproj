@@ -22,6 +22,8 @@
 		DB4EB2BD253F2A59007D4D24 /* AppHome.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DB4EB2BB253F2A59007D4D24 /* AppHome.storyboard */; };
 		DB5B2F23253BEEA200F38D30 /* RecipeSearchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5B2F22253BEEA200F38D30 /* RecipeSearchVC.swift */; };
 		DB5B2F25253BF83C00F38D30 /* RecipeDetailsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5B2F24253BF83C00F38D30 /* RecipeDetailsVC.swift */; };
+		DB5FEBBD256741D7008DF380 /* NewRecipeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5FEBBC256741D7008DF380 /* NewRecipeVC.swift */; };
+		DB5FEBC025674F3A008DF380 /* Map.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DB5FEBBF25674F3A008DF380 /* Map.storyboard */; };
 		DB68FE5A255A865600F0750F /* Swifter in Frameworks */ = {isa = PBXBuildFile; productRef = DB68FE59255A865600F0750F /* Swifter */; };
 		DB82B79D254067B8000B226C /* MyProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB82B79C254067B8000B226C /* MyProfileVC.swift */; };
 		DB9B3B1425503BB5001BC8BB /* RecipeResultsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9B3B1325503BB5001BC8BB /* RecipeResultsVC.swift */; };
@@ -35,6 +37,7 @@
 		DBA9F8C8253AF8B00024717F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DBA9F8C6253AF8B00024717F /* LaunchScreen.storyboard */; };
 		DBD46D982564C08C009C598A /* FirebaseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD46D972564C08C009C598A /* FirebaseController.swift */; };
 		DBD46DA025655828009C598A /* AppUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD46D9F25655828009C598A /* AppUser.swift */; };
+		DBD9DBB925663A08003381E3 /* HomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD9DBB825663A08003381E3 /* HomeVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -55,6 +58,8 @@
 		DB4EB2BC253F2A59007D4D24 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/AppHome.storyboard; sourceTree = "<group>"; };
 		DB5B2F22253BEEA200F38D30 /* RecipeSearchVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeSearchVC.swift; sourceTree = "<group>"; };
 		DB5B2F24253BF83C00F38D30 /* RecipeDetailsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeDetailsVC.swift; sourceTree = "<group>"; };
+		DB5FEBBC256741D7008DF380 /* NewRecipeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewRecipeVC.swift; sourceTree = "<group>"; };
+		DB5FEBBF25674F3A008DF380 /* Map.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Map.storyboard; sourceTree = "<group>"; };
 		DB82B79C254067B8000B226C /* MyProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProfileVC.swift; sourceTree = "<group>"; };
 		DB9B3B1325503BB5001BC8BB /* RecipeResultsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeResultsVC.swift; sourceTree = "<group>"; };
 		DBA8AB6725513E1D00811AD9 /* RecipeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeCell.swift; sourceTree = "<group>"; };
@@ -69,6 +74,7 @@
 		DBA9F8C9253AF8B00024717F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DBD46D972564C08C009C598A /* FirebaseController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseController.swift; sourceTree = "<group>"; };
 		DBD46D9F25655828009C598A /* AppUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppUser.swift; sourceTree = "<group>"; };
+		DBD9DBB825663A08003381E3 /* HomeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -116,6 +122,7 @@
 				DB4EB2BB253F2A59007D4D24 /* AppHome.storyboard */,
 				DBA9F8C6253AF8B00024717F /* LaunchScreen.storyboard */,
 				DB4EB2BA253F285F007D4D24 /* Main.storyboard */,
+				DB5FEBBF25674F3A008DF380 /* Map.storyboard */,
 			);
 			path = Storyboards;
 			sourceTree = "<group>";
@@ -141,6 +148,8 @@
 				DB49EB2525407216008EEB2C /* RegisterVC.swift */,
 				DB9B3B1325503BB5001BC8BB /* RecipeResultsVC.swift */,
 				C88EAF492552F3B900A98845 /* AboutVC.swift */,
+				DBD9DBB825663A08003381E3 /* HomeVC.swift */,
+				DB5FEBBC256741D7008DF380 /* NewRecipeVC.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -297,6 +306,7 @@
 				DB0971D3253BDFB60040748F /* GoogleService-Info.plist in Resources */,
 				DBA9F8C5253AF8B00024717F /* Assets.xcassets in Resources */,
 				DB4EB2B8253F285F007D4D24 /* Main.storyboard in Resources */,
+				DB5FEBC025674F3A008DF380 /* Map.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -366,6 +376,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DB5FEBBD256741D7008DF380 /* NewRecipeVC.swift in Sources */,
 				C8EEA80F2553955F007B2717 /* RecipeTitleCell.swift in Sources */,
 				DB9B3B1425503BB5001BC8BB /* RecipeResultsVC.swift in Sources */,
 				C88EAF3F25529B9600A98845 /* Secret.swift in Sources */,
@@ -375,6 +386,7 @@
 				DB49EB2625407216008EEB2C /* RegisterVC.swift in Sources */,
 				DBD46DA025655828009C598A /* AppUser.swift in Sources */,
 				DBA9F8BA253AF8B00024717F /* AppDelegate.swift in Sources */,
+				DBD9DBB925663A08003381E3 /* HomeVC.swift in Sources */,
 				DBA9F8BC253AF8B00024717F /* SceneDelegate.swift in Sources */,
 				DBA8AB6825513E1D00811AD9 /* RecipeCell.swift in Sources */,
 				DB82B79D254067B8000B226C /* MyProfileVC.swift in Sources */,

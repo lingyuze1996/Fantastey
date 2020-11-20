@@ -36,4 +36,10 @@ class Ingredient: NSObject, Decodable {
         value = amount.metric.value
         unit = amount.metric.unit
     }
+    
+    init(name: String, value: Float, unit: String) {
+        self.name = name
+        self.value = value
+        self.unit = unit
+    }
 }
