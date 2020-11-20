@@ -8,7 +8,7 @@
 
 import UIKit
 
-class Ingredient: NSObject, Decodable {
+class Ingredient: NSObject, Codable {
     var name: String
     var value: Float
     var unit: String
@@ -18,11 +18,11 @@ class Ingredient: NSObject, Decodable {
         case amount
     }
     
-    private struct Amount: Decodable {
+    private struct Amount: Codable {
         var metric: Metric
     }
     
-    private struct Metric: Decodable {
+    private struct Metric: Codable {
         var value: Float
         var unit: String
     }

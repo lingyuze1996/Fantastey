@@ -53,6 +53,7 @@ class LoginVC: UIViewController {
         super.viewWillAppear(animated)
         handle = Auth.auth().addStateDidChangeListener({ (auth, user) in
             if user != nil {
+                self.dbController.retrieveCurrentUser(id: user!.uid)
                 self.performSegue(withIdentifier: "loginSegue", sender: nil)
             }
         })

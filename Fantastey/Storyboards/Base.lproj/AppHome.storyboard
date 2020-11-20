@@ -250,8 +250,12 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="N5x-LM-n4z">
-                                <rect key="frame" x="20" y="64" width="126" height="121"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="nosign" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="N5x-LM-n4z">
+                                <rect key="frame" x="20" y="64.5" width="126" height="119"/>
+                                <color key="tintColor" systemColor="systemGray2Color"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="120" id="xwc-rT-SdQ"/>
+                                </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Recipe Title:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="alO-7S-CxU">
                                 <rect key="frame" x="166" y="64" width="189" height="21"/>
@@ -326,7 +330,7 @@
                                 </prototypes>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="z2u-kl-Pbd">
-                                <rect key="frame" x="20" y="193" width="126" height="30"/>
+                                <rect key="frame" x="20" y="192" width="126" height="31"/>
                                 <color key="backgroundColor" systemColor="linkColor"/>
                                 <state key="normal" title="Select Image">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -343,6 +347,7 @@
                             <constraint firstItem="alO-7S-CxU" firstAttribute="leading" secondItem="N5x-LM-n4z" secondAttribute="trailing" constant="20" id="2sS-ve-lOh"/>
                             <constraint firstItem="z2u-kl-Pbd" firstAttribute="trailing" secondItem="N5x-LM-n4z" secondAttribute="trailing" id="2v9-DT-5jv"/>
                             <constraint firstItem="z2u-kl-Pbd" firstAttribute="leading" secondItem="N5x-LM-n4z" secondAttribute="leading" id="5Uy-Qu-fkV"/>
+                            <constraint firstItem="mHy-eQ-qhd" firstAttribute="top" secondItem="z2u-kl-Pbd" secondAttribute="top" id="6VJ-CF-SAO"/>
                             <constraint firstItem="WJZ-eR-Tj4" firstAttribute="leading" secondItem="alO-7S-CxU" secondAttribute="leading" id="7GV-SU-riW"/>
                             <constraint firstItem="Nd9-7e-BEW" firstAttribute="leading" secondItem="Hnh-v8-nwq" secondAttribute="leading" id="9dy-kS-s0w"/>
                             <constraint firstItem="Hnh-v8-nwq" firstAttribute="trailing" secondItem="alO-7S-CxU" secondAttribute="trailing" constant="20" id="BX5-FS-LR0"/>
@@ -358,7 +363,6 @@
                             <constraint firstItem="N5x-LM-n4z" firstAttribute="leading" secondItem="Hnh-v8-nwq" secondAttribute="leading" constant="20" id="YAg-SO-0nC"/>
                             <constraint firstItem="alO-7S-CxU" firstAttribute="top" secondItem="Hnh-v8-nwq" secondAttribute="top" constant="20" id="eWi-ZL-4i4"/>
                             <constraint firstItem="Nd9-7e-BEW" firstAttribute="top" secondItem="mHy-eQ-qhd" secondAttribute="bottom" constant="25" id="jNU-fq-OAs"/>
-                            <constraint firstItem="z2u-kl-Pbd" firstAttribute="top" secondItem="N5x-LM-n4z" secondAttribute="bottom" constant="8" id="mhS-h4-unp"/>
                             <constraint firstItem="Hnh-v8-nwq" firstAttribute="trailing" secondItem="WJZ-eR-Tj4" secondAttribute="trailing" constant="20" id="pWB-ne-err"/>
                             <constraint firstItem="RkS-hU-ZUs" firstAttribute="top" secondItem="alO-7S-CxU" secondAttribute="bottom" constant="16" id="rVl-Yj-k6Z"/>
                             <constraint firstItem="mHy-eQ-qhd" firstAttribute="top" secondItem="WJZ-eR-Tj4" secondAttribute="bottom" constant="16" id="zhD-tZ-JgL"/>
@@ -916,6 +920,9 @@
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemGray2Color">
+            <color red="0.68235294117647061" green="0.68235294117647061" blue="0.69803921568627447" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
