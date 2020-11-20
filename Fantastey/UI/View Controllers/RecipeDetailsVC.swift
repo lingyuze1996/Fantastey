@@ -54,11 +54,11 @@ class RecipeDetailsVC: UITableViewController {
     }
     
     // MARK: - Table view data source
-
+    
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 4
     }
-
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == SECTION_INGREDIENTS {
             return recipe?.ingredients.count ?? 0
@@ -70,7 +70,7 @@ class RecipeDetailsVC: UITableViewController {
         
         return 1
     }
-
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         // Section Title
@@ -129,7 +129,7 @@ class RecipeDetailsVC: UITableViewController {
         return instructionCell
     }
     
-
+    
     
     // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -144,23 +144,45 @@ class RecipeDetailsVC: UITableViewController {
         return nil
     }
     
-
+    
     /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }
-    }
-    */
-
+     // Override to support editing the table view.
+     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+     if editingStyle == .delete {
+     // Delete the row from the data source
+     tableView.deleteRows(at: [indexPath], with: .fade)
+     } else if editingStyle == .insert {
+     // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+     }
+     }
+     */
+    
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        //let indexPath = tableView.indexPathForSelectedRow() //optional, to get from any UIButton for example
+        
+        let selectedCell = tableView.cellForRow(at: indexPath)! as UITableViewCell
+        guard let searchTextArray = selectedCell.textLabel?.text!.split{$0 == " "}.map(String.init)else { return }
+        
+        var fullSearchText:String = ""
+        
+        if searchTextArray.count > 1 {
+            for singleSearchText in searchTextArray {
+                fullSearchText += "%20"
+                fullSearchText += singleSearchText
+            }
+        }else{
+            fullSearchText = searchTextArray.first!
+        }
+        
+        let urlString = "https://www.woolworths.com.au/shop/search/products?searchTerm=" + fullSearchText
+        guard let url = URL(string: urlString) else { return }
+        UIApplication.shared.open(url)
+        
         tableView.deselectRow(at: indexPath, animated: true)
+        
     }
-
+    
     
     // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -179,10 +201,10 @@ class RecipeDetailsVC: UITableViewController {
         
         let task = URLSession.shared.dataTask(with: jsonURL!) { (data, response, error) in
             /*
-            DispatchQueue.main.async {
-                self.indicator.stopAnimating()
-                self.indicator.hidesWhenStopped = true
-            }*/
+             DispatchQueue.main.async {
+             self.indicator.stopAnimating()
+             self.indicator.hidesWhenStopped = true
+             }*/
             
             if let error = error {
                 print(error)
@@ -220,10 +242,10 @@ class RecipeDetailsVC: UITableViewController {
         
         let task = URLSession.shared.dataTask(with: jsonURL!) { (data, response, error) in
             /*
-            DispatchQueue.main.async {
-                self.indicator.stopAnimating()
-                self.indicator.hidesWhenStopped = true
-            }*/
+             DispatchQueue.main.async {
+             self.indicator.stopAnimating()
+             self.indicator.hidesWhenStopped = true
+             }*/
             
             if let error = error {
                 print(error)
@@ -254,6 +276,6 @@ class RecipeDetailsVC: UITableViewController {
         task.resume()
     }
     
-
-
+    
+    
 }
