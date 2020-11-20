@@ -75,7 +75,7 @@ class NewRecipeVC: UIViewController {
         recipe.setSteps(steps: steps)
         
         dbController.uploadRecipeDetails(recipe: recipe)
-        dbController.uploadRecipeImage(imageURL: recipe.imageURL!, data: recipeImage.image!.jpegData(compressionQuality: 1)!)
+        dbController.uploadRecipeImage(imageURL: recipe.imageURL!, data: recipeImage.image!.jpegData(compressionQuality: 0.6)!)
         
         let alert = UIAlertController(title: "Success", message: "Create recipe successfully!", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default) { (action) in

@@ -59,7 +59,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
             
             let id = authResult!.user.uid
             self.dbController.retrieveCurrentUser(id: id)
-            self.dbController.setUpMyRecipesListener(id: id)
         }
     }
 

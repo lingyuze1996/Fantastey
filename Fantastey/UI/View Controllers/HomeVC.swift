@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import FirebaseAuth
 
-class HomeVC: UIViewController, DatabaseListener {
+class HomeVC: UIViewController {
     
     
     @IBOutlet weak var tableView: UITableView!
@@ -24,31 +25,69 @@ class HomeVC: UIViewController, DatabaseListener {
 
         tableView.dataSource = self
         tableView.delegate = self
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        dbController.addListener(listener: self)
+        dbController.recipesCollection.whereField("authorId", isEqualTo: Auth.auth().currentUser!.uid).getDocuments() { (snapshot, error) in
+            if let err = error {
+                print(err)
+                return
+            }
+            
+            if let snapshot = snapshot {
+            
+                self.recipes.removeAll()
+                
+                for document in snapshot.documents {
+                    let id = document.documentID
+                    let title = document.get("title") as! String
+                    let difficulty = document.get("difficulty") as! String
+                    let imageURL = document.get("imageURL") as! String
+                    let steps = document.get("steps") as! [String]
+                    let ingredients = document.get("ingredients") as! [[String: Any]]
+                    
+                    let recipe = Recipe(id: id, title: title, imageURL: imageURL, difficulty: difficulty)
+                    
+                    for step in steps {
+                        recipe.steps.append(step)
+                    }
+                    
+                    for ingredient in ingredients {
+                        let name = ingredient["name"] as! String
+                        let value = ingredient["value"] as! Float
+                        let unit = ingredient["unit"] as! String
+                        
+                        recipe.ingredients.append(Ingredient(name: name, value: value, unit: unit))
+                    }
+                    
+                    self.recipes.append(recipe)
+                }
+                
+                self.tableView.reloadData()
+            }
+        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        dbController.removeListener(listener: self)
     }
-    
-    // MARK: - Database Listener Protocol
-    var listenerType: ListenerType = .myRecipes
-    
-    func onMyRecipesChange(recipes: [Recipe]) {
-        self.recipes = recipes
-        tableView.reloadData()
+  
+    private func getMyRecipesIndexByID(_ id: String) -> Int? {
+        for i in 0 ..< recipes.count {
+            if recipes[i].id == id {
+                return i
+            }
+        }
+        
+        return nil
     }
-    
 
     
     // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let destinationVC = segue.destination as! RecipeDetailsVC
+        //let destinationVC = segue.destination as! RecipeDetailsVC
         
     }
 }

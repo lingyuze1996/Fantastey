@@ -47,7 +47,6 @@ class LoginVC: UIViewController {
             }
             
             self.dbController.retrieveCurrentUser(id: result!.user.uid)
-            self.dbController.setUpMyRecipesListener(id: result!.user.uid)
         }
     }
     
@@ -56,7 +55,6 @@ class LoginVC: UIViewController {
         handle = Auth.auth().addStateDidChangeListener({ (auth, user) in
             if user != nil {
                 self.dbController.retrieveCurrentUser(id: user!.uid)
-                self.dbController.setUpMyRecipesListener(id: user!.uid)
                 self.performSegue(withIdentifier: "loginSegue", sender: nil)
             }
         })
