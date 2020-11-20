@@ -61,19 +61,31 @@ class NewRecipeVC: UIViewController {
     
     
     @IBAction func saveRecipe(_ sender: Any) {
+        guard validateRecipe() else { return }
+        
         let title = titleTextField.text
         let difficulty = difficultySC.titleForSegment(at: difficultySC.selectedSegmentIndex)!
         
         let date = UInt(Date().timeIntervalSince1970)
-        let imageURL = "\(date)\(dbController.currentUser!.id)"
+        let imageURL = "\(date)\(dbController.currentUser!.id).jpg"
         
         let recipe = Recipe(id: nil, title: title!, imageURL: imageURL)
         recipe.setDifficulty(difficulty: difficulty)
+        recipe.setIngredients(ingredients: ingredients)
+        recipe.setSteps(steps: steps)
         
-        dbController.uploadRecipe(recipe: recipe)
+        dbController.uploadRecipeDetails(recipe: recipe)
+        dbController.uploadRecipeImage(imageURL: recipe.imageURL!, data: recipeImage.image!.jpegData(compressionQuality: 1)!)
+        
+        let alert = UIAlertController(title: "Success", message: "Create recipe successfully!", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default) { (action) in
+            self.navigationController!.popViewController(animated: true)
+        })
+        
+        navigationController!.present(alert, animated: true)
     }
     
-    func validate() -> Bool {
+    func validateRecipe() -> Bool {
         return true
     }
     

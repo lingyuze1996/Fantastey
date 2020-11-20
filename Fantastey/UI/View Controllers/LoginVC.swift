@@ -21,6 +21,8 @@ class LoginVC: UIViewController {
     var dbController: FirebaseController!
     var handle: AuthStateDidChangeListenerHandle?
     
+    @IBAction func unwind(_ sender: UIStoryboardSegue) {}
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -32,7 +34,6 @@ class LoginVC: UIViewController {
         loginWithGoogleButton.style = .wide
     }
     
-    //@IBAction func unwind(_ sender: UIStoryboardSegue) {}
     @IBAction func login(_ sender: Any) {
         guard let email = emailTextField.text else {return}
         guard let password = pwTextField.text else {return}
@@ -46,6 +47,7 @@ class LoginVC: UIViewController {
             }
             
             self.dbController.retrieveCurrentUser(id: result!.user.uid)
+            self.dbController.setUpMyRecipesListener(id: result!.user.uid)
         }
     }
     
@@ -54,6 +56,7 @@ class LoginVC: UIViewController {
         handle = Auth.auth().addStateDidChangeListener({ (auth, user) in
             if user != nil {
                 self.dbController.retrieveCurrentUser(id: user!.uid)
+                self.dbController.setUpMyRecipesListener(id: user!.uid)
                 self.performSegue(withIdentifier: "loginSegue", sender: nil)
             }
         })

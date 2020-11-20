@@ -15,6 +15,7 @@ class Recipe: NSObject, Codable {
     var difficulty: String?
     var ingredients: [Ingredient]
     var steps: [String]
+    var authorId: String?
     
     init(id: String?, title: String, imageURL: String?) {
         self.id = id
@@ -24,8 +25,29 @@ class Recipe: NSObject, Codable {
         self.steps = []
     }
     
+    init(id: String?, title: String, imageURL: String?, difficulty: String) {
+        self.id = id
+        self.title = title
+        self.imageURL = imageURL
+        self.difficulty = difficulty
+        self.ingredients = []
+        self.steps = []
+    }
+    
     func setDifficulty(difficulty: String) {
         self.difficulty = difficulty
+    }
+    
+    func setAuthorId(id: String) {
+        self.authorId = id
+    }
+    
+    func setIngredients(ingredients: [Ingredient]) {
+        self.ingredients = ingredients
+    }
+    
+    func setSteps(steps: [String]) {
+        self.steps = steps
     }
     
     private enum Keys: String, CodingKey {
@@ -35,6 +57,7 @@ class Recipe: NSObject, Codable {
         case difficulty
         case ingredients
         case steps
+        case authorId
     }
     
 }
