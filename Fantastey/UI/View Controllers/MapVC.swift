@@ -40,7 +40,7 @@ class MapVC: UIViewController {
         //locationManager.requestAlwaysAuthorization()
         //or kCLLocationAccuracyHundredMeters
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        locationManager.requestWhenInUseAuthorization()
+        locationManager.requestAlwaysAuthorization()
         locationManager.requestLocation()
         
         locationManager.startMonitoring(for: geofence!)
@@ -72,9 +72,11 @@ class MapVC: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(true)
         
-        
-
     }
     
     func focusOn(coordinate:CLLocationCoordinate2D)
@@ -121,15 +123,14 @@ class MapVC: UIViewController {
 //https://www.thorntech.com/2016/01/how-to-search-for-location-using-apples-mapkit/
 extension MapVC : CLLocationManagerDelegate {
     private func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
-        if status == .authorizedWhenInUse {
+        if status == .authorizedAlways {
             locationManager.requestLocation()
         }
     }
 
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        if locations.first != nil {
-            print("location: \(locations.first!.coordinate)")
-        }
+        guard locations.first != nil else{return}
+        print("location: \(locations.first!.coordinate)")
     }
 //https://stackoverflow.com/questions/40345170/delegate-must-respond-to-locationmanagerdidupdatelocations-swift-eroor
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
