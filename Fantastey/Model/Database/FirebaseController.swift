@@ -13,13 +13,13 @@ class FirebaseController: NSObject {
     var currentUser: AppUser?
     
     var db: Firestore
-    //var storage
+    //var storage:
     var usersCollection: CollectionReference
     var recipesCollection: CollectionReference
     
     override init() {
         db = Firestore.firestore()
-        //storage = Storage
+        
         usersCollection = db.collection("users")
         recipesCollection = db.collection("recipes")
     }
@@ -53,7 +53,15 @@ class FirebaseController: NSObject {
         do {
             let recipeJSON = try encoder.encode(recipe)
             let recipeDictionary = try JSONSerialization.jsonObject(with: recipeJSON, options: []) as! [String: Any]
-            recipesCollection.document().setData(recipeDictionary)
+            recipesCollection.document().setData(recipeDictionary) { (error) in
+                if let err = error {
+                    print(err)
+                }
+                
+                print("success")
+            }
+            
+            
             
             
         } catch let err {
