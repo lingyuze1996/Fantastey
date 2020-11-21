@@ -47,8 +47,10 @@ class HomeVC: UIViewController {
                     let imageURL = document.get("imageURL") as! String
                     let steps = document.get("steps") as! [String]
                     let ingredients = document.get("ingredients") as! [[String: Any]]
+                    let author = document.get("authorId") as! String
                     
                     let recipe = Recipe(id: id, title: title, imageURL: imageURL, difficulty: difficulty)
+                    recipe.authorId = author
                     
                     for step in steps {
                         recipe.steps.append(step)
@@ -87,8 +89,10 @@ class HomeVC: UIViewController {
     
     // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        //let destinationVC = segue.destination as! RecipeDetailsVC
-        
+        if segue.identifier == "myRecipeDetailsSegue" {
+            let destinationVC = segue.destination as! RecipeDetailsVC
+            destinationVC.recipe = sender as? Recipe
+        }
     }
 }
 

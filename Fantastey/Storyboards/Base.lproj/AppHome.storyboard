@@ -110,7 +110,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <button key="tableFooterView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="PK8-r3-tdM">
-                            <rect key="frame" x="0.0" y="270" width="375" height="44"/>
+                            <rect key="frame" x="0.0" y="613" width="375" height="44"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" systemColor="linkColor"/>
                             <state key="normal" title="View Map">
@@ -142,7 +142,7 @@
                                         </label>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pay-tH-hcO">
                                             <rect key="frame" x="295" y="60.5" width="60" height="30"/>
-                                            <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <color key="backgroundColor" systemColor="systemTealColor"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                             <state key="normal" title="Follow">
                                                 <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -173,21 +173,26 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="recipeImageCell" id="5Gq-2H-Zl4" customClass="RecipeImageCell" customModule="Fantastey" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="134.5" width="375" height="20.5"/>
+                                <rect key="frame" x="0.0" y="134.5" width="375" height="363.5"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="5Gq-2H-Zl4" id="xA2-Uc-RbQ">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="20.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="363.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="nxc-5D-SMB">
-                                            <rect key="frame" x="0.0" y="10" width="375" height="0.5"/>
+                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="nxc-5D-SMB">
+                                            <rect key="frame" x="16" y="10" width="343" height="343.5"/>
+                                            <color key="backgroundColor" systemColor="systemGray5Color"/>
+                                            <color key="tintColor" systemColor="systemGray2Color"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" secondItem="nxc-5D-SMB" secondAttribute="height" id="Orb-X2-7ah"/>
+                                            </constraints>
                                         </imageView>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstAttribute="trailing" secondItem="nxc-5D-SMB" secondAttribute="trailing" id="azF-Yh-gGj"/>
-                                        <constraint firstItem="nxc-5D-SMB" firstAttribute="top" secondItem="xA2-Uc-RbQ" secondAttribute="top" constant="10" id="lR8-LV-OF1"/>
-                                        <constraint firstItem="nxc-5D-SMB" firstAttribute="leading" secondItem="xA2-Uc-RbQ" secondAttribute="leading" id="mNI-Ma-YmI"/>
-                                        <constraint firstAttribute="bottom" secondItem="nxc-5D-SMB" secondAttribute="bottom" constant="10" id="zBf-qh-ynC"/>
+                                        <constraint firstAttribute="bottom" secondItem="nxc-5D-SMB" secondAttribute="bottom" constant="10" id="Ig0-ES-5pw"/>
+                                        <constraint firstAttribute="trailing" secondItem="nxc-5D-SMB" secondAttribute="trailing" constant="16" id="PK9-fK-pRX"/>
+                                        <constraint firstItem="nxc-5D-SMB" firstAttribute="top" secondItem="xA2-Uc-RbQ" secondAttribute="top" constant="10" id="bJg-Ib-4HT"/>
+                                        <constraint firstItem="nxc-5D-SMB" firstAttribute="leading" secondItem="xA2-Uc-RbQ" secondAttribute="leading" constant="16" id="jF0-En-8ME"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
@@ -195,7 +200,7 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="recipeIngredientCell" textLabel="wSy-Xo-Ekv" detailTextLabel="P7O-tF-lOF" style="IBUITableViewCellStyleValue1" id="Lz9-sE-s1i">
-                                <rect key="frame" x="0.0" y="155" width="375" height="43.5"/>
+                                <rect key="frame" x="0.0" y="498" width="375" height="43.5"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Lz9-sE-s1i" id="KDj-as-xK5">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
@@ -219,7 +224,7 @@
                                 </tableViewCellContentView>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="recipeInstructionCell" textLabel="e2F-Ic-fz9" style="IBUITableViewCellStyleDefault" id="EZP-eC-v8H">
-                                <rect key="frame" x="0.0" y="198.5" width="375" height="43.5"/>
+                                <rect key="frame" x="0.0" y="541.5" width="375" height="43.5"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="EZP-eC-v8H" id="7X1-uu-e6S">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
@@ -251,7 +256,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sJI-GV-hOk" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-3740" y="594"/>
+            <point key="canvasLocation" x="-3487" y="721"/>
         </scene>
         <!--Map-->
         <scene sceneID="4Hs-IH-dg3">
@@ -261,7 +266,7 @@
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Sfa-Cs-Qo9" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-3740" y="1043"/>
+            <point key="canvasLocation" x="-3488" y="1444"/>
         </scene>
         <!--Create Recipe-->
         <scene sceneID="mv9-7K-ekl">
@@ -271,8 +276,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="nosign" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="N5x-LM-n4z">
-                                <rect key="frame" x="20" y="64.5" width="126" height="119"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="N5x-LM-n4z">
+                                <rect key="frame" x="20" y="64" width="126" height="120"/>
+                                <color key="backgroundColor" systemColor="systemGray5Color"/>
                                 <color key="tintColor" systemColor="systemGray2Color"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="120" id="xwc-rT-SdQ"/>
@@ -405,7 +411,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hdx-aZ-hZO" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2908" y="665"/>
+            <point key="canvasLocation" x="-2478" y="721"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="yl2-sM-qoP">
@@ -459,6 +465,9 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="WSw-YW-X73" kind="relationship" relationship="rootViewController" id="Tdv-w1-aMe"/>
+                    </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wjn-M5-cWI" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -482,6 +491,22 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KPT-9j-pn7" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-2908" y="-931.48425787106453"/>
+        </scene>
+        <!--Recipe Discover-->
+        <scene sceneID="fym-Qp-s2L">
+            <objects>
+                <viewController id="WSw-YW-X73" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="ieT-AO-Zkg">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="GJg-aX-AM0"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Recipe Discover" id="pqH-IG-AEo"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="xSn-S0-E2Q" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-3804" y="-67"/>
         </scene>
         <!--My Recipes-->
         <scene sceneID="esc-dz-XVh">
@@ -571,7 +596,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="w5t-Pe-Fz3" id="zVc-EQ-NdA"/>
-                        <segue destination="VIN-XZ-F4z" kind="show" identifier="myRecipeDetialsSegue" id="sCY-M3-EuN"/>
+                        <segue destination="VIN-XZ-F4z" kind="show" identifier="myRecipeDetailsSegue" id="sCY-M3-EuN"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BS8-XG-RVX" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -955,6 +980,12 @@
         </systemColor>
         <systemColor name="systemGray2Color">
             <color red="0.68235294117647061" green="0.68235294117647061" blue="0.69803921568627447" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemGray5Color">
+            <color red="0.89803921568627454" green="0.89803921568627454" blue="0.91764705882352937" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemTealColor">
+            <color red="0.35294117647058826" green="0.78431372549019607" blue="0.98039215686274506" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

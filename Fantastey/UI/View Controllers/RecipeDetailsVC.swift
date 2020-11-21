@@ -8,6 +8,9 @@
 
 import UIKit
 import Swifter
+import FirebaseStorage
+import FirebaseFirestore
+import FirebaseAuth
 
 class RecipeDetailsVC: UITableViewController {
     private final var SECTION_TITLE = 0
@@ -31,6 +34,12 @@ class RecipeDetailsVC: UITableViewController {
             retrieveIngredients(id: recipeId)
             retrieveInstructions(id: recipeId)
         }
+        
+        // From Firebase
+        else {
+            guard self.recipe != nil else { return }
+            tableView.reloadData()
+        }
     }
     
     @IBAction func shareToTwitter(_ sender: Any) {
@@ -52,6 +61,12 @@ class RecipeDetailsVC: UITableViewController {
             alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
             self.present(alert, animated: true, completion: nil)
         })
+    }
+    
+    @IBAction func followAuthor(_ sender: Any) {
+        let alert = UIAlertController(title: "Success", message: "Add to Following Authors Successfully!", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        self.present(alert, animated: true, completion: nil)
     }
     
     // MARK: - Table view data source
@@ -79,10 +94,35 @@ class RecipeDetailsVC: UITableViewController {
             
             let titleCell = tableView.dequeueReusableCell(withIdentifier: "recipeTitleCell", for: indexPath) as! RecipeTitleCell
             
+            // From Spoonacular
             if let basics = recipeBasics {
                 titleCell.authorLabel.text = "Author: Spoonacular"
                 titleCell.titleLabel.text = basics.title
                 titleCell.followButton.isHidden = true
+            }
+            
+            // From Firebase
+            else {
+                let authorId = recipe!.authorId!
+                
+                if authorId != Auth.auth().currentUser!.uid {
+                    titleCell.followButton.isHidden = true
+                } else {
+                    titleCell.followButton.addTarget(self, action: #selector(self.followAuthor(_:)), for: .touchUpInside)
+                }
+                
+                Firestore.firestore().collection("users").document(authorId).getDocument { (document, error) in
+                    if let document = document {
+                        if document.exists {
+                            if let nickname = document.get("nickname") as? String {
+                                titleCell.authorLabel.text = "Author: \(nickname)"
+                            }
+                        }
+                    }
+                }
+                
+                
+                titleCell.titleLabel.text = recipe?.title
             }
             
             return titleCell
@@ -91,6 +131,8 @@ class RecipeDetailsVC: UITableViewController {
         // Section Image
         if indexPath.section == SECTION_IMAGE {
             let imageCell = tableView.dequeueReusableCell(withIdentifier: "recipeImageCell", for: indexPath) as! RecipeImageCell
+            
+            // From Spoonacular
             if let imageURL = recipeBasics?.imageURL {
                 let jsonURL = URL(string: imageURL.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!)
                 let task = URLSession.shared.dataTask(with: jsonURL!) { (data, response, error) in
@@ -105,6 +147,22 @@ class RecipeDetailsVC: UITableViewController {
                 }
                 
                 task.resume()
+            }
+            
+            // From Firebase
+            else {
+                if let imageURL = recipe?.imageURL {
+                    let storageRef = Storage.storage().reference().child("images/" + imageURL)
+                    storageRef.getData(maxSize: 10 * 1024 * 1024) { (data, error) in
+                        if let err = error {
+                            print(err)
+                            return
+                        }
+                        
+                        self.imageData = data
+                        imageCell.recipeImageView.image = UIImage(data: data!)
+                    }
+                }
             }
             
             return imageCell
@@ -179,7 +237,7 @@ class RecipeDetailsVC: UITableViewController {
         
     }
     
-    // MARK: - Recipe Ingredients Retrieval
+    // MARK: - Recipe Ingredients Retrieval From Spooncular
     private func retrieveIngredients(id: Int) {
         // Set query URL for recipe search from spoonacular API
         var queryURL = "https://api.spoonacular.com/recipes/"
@@ -220,7 +278,7 @@ class RecipeDetailsVC: UITableViewController {
         task.resume()
     }
     
-    // MARK: - Recipe Instructions Retrieval
+    // MARK: - Recipe Instructions Retrieval From Spoonacular
     private func retrieveInstructions(id: Int) {
         // Set query URL for recipe search from spoonacular API        
         var queryURL = "https://api.spoonacular.com/recipes/"

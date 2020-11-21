@@ -48,7 +48,7 @@ class NewRecipeVC: UIViewController {
         
         // For iPad
         //actionSheet.popoverPresentationController?.sourceView = self.tableView
-        //actionSheet.popoverPresentationController?.sourceRect = CGRect(x: self.tableView.bounds.midX, y: self.tableView.bounds.minY, width: 20, height: 20)
+        //actionSheet.popoverPresentationController?.sourceRect = CGRect(x: self.tableView.bounds.midX, y: self.tableView.bounds.minY, width: 0, height: 0)
         
         let cameraAction = UIAlertAction(title: "Camera", style: .default) { action in
             imagePicker.sourceType = .camera
@@ -91,10 +91,42 @@ class NewRecipeVC: UIViewController {
             unitTextField.placeholder = "Please Enter Ingredient Unit"
             
             alert.addAction(UIAlertAction(title: "Save Ingredient", style: .destructive, handler: { (action) in
-                let name = alert.textFields![0].text!
-                let amount = alert.textFields![1].text!
+                
+                var valid = true
+                var msg = ""
+                
+                if alert.textFields![0].text!.count == 0 {
+                    msg += "- Name is empty!\n"
+                    valid = false
+                }
+                
+                if alert.textFields![1].text!.count == 0 {
+                    msg += "- Amount is empty!\n"
+                    valid = false
+                }
+                
+                if alert.textFields![2].text!.count == 0 {
+                    msg += "- Unit is empty!\n"
+                    valid = false
+                }
+                
+                
+                let amount = (alert.textFields![1].text! as NSString).floatValue
+                if amount == 0 {
+                    msg += "- Amount is not valid!"
+                    valid = false
+                }
+                
+                guard valid else {
+                    let alertError = UIAlertController(title: "Error", message: msg, preferredStyle: .alert)
+                    alertError.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                    self.present(alertError, animated: true, completion: nil)
+                    return
+                }
+                    
                 let unit = alert.textFields![2].text!
-                let ingredient = Ingredient(name: name, value: (amount as NSString).floatValue , unit: unit)
+                let name = alert.textFields![0].text!
+                let ingredient = Ingredient(name: name, value: amount , unit: unit)
                 self.ingredients.append(ingredient)
                 self.tableView.reloadSections([self.SECTION_INGREDIENTS], with: .automatic)
                 
@@ -113,6 +145,10 @@ class NewRecipeVC: UIViewController {
                 if let step = alert.textFields![0].text, step.count != 0 {
                     self.steps.append(step)
                     self.tableView.reloadSections([self.SECTION_INSTRUCTIONS], with: .automatic)
+                } else {
+                    let alertError = UIAlertController(title: "Error", message: "Instruction is empty!", preferredStyle: .alert)
+                    alertError.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                    self.present(alertError, animated: true, completion: nil)
                 }
             }))
             alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
