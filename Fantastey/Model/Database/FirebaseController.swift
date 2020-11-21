@@ -71,20 +71,6 @@ class FirebaseController: NSObject {
     }
     
     // Upload Recipe Image to Storage
-    func uploadRecipeImage(imageURL: String, data: Data) {
-        let storageRef = storage.reference().child("images/" + imageURL)
-        storageRef.putData(data, metadata: nil) { (metadata, error) in
-            if let err = error {
-                print(err)
-                return
-            }
-            
-            guard metadata != nil else {
-                return
-            }
-            
-            print("success upload")
-        }
-    }
+    
 
 }

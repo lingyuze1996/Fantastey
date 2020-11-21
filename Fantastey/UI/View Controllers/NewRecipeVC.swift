@@ -7,10 +7,14 @@
 //
 
 import UIKit
+import FirebaseStorage
+import FirebaseAuth
 
 class NewRecipeVC: UIViewController {
     @IBOutlet weak var titleTextField: UITextField!
     @IBOutlet weak var difficultySC: UISegmentedControl!
+    
+    var indicator = UIActivityIndicatorView()
     
     @IBOutlet weak var recipeImage: UIImageView!
     
@@ -26,6 +30,10 @@ class NewRecipeVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        indicator.style = UIActivityIndicatorView.Style.large
+        indicator.center = view.center
+        view.addSubview(indicator)
+        
         tableView.dataSource = self
         tableView.delegate = self
         
@@ -37,6 +45,11 @@ class NewRecipeVC: UIViewController {
         imagePicker.allowsEditing = false
         imagePicker.delegate = self
         let actionSheet = UIAlertController(title: nil, message: "Select Option: ", preferredStyle: .actionSheet)
+        
+        // For iPad
+        //actionSheet.popoverPresentationController?.sourceView = self.tableView
+        //actionSheet.popoverPresentationController?.sourceRect = CGRect(x: self.tableView.bounds.midX, y: self.tableView.bounds.minY, width: 20, height: 20)
+        
         let cameraAction = UIAlertAction(title: "Camera", style: .default) { action in
             imagePicker.sourceType = .camera
             self.present(imagePicker, animated: true, completion: nil)
@@ -50,43 +63,122 @@ class NewRecipeVC: UIViewController {
             actionSheet.addAction(cameraAction)
         }
         
-        if UIImagePickerController.isSourceTypeAvailable(.camera) {
-            actionSheet.addAction(cameraAction)
-        }
-        
         actionSheet.addAction(libraryAction)
         actionSheet.addAction(cancelAction)
         self.present(actionSheet, animated: true, completion: nil)
     }
     
     
-    @IBAction func saveRecipe(_ sender: Any) {
-        guard validateRecipe() else { return }
+    @IBAction func recipeAction(_ sender: Any) {
+        let actionSheet = UIAlertController(title: nil, message: "Select Option: ", preferredStyle: .actionSheet)
         
-        let title = titleTextField.text
-        let difficulty = difficultySC.titleForSegment(at: difficultySC.selectedSegmentIndex)!
+        // For iPad
+        //actionSheet.popoverPresentationController?.sourceView = self.tableView
+        //actionSheet.popoverPresentationController?.sourceRect = CGRect(x: self.tableView.bounds.midX, y: self.tableView.bounds.minY, width: 20, height: 20)
         
-        let date = UInt(Date().timeIntervalSince1970)
-        let imageURL = "\(date)\(dbController.currentUser!.id).jpg"
+        let addIngredientAction = UIAlertAction(title: "Add Ingredient", style: .default) { action in
+            let alert = UIAlertController(title: "New Ingredient", message: nil, preferredStyle: .alert)
+            alert.addTextField(configurationHandler: nil)
+            alert.addTextField(configurationHandler: nil)
+            alert.addTextField(configurationHandler: nil)
+            
+            let nameTextField = alert.textFields![0]
+            let amountTextField = alert.textFields![1]
+            let unitTextField = alert.textFields![2]
+            
+            nameTextField.placeholder = "Please Enter Ingredient Name"
+            amountTextField.placeholder = "Please Enter Ingredient Amount"
+            unitTextField.placeholder = "Please Enter Ingredient Unit"
+            
+            alert.addAction(UIAlertAction(title: "Save Ingredient", style: .destructive, handler: { (action) in
+                let name = alert.textFields![0].text!
+                let amount = alert.textFields![1].text!
+                let unit = alert.textFields![2].text!
+                let ingredient = Ingredient(name: name, value: (amount as NSString).floatValue , unit: unit)
+                self.ingredients.append(ingredient)
+                self.tableView.reloadSections([self.SECTION_INGREDIENTS], with: .automatic)
+                
+            }))
+            alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+            
+            self.present(alert, animated: true, completion: nil)
+        }
         
-        let recipe = Recipe(id: nil, title: title!, imageURL: imageURL)
-        recipe.setDifficulty(difficulty: difficulty)
-        recipe.setIngredients(ingredients: ingredients)
-        recipe.setSteps(steps: steps)
+        let addInstructionAction = UIAlertAction(title: "Add Instruction", style: .default) { action in
+            let alert = UIAlertController(title: "New Instruction", message: nil, preferredStyle: .alert)
+            alert.addTextField(configurationHandler: nil)
+            let textField = alert.textFields![0]
+            textField.placeholder = "Please Enter Instruction"
+            alert.addAction(UIAlertAction(title: "Save Instruction", style: .destructive, handler: { (action) in
+                if let step = alert.textFields![0].text, step.count != 0 {
+                    self.steps.append(step)
+                    self.tableView.reloadSections([self.SECTION_INSTRUCTIONS], with: .automatic)
+                }
+            }))
+            alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+            
+            self.present(alert, animated: true, completion: nil)
+        }
         
-        dbController.uploadRecipeDetails(recipe: recipe)
-        dbController.uploadRecipeImage(imageURL: recipe.imageURL!, data: recipeImage.image!.jpegData(compressionQuality: 0.6)!)
+        let saveAction = UIAlertAction(title: "Save Recipe", style: .destructive) { (action) in
+            guard self.validateRecipe() else { return }
+            
+            let title = self.titleTextField.text
+            let difficulty = self.difficultySC.titleForSegment(at: self.difficultySC.selectedSegmentIndex)!
+            
+            let date = UInt(Date().timeIntervalSince1970)
+            let imageURL = "\(date)\(Auth.auth().currentUser!.uid).jpg"
+            
+            let recipe = Recipe(id: nil, title: title!, imageURL: imageURL)
+            recipe.setDifficulty(difficulty: difficulty)
+            recipe.setIngredients(ingredients: self.ingredients)
+            recipe.setSteps(steps: self.steps)
+            
+            self.indicator.startAnimating()
+            self.indicator.backgroundColor = UIColor.clear
+            
+            self.dbController.uploadRecipeDetails(recipe: recipe)
+            self.uploadRecipeImage(imageURL: recipe.imageURL!, data: self.recipeImage.image!.jpegData(compressionQuality: 0.6)!)
+        }
         
-        let alert = UIAlertController(title: "Success", message: "Create recipe successfully!", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default) { (action) in
-            self.navigationController!.popViewController(animated: true)
-        })
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         
-        navigationController!.present(alert, animated: true)
+        actionSheet.addAction(addIngredientAction)
+        actionSheet.addAction(addInstructionAction)
+        actionSheet.addAction(saveAction)
+        actionSheet.addAction(cancelAction)
+        self.present(actionSheet, animated: true, completion: nil)
+        
+        
+        
     }
     
     func validateRecipe() -> Bool {
         return true
+    }
+    
+    private func uploadRecipeImage(imageURL: String, data: Data) {
+        let storageRef = Storage.storage().reference().child("images/" + imageURL)
+        storageRef.putData(data, metadata: nil) { (metadata, error) in
+            if let err = error {
+                print(err)
+                return
+            }
+            
+            guard metadata != nil else {
+                return
+            }
+            
+            self.indicator.stopAnimating()
+            self.indicator.hidesWhenStopped = true
+            
+            let alert = UIAlertController(title: "Success", message: "Create recipe successfully!", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default) { (action) in
+                self.navigationController!.popViewController(animated: true)
+            })
+            
+            self.navigationController!.present(alert, animated: true)
+        }
     }
     
     /*
@@ -156,5 +248,13 @@ extension NewRecipeVC: UITableViewDelegate, UITableViewDataSource {
         }
         
         return "Instructions"
+    }
+    
+    func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
+        if section == SECTION_INGREDIENTS {
+            return "Total Ingredients: \(ingredients.count)"
+        }
+        
+        return "Total Instructions: \(steps.count)"
     }
 }

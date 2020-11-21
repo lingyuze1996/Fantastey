@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="49e-Tb-3d3">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="49e-Tb-3d3">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17126"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
@@ -369,9 +369,9 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Create Recipe" id="6x3-nl-O6g">
-                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="zoj-6Q-DFL">
+                        <barButtonItem key="rightBarButtonItem" systemItem="action" id="zoj-6Q-DFL">
                             <connections>
-                                <action selector="saveRecipe:" destination="wo1-I7-z8c" id="kt2-ac-2bG"/>
+                                <action selector="recipeAction:" destination="wo1-I7-z8c" id="kt2-ac-2bG"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
