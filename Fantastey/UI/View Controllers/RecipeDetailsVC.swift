@@ -22,8 +22,12 @@ class RecipeDetailsVC: UITableViewController {
     var recipe: Recipe?
     var imageData: Data?
     
+    var dbController: FirebaseController!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        dbController = (UIApplication.shared.delegate as! AppDelegate).dbController
         
         // From Spoonacular API
         if let basics = recipeBasics {
@@ -143,6 +147,8 @@ class RecipeDetailsVC: UITableViewController {
     }
     
     @IBAction func followAuthor(_ sender: Any) {
+        dbController.usersCollection.document(Auth.auth().currentUser!.uid).updateData(["followings": FieldValue.arrayUnion([recipe!.authorId!])])
+        
         let alert = UIAlertController(title: "Success", message: "Add to Following Authors Successfully!", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         self.present(alert, animated: true, completion: nil)

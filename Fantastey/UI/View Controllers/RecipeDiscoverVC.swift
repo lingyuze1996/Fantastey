@@ -45,7 +45,15 @@ class RecipeDiscoverVC: UIViewController {
         let id = dbController.currentUser!.id
         let level = dbController.currentUser!.cookingLevel
         
-        dbController.recipesCollection.whereField("level", isEqualTo: level).getDocuments() { (snapshot, error) in
+        var recommendedDifficulty = "Easy"
+        
+        if level == "Advanced" {
+            recommendedDifficulty = "Hard"
+        } else if level == "Intermediate" {
+            recommendedDifficulty = "Middle"
+        }
+        
+        dbController.recipesCollection.whereField("difficulty", isEqualTo: recommendedDifficulty).getDocuments() { (snapshot, error) in
             if let err = error {
                 print(err)
                 return
@@ -94,15 +102,14 @@ class RecipeDiscoverVC: UIViewController {
         }
     }
 
-    /*
+    
     // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+        let destinationVC = segue.destination as! RecipeDetailsVC
+        destinationVC.recipe = sender as? Recipe
     }
-    */
+    
 
 }
 // MARK: - Table View Delegate & Data Source Functions
@@ -142,6 +149,11 @@ extension RecipeDiscoverVC: UITableViewDelegate, UITableViewDataSource {
         
         return "Recipes Found"
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        performSegue(withIdentifier: "discoverDetailsSegue", sender: recipes[indexPath.row])
+    }
 }
 
 
@@ -149,7 +161,62 @@ extension RecipeDiscoverVC: UITableViewDelegate, UITableViewDataSource {
 extension RecipeDiscoverVC: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         guard let searchText = searchBar.text, searchText.count > 0 else { return }
-        //performSegue(withIdentifier: "recipeSearchSegue", sender: searchText)
+        searchRecipes(searchText)
+    }
+    
+    func searchRecipes(_ text: String) {
+        auto = false
+        let id = dbController.currentUser!.id
+        
+        dbController.recipesCollection.getDocuments() { (snapshot, error) in
+            if let err = error {
+                print(err)
+                return
+            }
+            
+            if let snapshot = snapshot {
+            
+                self.recipes.removeAll()
+                
+                for document in snapshot.documents {
+                    let author = document.get("authorId") as! String
+                    if author == id { continue }
+                    
+                    let title = document.get("title") as! String
+                    if !title.lowercased().contains(text.lowercased()) { continue }
+                    
+                    let id = document.documentID
+                    let difficulty = document.get("difficulty") as! String
+                    let imageURL = document.get("imageURL") as! String
+                    let steps = document.get("steps") as! [String]
+                    let comments = document.get("comments") as! [String]
+                    let ingredients = document.get("ingredients") as! [[String: Any]]
+                    
+                    let recipe = Recipe(id: id, title: title, imageURL: imageURL, difficulty: difficulty)
+                    recipe.authorId = author
+                    
+                    for step in steps {
+                        recipe.steps.append(step)
+                    }
+                    
+                    for comment in comments {
+                        recipe.comments?.append(comment)
+                    }
+                    
+                    for ingredient in ingredients {
+                        let name = ingredient["name"] as! String
+                        let value = ingredient["value"] as! Float
+                        let unit = ingredient["unit"] as! String
+                        
+                        recipe.ingredients.append(Ingredient(name: name, value: value, unit: unit))
+                    }
+                    
+                    self.recipes.append(recipe)
+                }
+                
+                self.tableView.reloadData()
+            }
+        }
     }
     
     

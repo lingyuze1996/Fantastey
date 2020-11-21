@@ -28,17 +28,22 @@ class MyProfileVC: UIViewController, UITableViewDelegate, UITableViewDataSource{
         
         dbController = (UIApplication.shared.delegate as! AppDelegate).dbController
         
+        followingAuthorsTable.delegate = self
+        followingAuthorsTable.dataSource = self
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         emailAccountLabel.text = Auth.auth().currentUser?.email
         preferredNameLabel.text = dbController.currentUser?.nickname ?? "Not Set"
         cookingLevelLabel.text = dbController.currentUser?.cookingLevel ?? "Not Set"
+        
+        dbController.retrieveCurrentUser(id: Auth.auth().currentUser!.uid)
         
         if let followings = dbController.currentUser?.followings, followings.count != 0 {
             self.followings = followings
             followingAuthorsTable.reloadData()
         }
-        
-        followingAuthorsTable.delegate = self
-        followingAuthorsTable.dataSource = self
     }
     
     @IBAction func logOut(_ sender: Any) {
@@ -69,8 +74,18 @@ class MyProfileVC: UIViewController, UITableViewDelegate, UITableViewDataSource{
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = followingAuthorsTable.dequeueReusableCell(withIdentifier: "CELL", for: indexPath)
-        cell.textLabel?.text = "Author"
-        cell.detailTextLabel?.text = followings[indexPath.row]
+        
+        let authorId = followings[indexPath.row]
+        
+        dbController.usersCollection.document(authorId).getDocument { (document, error) in
+            if let document = document, document.exists {
+                let nickname = document.get("nickname") as? String
+                cell.textLabel?.text = nickname
+                
+                let level = document.get("level") as! String
+                cell.detailTextLabel?.text = "Level: \(level)"
+            }
+        }
         return cell
     }
     
