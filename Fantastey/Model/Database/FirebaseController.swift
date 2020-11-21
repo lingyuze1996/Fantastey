@@ -30,7 +30,7 @@ class FirebaseController: NSObject {
     
     
     func registerUser(id: String, nickname: String, cookingLevel: String) {
-        usersCollection.document(id).setData(["nickname": nickname, "level": cookingLevel, "followings": []])
+        usersCollection.document(id).setData(["nickname": nickname, "level": cookingLevel, "followings": [], "favourites": []])
     }
     
     func retrieveCurrentUser(id: String) {
