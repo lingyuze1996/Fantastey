@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="zhA-aQ-Ejn">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="eaS-do-ewI">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17504.1"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--MapVC-->
+        <!--Supermarkets Nearby-->
         <scene sceneID="m0b-oJ-lgw">
             <objects>
                 <viewController id="eaS-do-ewI" customClass="MapVC" customModule="Fantastey" customModuleProvider="target" sceneMemberID="viewController">
@@ -33,16 +33,11 @@
                         </constraints>
                     </view>
                     <toolbarItems/>
-                    <navigationItem key="navigationItem" id="PWE-ku-k08">
-                        <barButtonItem key="leftBarButtonItem" style="plain" id="GGq-4i-G1l">
-                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="tQi-c7-82M">
-                                <rect key="frame" x="20" y="7" width="34" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Back"/>
-                                <connections>
-                                    <action selector="backToLoginScreen:" destination="eaS-do-ewI" eventType="touchUpInside" id="KfI-xf-D1C"/>
-                                </connections>
-                            </button>
+                    <navigationItem key="navigationItem" title="Supermarkets Nearby" id="PWE-ku-k08">
+                        <barButtonItem key="leftBarButtonItem" style="plain" systemItem="reply" id="GGq-4i-G1l">
+                            <connections>
+                                <action selector="back:" destination="eaS-do-ewI" id="VCU-ZY-ZUj"/>
+                            </connections>
                         </barButtonItem>
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
@@ -97,24 +92,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bxL-3c-Eir" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2508.6956521739135" y="-120.53571428571428"/>
-        </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="agQ-Kr-b6Z">
-            <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="YAF-Ar-LEd" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="zhA-aQ-Ejn" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="uMj-Eo-SJG">
-                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="eaS-do-ewI" kind="relationship" relationship="rootViewController" id="DOX-4T-oh5"/>
-                    </connections>
-                </navigationController>
-            </objects>
-            <point key="canvasLocation" x="734.78260869565224" y="-147.32142857142856"/>
         </scene>
     </scenes>
     <resources>

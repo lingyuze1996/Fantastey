@@ -109,6 +109,17 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <button key="tableFooterView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="PK8-r3-tdM">
+                            <rect key="frame" x="0.0" y="270" width="375" height="44"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" systemColor="linkColor"/>
+                            <state key="normal" title="View Map">
+                                <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </state>
+                            <connections>
+                                <segue destination="dNI-0X-Mm4" kind="show" id="ydM-TG-ESA"/>
+                            </connections>
+                        </button>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="recipeTitleCell" id="oag-Oh-HwB" customClass="RecipeTitleCell" customModule="Fantastey" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="375" height="106.5"/>
@@ -241,6 +252,16 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sJI-GV-hOk" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-3740" y="594"/>
+        </scene>
+        <!--Map-->
+        <scene sceneID="4Hs-IH-dg3">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Map" id="dNI-0X-Mm4" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="oTm-8R-VII"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Sfa-Cs-Qo9" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-3740" y="1043"/>
         </scene>
         <!--Create Recipe-->
         <scene sceneID="mv9-7K-ekl">

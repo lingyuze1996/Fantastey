@@ -27,9 +27,9 @@ class RoundButton: UIButton {
         //setShadow()
         setTitleColor(UIColor.white, for: .normal)
         
-        backgroundColor = UIColor.systemTeal
-        titleLabel?.font = UIFont(name: "ArialMT", size: 18)
-        layer.cornerRadius = 14
+        backgroundColor = UIColor.systemPink
+        titleLabel?.font = UIFont(name: "Arial-BoldMT", size: 15)
+        layer.cornerRadius = 16
         //layer.borderWidth = 3
         //layer.borderColor = UIColor.systemGray2.cgColor
     }

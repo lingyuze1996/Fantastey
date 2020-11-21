@@ -22,6 +22,7 @@ class RecipeDetailsVC: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // From Spoonacular API
         if let basics = recipeBasics {
             let recipeId = basics.id
             
@@ -159,28 +160,17 @@ class RecipeDetailsVC: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        //let indexPath = tableView.indexPathForSelectedRow() //optional, to get from any UIButton for example
-        
-        let selectedCell = tableView.cellForRow(at: indexPath)! as UITableViewCell
-        guard let searchTextArray = selectedCell.textLabel?.text!.split{$0 == " "}.map(String.init) else { return }
-        
-        var fullSearchText:String = ""
-        
-        if searchTextArray.count > 1 {
-            for singleSearchText in searchTextArray {
-                fullSearchText += "%20"
-                fullSearchText += singleSearchText
-            }
-        } else {
-            fullSearchText = searchTextArray.first!
-        }
-        
-        let urlString = "https://www.woolworths.com.au/shop/search/products?searchTerm=" + fullSearchText
-        guard let url = URL(string: urlString) else { return }
-        UIApplication.shared.open(url)
-        
         tableView.deselectRow(at: indexPath, animated: true)
         
+        guard indexPath.section == SECTION_INGREDIENTS else { return }
+        
+        let ingredient = recipe!.ingredients[indexPath.row]
+        let searchText = ingredient.name
+        
+        let urlString = "https://www.woolworths.com.au/shop/search/products?searchTerm=" + searchText
+        
+        guard let url = URL(string: urlString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!) else { return }
+        UIApplication.shared.open(url)
     }
     
     

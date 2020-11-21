@@ -33,6 +33,7 @@ class MapVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        navigationController?.isNavigationBarHidden = false
         //        var location = LocationAnnotation(title: "Monash Uni - Caulfield", subtitle: "The Caufield Campus of the Uni", lat: -37.877623, long: 145.045374)
         //geofence
         geofence = CLCircularRegion(center: CLLocationCoordinate2D(latitude: -37.877623, longitude: 145.045374), radius: 500, identifier: "geofence")
@@ -94,15 +95,8 @@ class MapVC: UIViewController {
     //    }
     
     
-    @IBAction func backToLoginScreen(_ sender: Any) {
-        let loginNC = view.window?.rootViewController as! UINavigationController
-        loginNC.popToRootViewController(animated:true)
-        
-        //let loginController = LoginVC()
-        //self.navigationController?.pushViewController(loginController, animated: true)
-        //let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-        //let newViewController = storyBoard.instantiateViewController(withIdentifier: "LoginScreen") as! LoginVC
-        //        self.present(newViewController, animated: true, completion: nil)
+    @IBAction func back(_ sender: Any) {
+        navigationController?.popViewController(animated: true)
     }
     
     //for creating the button on the pin mark
