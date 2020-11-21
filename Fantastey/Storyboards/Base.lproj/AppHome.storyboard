@@ -9,7 +9,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Search A Recipe-->
+        <!--Recipe Search-->
         <scene sceneID="hNz-n2-bh7">
             <objects>
                 <viewController id="9pv-A4-QxB" customClass="RecipeSearchVC" customModule="Fantastey" customModuleProvider="target" sceneMemberID="viewController">
@@ -19,7 +19,7 @@
                         <viewLayoutGuide key="safeArea" id="PQr-Ze-W5v"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Search A Recipe" id="TeC-PM-8YS"/>
+                    <navigationItem key="navigationItem" title="Recipe Search" id="TeC-PM-8YS"/>
                     <connections>
                         <segue destination="bzh-fh-OfG" kind="show" identifier="recipeSearchSegue" id="4Yq-lb-qfR"/>
                     </connections>
@@ -247,9 +247,9 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Recipe Details" id="qaM-9q-kUa">
-                        <barButtonItem key="rightBarButtonItem" title="Item" image="arrowshape.turn.up.right.fill" catalog="system" id="CJt-tr-3mR">
+                        <barButtonItem key="rightBarButtonItem" systemItem="action" id="CJt-tr-3mR">
                             <connections>
-                                <action selector="shareToTwitter:" destination="VIN-XZ-F4z" id="4nA-tw-H9s"/>
+                                <action selector="actionList:" destination="VIN-XZ-F4z" id="4nA-tw-H9s"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -495,7 +495,7 @@
         <!--Recipe Discover-->
         <scene sceneID="fym-Qp-s2L">
             <objects>
-                <viewController id="WSw-YW-X73" sceneMemberID="viewController">
+                <viewController id="WSw-YW-X73" customClass="RecipeDiscoverVC" customModule="Fantastey" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ieT-AO-Zkg">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -646,14 +646,14 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5PQ-rR-yq1">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5PQ-rR-yq1" customClass="RoundButton" customModule="Fantastey" customModuleProvider="target">
                                 <rect key="frame" x="20" y="538" width="335" height="30"/>
                                 <color key="backgroundColor" systemColor="linkColor"/>
-                                <state key="normal" title="Log Out">
+                                <state key="normal" title="About Us">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
-                                    <action selector="logOut:" destination="cGX-pS-Ooi" eventType="touchUpInside" id="J3w-Or-FTC"/>
+                                    <segue destination="Bej-XI-hcE" kind="show" identifier="aboutUsSegue" id="DjB-ZM-Lu4"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Email Account：" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KLx-pq-ohN">
@@ -770,14 +770,14 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CWq-A0-jgj">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CWq-A0-jgj" customClass="RoundButton" customModule="Fantastey" customModuleProvider="target">
                                 <rect key="frame" x="20" y="578" width="335" height="30"/>
                                 <color key="backgroundColor" systemColor="linkColor"/>
-                                <state key="normal" title="About">
+                                <state key="normal" title="Log Out">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
-                                    <segue destination="Bej-XI-hcE" kind="show" identifier="aboutSegue" id="tZ2-Jt-2BN"/>
+                                    <action selector="logOut:" destination="cGX-pS-Ooi" eventType="touchUpInside" id="Uhf-8U-1TS"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -818,6 +818,7 @@
                         <barButtonItem key="rightBarButtonItem" systemItem="edit" id="363-zh-gVQ"/>
                     </navigationItem>
                     <connections>
+                        <outlet property="aboutUsButton" destination="5PQ-rR-yq1" id="IH4-hS-gmA"/>
                         <outlet property="cookingLevelLabel" destination="Jt3-D9-Te8" id="4kV-AP-NhT"/>
                         <outlet property="emailAccountLabel" destination="V8J-WF-IJD" id="j8X-UI-s40"/>
                         <outlet property="followingAuthorsTable" destination="5Ab-61-C0q" id="gAh-1g-2RC"/>
@@ -828,7 +829,7 @@
             </objects>
             <point key="canvasLocation" x="-1124" y="-193.85307346326837"/>
         </scene>
-        <!--About-->
+        <!--About Us-->
         <scene sceneID="kPY-v3-f3e">
             <objects>
                 <viewController id="Bej-XI-hcE" customClass="AboutVC" customModule="Fantastey" customModuleProvider="target" sceneMemberID="viewController">
@@ -860,8 +861,8 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tutor: Josh Olsen, Charlie Mathew" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0jf-Xg-wXe">
-                                <rect key="frame" x="76.5" y="372" width="222" height="17"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tutors: Josh Olsen, Charlie Mathew" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0jf-Xg-wXe">
+                                <rect key="frame" x="73" y="372" width="229" height="17"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -947,7 +948,7 @@
                             <constraint firstItem="SBh-fj-qb2" firstAttribute="centerX" secondItem="qgZ-eF-O8d" secondAttribute="centerX" id="ysN-JZ-hD8"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="About" id="AKe-3E-5BM"/>
+                    <navigationItem key="navigationItem" title="About Us" id="AKe-3E-5BM"/>
                     <connections>
                         <outlet property="teamMember1img" destination="C59-Wm-C0l" id="2kw-4z-oax"/>
                         <outlet property="teamMember2img" destination="Rdq-h3-6dg" id="ihC-Az-TM1"/>
@@ -962,7 +963,6 @@
         <segue reference="sCY-M3-EuN"/>
     </inferredMetricsTieBreakers>
     <resources>
-        <image name="arrowshape.turn.up.right.fill" catalog="system" width="128" height="106"/>
         <image name="cube" catalog="system" width="128" height="124"/>
         <image name="heart" catalog="system" width="128" height="109"/>
         <image name="house" catalog="system" width="128" height="106"/>

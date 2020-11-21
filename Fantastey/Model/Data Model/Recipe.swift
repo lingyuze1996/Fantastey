@@ -15,6 +15,7 @@ class Recipe: NSObject, Codable {
     var difficulty: String?
     var ingredients: [Ingredient]
     var steps: [String]
+    var comments: [String]?
     var authorId: String?
     
     init(id: String?, title: String, imageURL: String?) {
@@ -23,6 +24,7 @@ class Recipe: NSObject, Codable {
         self.imageURL = imageURL
         self.ingredients = []
         self.steps = []
+        self.comments = []
     }
     
     init(id: String?, title: String, imageURL: String?, difficulty: String) {
@@ -32,6 +34,7 @@ class Recipe: NSObject, Codable {
         self.difficulty = difficulty
         self.ingredients = []
         self.steps = []
+        self.comments = []
     }
     
     func setDifficulty(difficulty: String) {

@@ -15,6 +15,7 @@ class MyProfileVC: UIViewController, UITableViewDelegate, UITableViewDataSource{
     @IBOutlet weak var preferredNameLabel: UILabel!
     @IBOutlet weak var cookingLevelLabel: UILabel!
     @IBOutlet weak var followingAuthorsTable: UITableView!
+    @IBOutlet weak var aboutUsButton: RoundButton!
     
     var followings = [String]()
     
@@ -22,6 +23,8 @@ class MyProfileVC: UIViewController, UITableViewDelegate, UITableViewDataSource{
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        aboutUsButton.backgroundColor = UIColor.systemTeal
         
         dbController = (UIApplication.shared.delegate as! AppDelegate).dbController
         
@@ -51,6 +54,10 @@ class MyProfileVC: UIViewController, UITableViewDelegate, UITableViewDataSource{
         // Return back to Login Screen
         let rootNC = view.window?.rootViewController as! UINavigationController
         rootNC.popToRootViewController(animated: true)
+        
+        let alert = UIAlertController(title: "Success", message: "You have logged out successfully!", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        rootNC.topViewController?.present(alert, animated: true, completion: nil)
     }
     // MARK: - Table view
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -69,16 +76,6 @@ class MyProfileVC: UIViewController, UITableViewDelegate, UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return "My Following Authors"
-    }
-    
-    
-    // MARK: - Navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "aboutSegue" {
-            _ = segue.destination as! AboutVC
-            
-        }
-    }
-    
+    }    
 
 }

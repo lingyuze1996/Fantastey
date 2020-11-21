@@ -75,16 +75,6 @@ class HomeVC: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
     }
-  
-    private func getMyRecipesIndexByID(_ id: String) -> Int? {
-        for i in 0 ..< recipes.count {
-            if recipes[i].id == id {
-                return i
-            }
-        }
-        
-        return nil
-    }
 
     
     // MARK: - Navigation
@@ -129,6 +119,42 @@ extension HomeVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         performSegue(withIdentifier: "myRecipeDetailsSegue", sender: recipes[indexPath.row])
+    }
+    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            
+            let alert = UIAlertController(title: "Confirmation", message: "Sure to delete this recipe?", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "No", style: .default, handler: nil))
+            alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (action) in
+                // Delete the row from the data source
+                let recipe = self.recipes[indexPath.row]
+                
+                self.dbController.recipesCollection.document(recipe.id!).delete() { error in
+                    if let err = error {
+                        print(err)
+                        let alertFail = UIAlertController(title: "Error", message: "Fail to Delete Recipe!", preferredStyle: .alert)
+                        alertFail.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                        self.present(alertFail, animated: true, completion: nil)
+                        return
+                    }
+                    
+                    self.recipes.remove(at: indexPath.row)
+                    tableView.deleteRows(at: [indexPath], with: .fade)
+                    
+                    let alertSuccess = UIAlertController(title: "Success", message: "Recipe Deleted Successfully!", preferredStyle: .alert)
+                    alertSuccess.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                    self.present(alertSuccess, animated: true, completion: nil)
+                }
+            }))
+            
+            present(alert, animated: true, completion: nil)
+            
+        }
     }
     
 }

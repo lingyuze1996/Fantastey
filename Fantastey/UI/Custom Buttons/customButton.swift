@@ -29,7 +29,7 @@ class RoundButton: UIButton {
         
         backgroundColor = UIColor.systemPink
         titleLabel?.font = UIFont(name: "Arial-BoldMT", size: 15)
-        layer.cornerRadius = 16
+        layer.cornerRadius = 13
         //layer.borderWidth = 3
         //layer.borderColor = UIColor.systemGray2.cgColor
     }

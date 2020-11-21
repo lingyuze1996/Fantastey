@@ -190,6 +190,36 @@ class NewRecipeVC: UIViewController {
     }
     
     func validateRecipe() -> Bool {
+        var msg = ""
+        
+        if titleTextField.text?.count == 0 {
+            msg += "- Recipe Title is Empty!\n"
+        }
+        
+        if difficultySC.selectedSegmentIndex == -1 {
+            msg += "- Recipe Difficulty is Empty!\n"
+        }
+        
+        if recipeImage.image == nil {
+            msg += "- Recipe Image is Empty!\n"
+        }
+        
+        if ingredients.count == 0 {
+            msg += "- Recipe Ingredients are Empty!\n"
+        }
+        
+        if steps.count == 0 {
+            msg += "- Recipe Instructions are Empty!"
+        }
+        
+        if msg != "" {
+            let alert = UIAlertController(title: "Error", message: msg, preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            present(alert, animated: true, completion: nil)
+            
+            return false
+        }
+        
         return true
     }
     
@@ -276,6 +306,40 @@ extension NewRecipeVC: UITableViewDelegate, UITableViewDataSource {
         instructionCell.textLabel?.text = "Step " + "\(indexPath.row + 1):\n" + step
         
         return instructionCell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        if indexPath.section == SECTION_INGREDIENTS {
+            return true
+        }
+        
+        return false
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            
+            let alert = UIAlertController(title: "Confirmation", message: "Sure to delete this ingredient?", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "No", style: .default, handler: nil))
+            alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (action) in
+                // Delete the row from the data source
+                
+                self.ingredients.remove(at: indexPath.row)
+                tableView.deleteRows(at: [indexPath], with: .fade)
+                
+                let alertSuccess = UIAlertController(title: "Success", message: "Ingredient Deleted Successfully!", preferredStyle: .alert)
+                alertSuccess.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                self.present(alertSuccess, animated: true, completion: nil)
+            }
+            ))
+            
+            present(alert, animated: true, completion: nil)
+            
+        }
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {

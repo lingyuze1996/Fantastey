@@ -42,7 +42,113 @@ class RecipeDetailsVC: UITableViewController {
         }
     }
     
-    @IBAction func shareToTwitter(_ sender: Any) {
+    @IBAction func actionList(_ sender: Any) {
+        let actionSheet = UIAlertController(title: nil, message: "Select Option: ", preferredStyle: .actionSheet)
+        
+        // For iPad
+        //actionSheet.popoverPresentationController?.sourceView = self.tableView
+        //actionSheet.popoverPresentationController?.sourceRect = CGRect(x: self.tableView.bounds.midX, y: self.tableView.bounds.minY, width: 20, height: 20)
+        
+        let addCommentAction = UIAlertAction(title: "Add a Comment", style: .default) { action in
+            let alert = UIAlertController(title: "New Comment", message: nil, preferredStyle: .alert)
+            alert.addTextField(configurationHandler: nil)
+            
+            let commentTextField = alert.textFields![0]
+            
+            commentTextField.placeholder = "Please Enter a Comment"
+            
+            alert.addAction(UIAlertAction(title: "Save Comment", style: .destructive, handler: { (action) in
+                
+                var valid = true
+                var msg = ""
+                
+                if alert.textFields![0].text!.count == 0  {
+                    msg += "- Name is empty!\n"
+                    valid = false
+                }
+                
+                if alert.textFields![0].text!.count > 100  {
+                    msg += "- Comment shouldn't exceed 100 characters!"
+                    valid = false
+                }
+                
+                guard valid else {
+                    let alertError = UIAlertController(title: "Error", message: msg, preferredStyle: .alert)
+                    alertError.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                    self.present(alertError, animated: true, completion: nil)
+                    return
+                }
+                    
+                let comment = alert.textFields![0].text!
+                print("success")
+                //self.recipe.comment
+            }))
+            alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+            
+            self.present(alert, animated: true, completion: nil)
+        }
+        
+        let addToFavouritesAction = UIAlertAction(title: "Add to Favourites", style: .default) { action in
+            let alert = UIAlertController(title: "Confirmation", message: "Add this recipe to Favourites?", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "No", style: .default, handler: nil))
+            alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (action) in
+                print("233")
+            }))
+            
+            self.present(alert, animated: true, completion: nil)
+        }
+        
+        let twitterShareAction = UIAlertAction(title: "Share Recipe to Twitter", style: .default) { action in
+            let alert = UIAlertController(title: "Confirmation", message: "Share this recipe to Twitter?", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "No", style: .default, handler: nil))
+            alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (action) in
+                self.shareToTwitter()
+            }))
+            
+            self.present(alert, animated: true, completion: nil)
+        }
+        
+        /*
+        let saveAction = UIAlertAction(title: "Save Recipe", style: .destructive) { (action) in
+            guard self.validateRecipe() else { return }
+            
+            let title = self.titleTextField.text
+            let difficulty = self.difficultySC.titleForSegment(at: self.difficultySC.selectedSegmentIndex)!
+            
+            let date = UInt(Date().timeIntervalSince1970)
+            let imageURL = "\(date)\(Auth.auth().currentUser!.uid).jpg"
+            
+            let recipe = Recipe(id: nil, title: title!, imageURL: imageURL)
+            recipe.setDifficulty(difficulty: difficulty)
+            recipe.setIngredients(ingredients: self.ingredients)
+            recipe.setSteps(steps: self.steps)
+            
+            self.indicator.startAnimating()
+            self.indicator.backgroundColor = UIColor.clear
+            
+            self.dbController.uploadRecipeDetails(recipe: recipe)
+            self.uploadRecipeImage(imageURL: recipe.imageURL!, data: self.recipeImage.image!.jpegData(compressionQuality: 0.6)!)
+        }
+ */
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        
+        actionSheet.addAction(addCommentAction)
+        actionSheet.addAction(addToFavouritesAction)
+        //actionSheet.addAction(saveAction)
+        actionSheet.addAction(twitterShareAction)
+        actionSheet.addAction(cancelAction)
+        self.present(actionSheet, animated: true, completion: nil)
+        
+    }
+    
+    @IBAction func followAuthor(_ sender: Any) {
+        let alert = UIAlertController(title: "Success", message: "Add to Following Authors Successfully!", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    func shareToTwitter() {
         let swifter = Swifter(consumerKey: Secret.TWITTER_CONSUMER_KEY, consumerSecret: Secret.TWITTER_CONSUMER_SECRET)
         
         let url = URL(string: "Fantastey://")!
@@ -61,12 +167,6 @@ class RecipeDetailsVC: UITableViewController {
             alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
             self.present(alert, animated: true, completion: nil)
         })
-    }
-    
-    @IBAction func followAuthor(_ sender: Any) {
-        let alert = UIAlertController(title: "Success", message: "Add to Following Authors Successfully!", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-        self.present(alert, animated: true, completion: nil)
     }
     
     // MARK: - Table view data source
@@ -105,7 +205,7 @@ class RecipeDetailsVC: UITableViewController {
             else {
                 let authorId = recipe!.authorId!
                 
-                if authorId != Auth.auth().currentUser!.uid {
+                if authorId == Auth.auth().currentUser!.uid {
                     titleCell.followButton.isHidden = true
                 } else {
                     titleCell.followButton.addTarget(self, action: #selector(self.followAuthor(_:)), for: .touchUpInside)
