@@ -18,11 +18,14 @@ class LocationSearchTableVC: UITableViewController {
     //for dropping the pin mark on map
     var handleMapSearchDelegate:HandleMapSearch? = nil
     
+    var didPutWoolworthPins = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-                
-        
+       
     }
+    
+    
     
     func parseAddress(selectedItem:MKPlacemark) -> String {
         // put a space between "4" and "Melrose Place"
@@ -59,15 +62,46 @@ extension LocationSearchTableVC : UISearchResultsUpdating {
         request.naturalLanguageQuery = searchBarText
         request.region = mapView.region
         let search = MKLocalSearch(request: request)
-        search.start { response, _ in
+        search.start { [self] response, _ in
             guard let response = response else {
                 return
             }
             self.matchingItems = response.mapItems
             self.tableView.reloadData()
+            
+            if didPutWoolworthPins == false {
+                self.initialSearchResults(for: searchController)
+            }
         }
     }
     
+    func initialSearchResults(for searchController: UISearchController){
+//        guard let mapView = mapView,
+//              let searchBarText = searchController.searchBar.text else { return }
+//        let request = MKLocalSearch.Request()
+//        request.naturalLanguageQuery = searchBarText
+//        request.region = mapView.region
+//        let search = MKLocalSearch(request: request)
+//        search.start { response, _ in
+//            guard let response = response else {
+//                return
+//            }
+//            self.matchingItems = response.mapItems
+//
+//        }
+        
+        guard matchingItems.count != 0 else{return}
+        var matchingPlacemarks:[MKPlacemark]? = nil
+        for matchingItem in matchingItems{
+            let thePlacemark = matchingItem.placemark
+            if (matchingPlacemarks?.append(thePlacemark)) == nil {
+                matchingPlacemarks = [thePlacemark]
+            }else{
+                matchingPlacemarks!.append(thePlacemark)}
+        }
+        handleMapSearchDelegate?.dropPinsZoomIn(placemarks: matchingPlacemarks!)
+        didPutWoolworthPins = true
+    }
     
 }
 extension LocationSearchTableVC {

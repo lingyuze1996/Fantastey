@@ -11,11 +11,12 @@ import MapKit
 
 protocol HandleMapSearch {
     func dropPinZoomIn(placemark:MKPlacemark)
+    func dropPinsZoomIn(placemarks: [MKPlacemark])
 }
 
 class MapVC: UIViewController {
     
-
+    
     @IBOutlet weak var mapView: MKMapView!
     
     //for search bar
@@ -27,6 +28,7 @@ class MapVC: UIViewController {
     
     //for dropping the pin marks
     var selectedPin:MKPlacemark? = nil
+    var woolworthsPin:[MKPlacemark]? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -58,13 +60,17 @@ class MapVC: UIViewController {
         let searchBar = resultSearchController!.searchBar
         searchBar.sizeToFit()
         searchBar.placeholder = "supermarket name"
+        searchBar.text = "Woolworths"
+        locationSearchTable.mapView = mapView
+        locationSearchTable.updateSearchResults(for: resultSearchController!)
+        
         navigationItem.titleView = resultSearchController?.searchBar
         
         resultSearchController?.hidesNavigationBarDuringPresentation = false
         resultSearchController?.obscuresBackgroundDuringPresentation = true
         definesPresentationContext = true
         
-        locationSearchTable.mapView = mapView
+        //locationSearchTable.mapView = mapView
         //for dropping the pin mark
         locationSearchTable.handleMapSearchDelegate = self
     }
@@ -76,27 +82,27 @@ class MapVC: UIViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(true)
-        
+        //UIApplication.endBackgroundTask(_:)
     }
     
-    func focusOn(coordinate:CLLocationCoordinate2D)
-    {
-        //mapView.selectAnnotation(annotation, animated: true)
-        
-        let zoomRegion = MKCoordinateRegion(center:coordinate, latitudinalMeters: 1000,longitudinalMeters:1000)
-        mapView.setRegion(mapView.regionThatFits(zoomRegion), animated: true)
-    }
+    //    func focusOn(coordinate:CLLocationCoordinate2D)
+    //    {
+    //        //mapView.selectAnnotation(annotation, animated: true)
+    //
+    //        let zoomRegion = MKCoordinateRegion(center:coordinate, latitudinalMeters: 1000,longitudinalMeters:1000)
+    //        mapView.setRegion(mapView.regionThatFits(zoomRegion), animated: true)
+    //    }
     
     
     @IBAction func backToLoginScreen(_ sender: Any) {
-//        let loginNC = view.window?.rootViewController as! UINavigationController
-//        loginNC.popToRootViewController(animated:true)
+        //        let loginNC = view.window?.rootViewController as! UINavigationController
+        //        loginNC.popToRootViewController(animated:true)
         
-//        let loginController = LoginVC()
-//        self.navigationController?.pushViewController(loginController, animated: true)
+        //        let loginController = LoginVC()
+        //        self.navigationController?.pushViewController(loginController, animated: true)
         let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
         let newViewController = storyBoard.instantiateViewController(withIdentifier: "LoginScreen") as! LoginVC
-                self.present(newViewController, animated: true, completion: nil)
+        self.present(newViewController, animated: true, completion: nil)
     }
     
     //for creating the button on the pin mark
@@ -104,6 +110,7 @@ class MapVC: UIViewController {
         if let selectedPin = selectedPin {
             let mapItem = MKMapItem(placemark: selectedPin)
             let launchOptions = [MKLaunchOptionsDirectionsModeKey : MKLaunchOptionsDirectionsModeDriving]
+            
             mapItem.openInMaps(launchOptions: launchOptions)
         }
     }
@@ -117,7 +124,7 @@ class MapVC: UIViewController {
      // Pass the selected object to the new view controller.
      }
      */
-
+    
     
 }
 //https://www.thorntech.com/2016/01/how-to-search-for-location-using-apples-mapkit/
@@ -127,15 +134,15 @@ extension MapVC : CLLocationManagerDelegate {
             locationManager.requestLocation()
         }
     }
-
+    
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard locations.first != nil else{return}
         print("location: \(locations.first!.coordinate)")
     }
-//https://stackoverflow.com/questions/40345170/delegate-must-respond-to-locationmanagerdidupdatelocations-swift-eroor
+    //https://stackoverflow.com/questions/40345170/delegate-must-respond-to-locationmanagerdidupdatelocations-swift-eroor
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-             print("error:: \(error.localizedDescription)")
-        }
+        print("error:: \(error.localizedDescription)")
+    }
 }
 
 extension MapVC: HandleMapSearch {
@@ -148,7 +155,7 @@ extension MapVC: HandleMapSearch {
         annotation.coordinate = placemark.coordinate
         annotation.title = placemark.name
         if let city = placemark.locality,
-        let state = placemark.administrativeArea {
+           let state = placemark.administrativeArea {
             annotation.subtitle = "\(city) \(state)"
         }
         mapView.addAnnotation(annotation)
@@ -157,7 +164,30 @@ extension MapVC: HandleMapSearch {
         let region = MKCoordinateRegion(center: placemark.coordinate, span: span)
         mapView.setRegion(region, animated: true)
     }
+    
+    func dropPinsZoomIn(placemarks:[MKPlacemark]){
+        guard placemarks.first != nil else{return}
+        // cache the pin
+        woolworthsPin = placemarks
+        // clear existing pins
+        mapView.removeAnnotations(mapView.annotations)
+        for eachPlackmark in placemarks{
+            let annotation = MKPointAnnotation()
+            annotation.coordinate = eachPlackmark.coordinate
+            annotation.title = eachPlackmark.name
+            if let city = eachPlackmark.locality,
+               let state = eachPlackmark.administrativeArea {
+                annotation.subtitle = "\(city) \(state)"
+            }
+            mapView.addAnnotation(annotation)
+        }
+        //https://stackoverflow.com/questions/59127876/mkcoordinatespanmake-error-xcode-11-ios-13-2
+        let span = MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)
+        let region = MKCoordinateRegion(center: placemarks.first!.coordinate, span: span)
+        mapView.setRegion(region, animated: true)
+    }
 }
+
 extension MapVC : MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView?{
         if annotation is MKUserLocation {
@@ -176,8 +206,28 @@ extension MapVC : MKMapViewDelegate {
         //button.setBackgroundImage(UIImage(named: "car"), for: .Normal)
         button.setBackgroundImage(UIImage(named: "car"), for: [])
         
-        button.addTarget(self, action: #selector(getDirections), for: .touchUpInside)
+        //button.addTarget(self, action: #selector(getDirections), for: .touchUpInside)
+        
         pinView?.leftCalloutAccessoryView = button
         return pinView
+    }
+    
+    func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl){
+        let theSelectedPinBefore = selectedPin
+        var theCoordinate:CLLocationCoordinate2D? = nil
+        
+        theCoordinate = view.annotation!.coordinate
+        //        print(view.annotation!.title)
+        //        print(view.annotation!.subtitle)
+        //        print(view.annotation!.description)
+        //        let thisPlaceMark = MKPlacemark(coordinate: theCoordinate!)
+        for thePin in woolworthsPin! {
+            if thePin.coordinate.latitude == theCoordinate?.latitude && thePin.coordinate.longitude == theCoordinate?.longitude {
+                selectedPin = thePin
+            }
+        }
+        //if theSelectedPinBefore != selectedPin {
+            getDirections()
+        //}
     }
 }
