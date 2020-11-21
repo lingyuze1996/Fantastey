@@ -67,6 +67,10 @@ class MyProfileVC: UIViewController, UITableViewDelegate, UITableViewDataSource{
         return cell
     }
     
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return "My Following Authors"
+    }
+    
     
     // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

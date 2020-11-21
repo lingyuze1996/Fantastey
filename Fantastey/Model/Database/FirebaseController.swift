@@ -8,21 +8,26 @@
 
 import UIKit
 import Firebase
+import FirebaseStorage
 
 class FirebaseController: NSObject {
     var currentUser: AppUser?
     
     var db: Firestore
-    //var storage:
+    var storage: Storage
     var usersCollection: CollectionReference
     var recipesCollection: CollectionReference
     
     override init() {
         db = Firestore.firestore()
-        
+        storage = Storage.storage()
         usersCollection = db.collection("users")
         recipesCollection = db.collection("recipes")
+        
+        super.init()
     }
+    
+    
     
     func registerUser(id: String, nickname: String, cookingLevel: String) {
         usersCollection.document(id).setData(["nickname": nickname, "level": cookingLevel, "followings": []])
@@ -46,11 +51,11 @@ class FirebaseController: NSObject {
         }
     }
     
-    func uploadRecipe(recipe: Recipe) {
+    // Upload recipe details to Firestore
+    func uploadRecipeDetails(recipe: Recipe) {
         let encoder = JSONEncoder()
-        
-        // Upload recipe details to firestore and storage
         do {
+            recipe.setAuthorId(id: currentUser!.id)
             let recipeJSON = try encoder.encode(recipe)
             let recipeDictionary = try JSONSerialization.jsonObject(with: recipeJSON, options: []) as! [String: Any]
             recipesCollection.document().setData(recipeDictionary) { (error) in
@@ -60,13 +65,26 @@ class FirebaseController: NSObject {
                 
                 print("success")
             }
-            
-            
-            
-            
         } catch let err {
             print(err)
         }
-        
     }
+    
+    // Upload Recipe Image to Storage
+    func uploadRecipeImage(imageURL: String, data: Data) {
+        let storageRef = storage.reference().child("images/" + imageURL)
+        storageRef.putData(data, metadata: nil) { (metadata, error) in
+            if let err = error {
+                print(err)
+                return
+            }
+            
+            guard metadata != nil else {
+                return
+            }
+            
+            print("success upload")
+        }
+    }
+
 }

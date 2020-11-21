@@ -95,14 +95,14 @@ class MapVC: UIViewController {
     
     
     @IBAction func backToLoginScreen(_ sender: Any) {
-        //        let loginNC = view.window?.rootViewController as! UINavigationController
-        //        loginNC.popToRootViewController(animated:true)
+        let loginNC = view.window?.rootViewController as! UINavigationController
+        loginNC.popToRootViewController(animated:true)
         
-        //        let loginController = LoginVC()
-        //        self.navigationController?.pushViewController(loginController, animated: true)
-        let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-        let newViewController = storyBoard.instantiateViewController(withIdentifier: "LoginScreen") as! LoginVC
-        self.present(newViewController, animated: true, completion: nil)
+        //let loginController = LoginVC()
+        //self.navigationController?.pushViewController(loginController, animated: true)
+        //let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        //let newViewController = storyBoard.instantiateViewController(withIdentifier: "LoginScreen") as! LoginVC
+        //        self.present(newViewController, animated: true, completion: nil)
     }
     
     //for creating the button on the pin mark

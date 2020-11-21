@@ -21,6 +21,8 @@ class LoginVC: UIViewController {
     var dbController: FirebaseController!
     var handle: AuthStateDidChangeListenerHandle?
     
+    @IBAction func unwind(_ sender: UIStoryboardSegue) {}
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -32,7 +34,6 @@ class LoginVC: UIViewController {
         loginWithGoogleButton.style = .wide
     }
     
-    //@IBAction func unwind(_ sender: UIStoryboardSegue) {}
     @IBAction func login(_ sender: Any) {
         guard let email = emailTextField.text else {return}
         guard let password = pwTextField.text else {return}

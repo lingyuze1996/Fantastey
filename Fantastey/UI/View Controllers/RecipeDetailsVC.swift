@@ -162,7 +162,7 @@ class RecipeDetailsVC: UITableViewController {
         //let indexPath = tableView.indexPathForSelectedRow() //optional, to get from any UIButton for example
         
         let selectedCell = tableView.cellForRow(at: indexPath)! as UITableViewCell
-        guard let searchTextArray = selectedCell.textLabel?.text!.split{$0 == " "}.map(String.init)else { return }
+        guard let searchTextArray = selectedCell.textLabel?.text!.split{$0 == " "}.map(String.init) else { return }
         
         var fullSearchText:String = ""
         
@@ -171,7 +171,7 @@ class RecipeDetailsVC: UITableViewController {
                 fullSearchText += "%20"
                 fullSearchText += singleSearchText
             }
-        }else{
+        } else {
             fullSearchText = searchTextArray.first!
         }
         

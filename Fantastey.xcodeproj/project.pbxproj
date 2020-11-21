@@ -27,6 +27,7 @@
 		DB5FEBBD256741D7008DF380 /* NewRecipeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5FEBBC256741D7008DF380 /* NewRecipeVC.swift */; };
 		DB5FEBC025674F3A008DF380 /* Map.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DB5FEBBF25674F3A008DF380 /* Map.storyboard */; };
 		DB68FE5A255A865600F0750F /* Swifter in Frameworks */ = {isa = PBXBuildFile; productRef = DB68FE59255A865600F0750F /* Swifter */; };
+		DB712E33256797D30010B0A1 /* RecipeTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB712E32256797D30010B0A1 /* RecipeTableCell.swift */; };
 		DB82B79D254067B8000B226C /* MyProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB82B79C254067B8000B226C /* MyProfileVC.swift */; };
 		DB9B3B1425503BB5001BC8BB /* RecipeResultsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9B3B1325503BB5001BC8BB /* RecipeResultsVC.swift */; };
 		DBA8AB6825513E1D00811AD9 /* RecipeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA8AB6725513E1D00811AD9 /* RecipeCell.swift */; };
@@ -40,6 +41,8 @@
 		DBD46D982564C08C009C598A /* FirebaseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD46D972564C08C009C598A /* FirebaseController.swift */; };
 		DBD46DA025655828009C598A /* AppUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD46D9F25655828009C598A /* AppUser.swift */; };
 		DBD9DBB925663A08003381E3 /* HomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD9DBB825663A08003381E3 /* HomeVC.swift */; };
+		DBDCBD242567AEDD002F5C69 /* MulticastDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBDCBD232567AEDD002F5C69 /* MulticastDelegate.swift */; };
+		DBDCBD2A2567DF17002F5C69 /* FirebaseListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBDCBD292567DF17002F5C69 /* FirebaseListener.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -64,6 +67,7 @@
 		DB5B2F24253BF83C00F38D30 /* RecipeDetailsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeDetailsVC.swift; sourceTree = "<group>"; };
 		DB5FEBBC256741D7008DF380 /* NewRecipeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewRecipeVC.swift; sourceTree = "<group>"; };
 		DB5FEBBF25674F3A008DF380 /* Map.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Map.storyboard; sourceTree = "<group>"; };
+		DB712E32256797D30010B0A1 /* RecipeTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeTableCell.swift; sourceTree = "<group>"; };
 		DB82B79C254067B8000B226C /* MyProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProfileVC.swift; sourceTree = "<group>"; };
 		DB9B3B1325503BB5001BC8BB /* RecipeResultsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeResultsVC.swift; sourceTree = "<group>"; };
 		DBA8AB6725513E1D00811AD9 /* RecipeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeCell.swift; sourceTree = "<group>"; };
@@ -79,6 +83,8 @@
 		DBD46D972564C08C009C598A /* FirebaseController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseController.swift; sourceTree = "<group>"; };
 		DBD46D9F25655828009C598A /* AppUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppUser.swift; sourceTree = "<group>"; };
 		DBD9DBB825663A08003381E3 /* HomeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeVC.swift; sourceTree = "<group>"; };
+		DBDCBD232567AEDD002F5C69 /* MulticastDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MulticastDelegate.swift; sourceTree = "<group>"; };
+		DBDCBD292567DF17002F5C69 /* FirebaseListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseListener.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -108,6 +114,7 @@
 			children = (
 				C8EEA80D2553955F007B2717 /* RecipeTitleCell.swift */,
 				C8EEA80E2553955F007B2717 /* RecipeImageCell.swift */,
+				DB712E32256797D30010B0A1 /* RecipeTableCell.swift */,
 			);
 			path = "Table View Cells";
 			sourceTree = "<group>";
@@ -222,7 +229,9 @@
 		DBD46D952564C00F009C598A /* Database */ = {
 			isa = PBXGroup;
 			children = (
+				DBDCBD232567AEDD002F5C69 /* MulticastDelegate.swift */,
 				DBD46D972564C08C009C598A /* FirebaseController.swift */,
+				DBDCBD292567DF17002F5C69 /* FirebaseListener.swift */,
 			);
 			path = Database;
 			sourceTree = "<group>";
@@ -390,6 +399,8 @@
 				DB0F64712540441000F0929A /* customButton.swift in Sources */,
 				C8EEA80725539505007B2717 /* Ingredient.swift in Sources */,
 				DB49EB2625407216008EEB2C /* RegisterVC.swift in Sources */,
+				DBDCBD2A2567DF17002F5C69 /* FirebaseListener.swift in Sources */,
+				DB712E33256797D30010B0A1 /* RecipeTableCell.swift in Sources */,
 				DBD46DA025655828009C598A /* AppUser.swift in Sources */,
 				DBA9F8BA253AF8B00024717F /* AppDelegate.swift in Sources */,
 				DBD9DBB925663A08003381E3 /* HomeVC.swift in Sources */,
@@ -405,6 +416,7 @@
 				DBD46D982564C08C009C598A /* FirebaseController.swift in Sources */,
 				C88EAF4A2552F3B900A98845 /* AboutVC.swift in Sources */,
 				DBA8AB7025518E9100811AD9 /* RecipeBasics.swift in Sources */,
+				DBDCBD242567AEDD002F5C69 /* MulticastDelegate.swift in Sources */,
 				DB4EB2B2253F10BC007D4D24 /* LoginVC.swift in Sources */,
 				DBA8AB6C25518E5200811AD9 /* Recipe.swift in Sources */,
 			);
@@ -561,15 +573,16 @@
 			baseConfigurationReference = BFFFED77162D8E72EEFB9D34 /* Pods-Fantastey.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 332PS72MQ4;
+				DEVELOPMENT_TEAM = SC4X683BNL;
 				INFOPLIST_FILE = Fantastey/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = ling.yuze.Fantastey;
+				PRODUCT_BUNDLE_IDENTIFIER = ling.yuze.Fanta;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
@@ -582,15 +595,16 @@
 			baseConfigurationReference = 92B1B6F804E75D6712F509B5 /* Pods-Fantastey.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 332PS72MQ4;
+				DEVELOPMENT_TEAM = SC4X683BNL;
 				INFOPLIST_FILE = Fantastey/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = ling.yuze.Fantastey;
+				PRODUCT_BUNDLE_IDENTIFIER = ling.yuze.Fanta;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
