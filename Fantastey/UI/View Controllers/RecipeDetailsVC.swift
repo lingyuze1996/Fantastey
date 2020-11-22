@@ -139,7 +139,7 @@ class RecipeDetailsVC: UITableViewController {
                     self.present(alertError, animated: true, completion: nil)
                     return
                 }
-                    
+                
                 let comment = "\(alert.textFields![0].text!)&By \(self.dbController.currentUser!.nickname)"
                 self.recipe?.comments?.append(comment)
                 self.tableView.reloadSections([self.SECTION_COMMENTS], with: .automatic)
@@ -215,319 +215,319 @@ class RecipeDetailsVC: UITableViewController {
         //for local notification
         let notificationType = "Hi~ Fantastey!"
         
-       
+        
         
         
         self.notifications.scheduleNotification(notificationType: notificationType, body: "You have been followed " + authorName + " for a week! Check out new recipes on Fantastey!" )
-        }
+    }
+
+
+func shareToTwitter() {
+    let swifter = Swifter(consumerKey: Secret.TWITTER_CONSUMER_KEY, consumerSecret: Secret.TWITTER_CONSUMER_SECRET)
+    
+    let url = URL(string: "Fantastey://")!
+    swifter.authorize(withCallback: url, presentingFrom: self, success: { (token, response) in
+        // Post tweet with recipe title and image
+        swifter.postTweet(status: "\(self.recipe!.title) from Fantastey! Come and have a look!", media: self.imageData!)
+        
+        // Success Message
+        let alert = UIAlertController(title: "Success", message: "Recipe is shared to Twitter successfully!", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        self.present(alert, animated: true, completion: nil)
+    }, failure: { (error) in
+        
+        // Error Message
+        let alert = UIAlertController(title: "Error", message: "Fail to share recipe to Twitter!", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        self.present(alert, animated: true, completion: nil)
+    })
+}
+
+// MARK: - Table view data source
+
+override func numberOfSections(in tableView: UITableView) -> Int {
+    return 5
+}
+
+override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    if section == SECTION_INGREDIENTS {
+        return recipe?.ingredients.count ?? 0
     }
     
-    func shareToTwitter() {
-        let swifter = Swifter(consumerKey: Secret.TWITTER_CONSUMER_KEY, consumerSecret: Secret.TWITTER_CONSUMER_SECRET)
-        
-        let url = URL(string: "Fantastey://")!
-        swifter.authorize(withCallback: url, presentingFrom: self, success: { (token, response) in
-            // Post tweet with recipe title and image
-            swifter.postTweet(status: "\(self.recipe!.title) from Fantastey! Come and have a look!", media: self.imageData!)
-            
-            // Success Message
-            let alert = UIAlertController(title: "Success", message: "Recipe is shared to Twitter successfully!", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-            self.present(alert, animated: true, completion: nil)
-        }, failure: { (error) in
-            
-            // Error Message
-            let alert = UIAlertController(title: "Error", message: "Fail to share recipe to Twitter!", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-            self.present(alert, animated: true, completion: nil)
-        })
+    if section == SECTION_INSTRUCTIONS {
+        return recipe?.steps.count ?? 0
     }
     
-    // MARK: - Table view data source
-    
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        return 5
+    if section == SECTION_COMMENTS {
+        return recipe?.comments?.count ?? 0
     }
     
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if section == SECTION_INGREDIENTS {
-            return recipe?.ingredients.count ?? 0
-        }
-        
-        if section == SECTION_INSTRUCTIONS {
-            return recipe?.steps.count ?? 0
-        }
-        
-        if section == SECTION_COMMENTS {
-            return recipe?.comments?.count ?? 0
-        }
-        
-        return 1
-    }
+    return 1
+}
+
+override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    // Section Title
+    if indexPath.section == SECTION_TITLE {
         
-        // Section Title
-        if indexPath.section == SECTION_TITLE {
+        let titleCell = tableView.dequeueReusableCell(withIdentifier: "recipeTitleCell", for: indexPath) as! RecipeTitleCell
+        
+        // From Spoonacular
+        if let basics = recipeBasics {
+            titleCell.authorLabel.text = "Author: Spoonacular"
+            titleCell.titleLabel.text = basics.title
+            titleCell.followButton.isHidden = true
+            //for local notification
+            authorName = "Spoonacular"
+        }
+        
+        // From Firebase
+        else {
+            let authorId = recipe!.authorId!
             
-            let titleCell = tableView.dequeueReusableCell(withIdentifier: "recipeTitleCell", for: indexPath) as! RecipeTitleCell
-            
-            // From Spoonacular
-            if let basics = recipeBasics {
-                titleCell.authorLabel.text = "Author: Spoonacular"
-                titleCell.titleLabel.text = basics.title
+            if authorId == Auth.auth().currentUser!.uid {
                 titleCell.followButton.isHidden = true
-                //for local notification
-                authorName = "Spoonacular"
+            } else {
+                dbController.retrieveCurrentUser(id: Auth.auth().currentUser!.uid)
+                
+                if !dbController.currentUser!.followings.contains(authorId) {
+                    titleCell.followButton.addTarget(self, action: #selector(self.followAuthor(_:)), for: .touchUpInside)
+                } else {
+                    titleCell.followButton.isEnabled = false
+                    titleCell.followButton.backgroundColor = UIColor.systemGray5
+                }
             }
             
-            // From Firebase
-            else {
-                let authorId = recipe!.authorId!
-                
-                if authorId == Auth.auth().currentUser!.uid {
-                    titleCell.followButton.isHidden = true
-                } else {
-                    dbController.retrieveCurrentUser(id: Auth.auth().currentUser!.uid)
-                    
-                    if !dbController.currentUser!.followings.contains(authorId) {
-                        titleCell.followButton.addTarget(self, action: #selector(self.followAuthor(_:)), for: .touchUpInside)
-                    } else {
-                        titleCell.followButton.isEnabled = false
-                        titleCell.followButton.backgroundColor = UIColor.systemGray5
-                    }
-                }
-                
-                Firestore.firestore().collection("users").document(authorId).getDocument { (document, error) in
-                    if let document = document {
-                        if document.exists {
-                            if let nickname = document.get("nickname") as? String {
-                                titleCell.authorLabel.text = "Author: \(nickname)"
-                                self.authorName = nickname
-                            }
+            Firestore.firestore().collection("users").document(authorId).getDocument { (document, error) in
+                if let document = document {
+                    if document.exists {
+                        if let nickname = document.get("nickname") as? String {
+                            titleCell.authorLabel.text = "Author: \(nickname)"
+                            self.authorName = nickname
                         }
                     }
                 }
-                
-                
-                titleCell.titleLabel.text = recipe?.title
             }
             
-            return titleCell
+            
+            titleCell.titleLabel.text = recipe?.title
         }
         
-        // Section Image
-        if indexPath.section == SECTION_IMAGE {
-            let imageCell = tableView.dequeueReusableCell(withIdentifier: "recipeImageCell", for: indexPath) as! RecipeImageCell
-            
-            // From Spoonacular
-            if let imageURL = recipeBasics?.imageURL {
-                let jsonURL = URL(string: imageURL.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!)
-                let task = URLSession.shared.dataTask(with: jsonURL!) { (data, response, error) in
-                    if let error = error {
-                        print(error)
-                    } else {
-                        self.imageData = data
-                        DispatchQueue.main.async {
-                            imageCell.recipeImageView.image = UIImage(data: data!)
-                        }
-                    }
-                }
-                
-                task.resume()
-            }
-            
-            // From Firebase
-            else {
-                if let imageURL = recipe?.imageURL {
-                    let storageRef = Storage.storage().reference().child("images/" + imageURL)
-                    storageRef.getData(maxSize: 5 * 1024 * 1024) { (data, error) in
-                        if let err = error {
-                            print(err)
-                            return
-                        }
-                        
-                        self.imageData = data
+        return titleCell
+    }
+    
+    // Section Image
+    if indexPath.section == SECTION_IMAGE {
+        let imageCell = tableView.dequeueReusableCell(withIdentifier: "recipeImageCell", for: indexPath) as! RecipeImageCell
+        
+        // From Spoonacular
+        if let imageURL = recipeBasics?.imageURL {
+            let jsonURL = URL(string: imageURL.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!)
+            let task = URLSession.shared.dataTask(with: jsonURL!) { (data, response, error) in
+                if let error = error {
+                    print(error)
+                } else {
+                    self.imageData = data
+                    DispatchQueue.main.async {
                         imageCell.recipeImageView.image = UIImage(data: data!)
                     }
                 }
             }
             
-            return imageCell
+            task.resume()
         }
         
-        // Section Ingredients
-        if indexPath.section == SECTION_INGREDIENTS {
-            let ingredientCell = tableView.dequeueReusableCell(withIdentifier: "recipeIngredientCell", for: indexPath)
-            let ingredient = recipe?.ingredients[indexPath.row]
-            ingredientCell.textLabel?.text = ingredient?.name
-            ingredientCell.detailTextLabel?.text = "\(ingredient!.value) " + ingredient!.unit
-            
-            return ingredientCell
-        }
-        
-        // Section Comments
-        if indexPath.section == SECTION_COMMENTS {
-            let commentCell = tableView.dequeueReusableCell(withIdentifier: "recipeCommentCell", for: indexPath)
-            if let comments = recipe?.comments {
-                let comment = comments[indexPath.row]
-                commentCell.textLabel?.numberOfLines = 0
-                commentCell.textLabel?.lineBreakMode = .byWordWrapping
-                
-                let contents = comment.split(separator: "&")
-                
-                commentCell.textLabel?.text = String(contents[0])
-                commentCell.detailTextLabel?.text = String(contents[1])
-            }
-            return commentCell
-        }
-        
-        // Section Instructions
-        let instructionCell = tableView.dequeueReusableCell(withIdentifier: "recipeInstructionCell", for: indexPath)
-        let step = recipe?.steps[indexPath.row]
-        instructionCell.textLabel?.numberOfLines = 0
-        instructionCell.textLabel?.lineBreakMode = .byWordWrapping
-        instructionCell.textLabel?.text = "Step " + "\(indexPath.row + 1):\n" + step!
-        
-        return instructionCell
-    }
-    
-    
-    
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        if section == SECTION_INGREDIENTS {
-            return "Ingredients"
-        }
-        
-        if section == SECTION_INSTRUCTIONS {
-            return "Instructions"
-        }
-        
-        if section == SECTION_COMMENTS && recipeBasics == nil {
-            return "Comments"
-        }
-        
-        return nil
-    }
-    
-    
-    override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
-        if section == SECTION_COMMENTS && recipeBasics == nil {
-            return "Total Comments: \(recipe!.comments!.count)"
-        }
-        
-        return nil
-    }
-    
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-        tableView.deselectRow(at: indexPath, animated: true)
-        
-        guard indexPath.section == SECTION_INGREDIENTS else { return }
-        
-        let ingredient = recipe!.ingredients[indexPath.row]
-        let searchText = ingredient.name
-        
-        let urlString = "https://www.woolworths.com.au/shop/search/products?searchTerm=" + searchText
-        
-        guard let url = URL(string: urlString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!) else { return }
-        UIApplication.shared.open(url)
-    }
-    
-    
-    // MARK: - Navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
-    }
-    
-    // MARK: - Recipe Ingredients Retrieval From Spooncular
-    private func retrieveIngredients(id: Int) {
-        // Set query URL for recipe search from spoonacular API
-        var queryURL = "https://api.spoonacular.com/recipes/"
-        queryURL += "\(id)/"
-        queryURL += "ingredientWidget.json?"
-        queryURL += "apiKey=" + Secret.SPOONACULAR_API_KEY
-        
-        let jsonURL = URL(string: queryURL.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!)
-        
-        let task = URLSession.shared.dataTask(with: jsonURL!) { (data, response, error) in
-            /*
-             DispatchQueue.main.async {
-             self.indicator.stopAnimating()
-             self.indicator.hidesWhenStopped = true
-             }*/
-            
-            if let error = error {
-                print(error)
-                return
-            }
-            
-            
-            do {
-                let decoder = JSONDecoder()
-                let ingredientsVolume = try decoder.decode(IngredientsVolume.self, from: data!)
-                let ingredients = ingredientsVolume.ingredients
-                self.recipe?.ingredients.append(contentsOf: ingredients)
-            } catch let err {
-                print(err)
-            }
-            
-            DispatchQueue.main.async {
-                self.tableView.reloadSections([self.SECTION_INSTRUCTIONS, self.SECTION_INGREDIENTS], with: .automatic)
-                //self.tableView.reloadData()
+        // From Firebase
+        else {
+            if let imageURL = recipe?.imageURL {
+                let storageRef = Storage.storage().reference().child("images/" + imageURL)
+                storageRef.getData(maxSize: 5 * 1024 * 1024) { (data, error) in
+                    if let err = error {
+                        print(err)
+                        return
+                    }
+                    
+                    self.imageData = data
+                    imageCell.recipeImageView.image = UIImage(data: data!)
+                }
             }
         }
         
-        task.resume()
+        return imageCell
     }
     
-    // MARK: - Recipe Instructions Retrieval From Spoonacular
-    private func retrieveInstructions(id: Int) {
-        // Set query URL for recipe search from spoonacular API        
-        var queryURL = "https://api.spoonacular.com/recipes/"
-        queryURL += "\(id)/"
-        queryURL += "analyzedInstructions?"
-        queryURL += "apiKey=" + Secret.SPOONACULAR_API_KEY
+    // Section Ingredients
+    if indexPath.section == SECTION_INGREDIENTS {
+        let ingredientCell = tableView.dequeueReusableCell(withIdentifier: "recipeIngredientCell", for: indexPath)
+        let ingredient = recipe?.ingredients[indexPath.row]
+        ingredientCell.textLabel?.text = ingredient?.name
+        ingredientCell.detailTextLabel?.text = "\(ingredient!.value) " + ingredient!.unit
         
-        let jsonURL = URL(string: queryURL.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!)
+        return ingredientCell
+    }
+    
+    // Section Comments
+    if indexPath.section == SECTION_COMMENTS {
+        let commentCell = tableView.dequeueReusableCell(withIdentifier: "recipeCommentCell", for: indexPath)
+        if let comments = recipe?.comments {
+            let comment = comments[indexPath.row]
+            commentCell.textLabel?.numberOfLines = 0
+            commentCell.textLabel?.lineBreakMode = .byWordWrapping
+            
+            let contents = comment.split(separator: "&")
+            
+            commentCell.textLabel?.text = String(contents[0])
+            commentCell.detailTextLabel?.text = String(contents[1])
+        }
+        return commentCell
+    }
+    
+    // Section Instructions
+    let instructionCell = tableView.dequeueReusableCell(withIdentifier: "recipeInstructionCell", for: indexPath)
+    let step = recipe?.steps[indexPath.row]
+    instructionCell.textLabel?.numberOfLines = 0
+    instructionCell.textLabel?.lineBreakMode = .byWordWrapping
+    instructionCell.textLabel?.text = "Step " + "\(indexPath.row + 1):\n" + step!
+    
+    return instructionCell
+}
+
+
+
+// Override to support conditional editing of the table view.
+override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    if section == SECTION_INGREDIENTS {
+        return "Ingredients"
+    }
+    
+    if section == SECTION_INSTRUCTIONS {
+        return "Instructions"
+    }
+    
+    if section == SECTION_COMMENTS && recipeBasics == nil {
+        return "Comments"
+    }
+    
+    return nil
+}
+
+
+override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
+    if section == SECTION_COMMENTS && recipeBasics == nil {
+        return "Total Comments: \(recipe!.comments!.count)"
+    }
+    
+    return nil
+}
+
+override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    
+    tableView.deselectRow(at: indexPath, animated: true)
+    
+    guard indexPath.section == SECTION_INGREDIENTS else { return }
+    
+    let ingredient = recipe!.ingredients[indexPath.row]
+    let searchText = ingredient.name
+    
+    let urlString = "https://www.woolworths.com.au/shop/search/products?searchTerm=" + searchText
+    
+    guard let url = URL(string: urlString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!) else { return }
+    UIApplication.shared.open(url)
+}
+
+
+// MARK: - Navigation
+override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    
+}
+
+// MARK: - Recipe Ingredients Retrieval From Spooncular
+private func retrieveIngredients(id: Int) {
+    // Set query URL for recipe search from spoonacular API
+    var queryURL = "https://api.spoonacular.com/recipes/"
+    queryURL += "\(id)/"
+    queryURL += "ingredientWidget.json?"
+    queryURL += "apiKey=" + Secret.SPOONACULAR_API_KEY
+    
+    let jsonURL = URL(string: queryURL.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!)
+    
+    let task = URLSession.shared.dataTask(with: jsonURL!) { (data, response, error) in
+        /*
+         DispatchQueue.main.async {
+         self.indicator.stopAnimating()
+         self.indicator.hidesWhenStopped = true
+         }*/
         
-        let task = URLSession.shared.dataTask(with: jsonURL!) { (data, response, error) in
-            /*
-             DispatchQueue.main.async {
-             self.indicator.stopAnimating()
-             self.indicator.hidesWhenStopped = true
-             }*/
-            
-            if let error = error {
-                print(error)
-                return
-            }
-            
-            let jsonRoot = try? JSONSerialization.jsonObject(with: data!, options: [])
-            if let root = jsonRoot as? [Any] {
-                if root.count > 0, let rootDictionary = root[0] as? [String: Any] {
-                    if let steps = rootDictionary["steps"] as? [Any], steps.count > 0 {
-                        for step in steps {
-                            if let step = step as? [String: Any] {
-                                if let stepString = step["step"] as? String {
-                                    self.recipe?.steps.append(stepString)
-                                }
+        if let error = error {
+            print(error)
+            return
+        }
+        
+        
+        do {
+            let decoder = JSONDecoder()
+            let ingredientsVolume = try decoder.decode(IngredientsVolume.self, from: data!)
+            let ingredients = ingredientsVolume.ingredients
+            self.recipe?.ingredients.append(contentsOf: ingredients)
+        } catch let err {
+            print(err)
+        }
+        
+        DispatchQueue.main.async {
+            self.tableView.reloadSections([self.SECTION_INSTRUCTIONS, self.SECTION_INGREDIENTS], with: .automatic)
+            //self.tableView.reloadData()
+        }
+    }
+    
+    task.resume()
+}
+
+// MARK: - Recipe Instructions Retrieval From Spoonacular
+private func retrieveInstructions(id: Int) {
+    // Set query URL for recipe search from spoonacular API
+    var queryURL = "https://api.spoonacular.com/recipes/"
+    queryURL += "\(id)/"
+    queryURL += "analyzedInstructions?"
+    queryURL += "apiKey=" + Secret.SPOONACULAR_API_KEY
+    
+    let jsonURL = URL(string: queryURL.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!)
+    
+    let task = URLSession.shared.dataTask(with: jsonURL!) { (data, response, error) in
+        /*
+         DispatchQueue.main.async {
+         self.indicator.stopAnimating()
+         self.indicator.hidesWhenStopped = true
+         }*/
+        
+        if let error = error {
+            print(error)
+            return
+        }
+        
+        let jsonRoot = try? JSONSerialization.jsonObject(with: data!, options: [])
+        if let root = jsonRoot as? [Any] {
+            if root.count > 0, let rootDictionary = root[0] as? [String: Any] {
+                if let steps = rootDictionary["steps"] as? [Any], steps.count > 0 {
+                    for step in steps {
+                        if let step = step as? [String: Any] {
+                            if let stepString = step["step"] as? String {
+                                self.recipe?.steps.append(stepString)
                             }
                         }
                     }
                 }
             }
-            
-            DispatchQueue.main.async {
-                //self.tableView.reloadData()
-                self.tableView.reloadSections([self.SECTION_INGREDIENTS, self.SECTION_INSTRUCTIONS], with: .automatic)
-            }
         }
         
-        task.resume()
+        DispatchQueue.main.async {
+            //self.tableView.reloadData()
+            self.tableView.reloadSections([self.SECTION_INGREDIENTS, self.SECTION_INSTRUCTIONS], with: .automatic)
+        }
     }
     
-    
-    
+    task.resume()
+}
+
+
+
 }
