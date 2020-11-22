@@ -104,11 +104,17 @@ class RecipeDetailsVC: UITableViewController {
             alert.addAction(UIAlertAction(title: "No", style: .default, handler: nil))
             alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (action) in
                 
-                self.dbController.usersCollection.document(Auth.auth().currentUser!.uid).updateData(["favourites": FieldValue.arrayUnion([self.recipe!.id!])])
+                self.dbController.usersCollection.document(Auth.auth().currentUser!.uid).updateData(["favourites": FieldValue.arrayUnion([self.recipe!.id!])]) { error in
+                    if let err = error {
+                        print(err)
+                        return
+                    }
+                    
+                    let alertSuccess = UIAlertController(title: "Success", message: "Recipe Added to Favourites!", preferredStyle: .alert)
+                    alertSuccess.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                    self.present(alertSuccess, animated: true, completion: nil)
+                }
                 
-                let alertSuccess = UIAlertController(title: "Success", message: "Recipe Added to Favourites!", preferredStyle: .alert)
-                alertSuccess.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-                self.present(alertSuccess, animated: true, completion: nil)
             }))
             
             self.present(alert, animated: true, completion: nil)

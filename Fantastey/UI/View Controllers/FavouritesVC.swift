@@ -1,112 +1,97 @@
 //
-//  HomeVC.swift
+//  FavouritesVC.swift
 //  Fantastey
 //
-//  Created by Yuze Ling on 19/11/20.
+//  Created by Yuze Ling on 22/11/20.
 //  Copyright © 2020 Yuze Ling. All rights reserved.
 //
 
-import UIKit
 import FirebaseAuth
+import FirebaseFirestore
+import UIKit
 
-class HomeVC: UIViewController {
+class FavouritesVC: UIViewController {
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var addRecipeButton: UIBarButtonItem!
-    
     var dbController: FirebaseController!
-    
     var recipes = [Recipe]()
-    
-    var authorId: String!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        dbController = (UIApplication.shared.delegate as! AppDelegate).dbController
 
+        dbController = (UIApplication.shared.delegate as! AppDelegate).dbController
+        
         tableView.dataSource = self
         tableView.delegate = self
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        if authorId == nil {
-            authorId = Auth.auth().currentUser!.uid
-        } else {
-            if authorId != Auth.auth().currentUser!.uid {
-                
-                addRecipeButton.isEnabled = false
-                addRecipeButton.tintColor = UIColor.clear
-                
-                dbController.usersCollection.document(authorId).getDocument { (document, error) in
-                    if let document = document, document.exists {
-                        let nickname = document.get("nickname") as! String
-                        self.navigationItem.title = "\(nickname)'s Home"
-                    }
-                }
-            }
-        }
+        let id = Auth.auth().currentUser!.uid
         
-        dbController.recipesCollection.whereField("authorId", isEqualTo: authorId!).getDocuments() { (snapshot, error) in
-            if let err = error {
-                print(err)
-                return
-            }
-            
+        dbController.usersCollection.document(id).getDocument { (snapshot, error) in
             if let snapshot = snapshot {
-            
-                self.recipes.removeAll()
-                
-                for document in snapshot.documents {
-                    let id = document.documentID
-                    let title = document.get("title") as! String
-                    let difficulty = document.get("difficulty") as! String
-                    let imageURL = document.get("imageURL") as! String
-                    let steps = document.get("steps") as! [String]
-                    let ingredients = document.get("ingredients") as! [[String: Any]]
-                    let author = document.get("authorId") as! String
-                    let comments = document.get("comments") as! [String]
+                if snapshot.exists {
+                    let favourites = snapshot.get("favourites") as! [String]
+                    self.recipes.removeAll()
                     
-                    let recipe = Recipe(id: id, title: title, imageURL: imageURL, difficulty: difficulty)
-                    recipe.authorId = author
-                    
-                    for comment in comments {
-                        recipe.comments?.append(comment)
+                    for recipeId in favourites {
+                        self.dbController.recipesCollection.document(recipeId).getDocument { (document, error) in
+                            if let document = document {
+                                if document.exists {
+                                    let id = document.documentID
+                                    let title = document.get("title") as! String
+                                    let difficulty = document.get("difficulty") as! String
+                                    let imageURL = document.get("imageURL") as! String
+                                    let steps = document.get("steps") as! [String]
+                                    let ingredients = document.get("ingredients") as! [[String: Any]]
+                                    let author = document.get("authorId") as! String
+                                    let comments = document.get("comments") as! [String]
+                                    
+                                    let recipe = Recipe(id: id, title: title, imageURL: imageURL, difficulty: difficulty)
+                                    recipe.authorId = author
+                                    
+                                    for comment in comments {
+                                        recipe.comments?.append(comment)
+                                    }
+                                    
+                                    for step in steps {
+                                        recipe.steps.append(step)
+                                    }
+                                    
+                                    for ingredient in ingredients {
+                                        let name = ingredient["name"] as! String
+                                        let value = ingredient["value"] as! Float
+                                        let unit = ingredient["unit"] as! String
+                                        
+                                        recipe.ingredients.append(Ingredient(name: name, value: value, unit: unit))
+                                    }
+                                    
+                                    self.recipes.append(recipe)
+                                    self.tableView.reloadData()
+                                }
+                            }
+                        }
                     }
-                    
-                    for step in steps {
-                        recipe.steps.append(step)
-                    }
-                    
-                    for ingredient in ingredients {
-                        let name = ingredient["name"] as! String
-                        let value = ingredient["value"] as! Float
-                        let unit = ingredient["unit"] as! String
-                        
-                        recipe.ingredients.append(Ingredient(name: name, value: value, unit: unit))
-                    }
-                    
-                    self.recipes.append(recipe)
                 }
-                
-                self.tableView.reloadData()
             }
         }
     }
     
+
+    
     // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "myRecipeDetailsSegue" {
+        if segue.identifier == "favouriteRecipeDetailsSegue" {
             let destinationVC = segue.destination as! RecipeDetailsVC
             destinationVC.recipe = sender as? Recipe
         }
     }
+    
+
 }
 
-// MARK: - Table View Data Source & Delegate Functions
-extension HomeVC: UITableViewDelegate, UITableViewDataSource {
+extension FavouritesVC: UITableViewDataSource, UITableViewDelegate {
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
@@ -137,7 +122,7 @@ extension HomeVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        performSegue(withIdentifier: "myRecipeDetailsSegue", sender: recipes[indexPath.row])
+        performSegue(withIdentifier: "favouriteRecipeDetailsSegue", sender: recipes[indexPath.row])
     }
     
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
@@ -153,7 +138,7 @@ extension HomeVC: UITableViewDelegate, UITableViewDataSource {
                 // Delete the row from the data source
                 let recipe = self.recipes[indexPath.row]
                 
-                self.dbController.recipesCollection.document(recipe.id!).delete() { error in
+                self.dbController.usersCollection.document(Auth.auth().currentUser!.uid).updateData(["favourites" : FieldValue.arrayRemove([recipe.id!])]) { error in
                     if let err = error {
                         print(err)
                         let alertFail = UIAlertController(title: "Error", message: "Fail to Delete Recipe!", preferredStyle: .alert)
@@ -165,7 +150,7 @@ extension HomeVC: UITableViewDelegate, UITableViewDataSource {
                     self.recipes.remove(at: indexPath.row)
                     tableView.deleteRows(at: [indexPath], with: .fade)
                     
-                    let alertSuccess = UIAlertController(title: "Success", message: "Recipe Deleted Successfully!", preferredStyle: .alert)
+                    let alertSuccess = UIAlertController(title: "Success", message: "Recipe Deleted From Favourites!", preferredStyle: .alert)
                     alertSuccess.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
                     self.present(alertSuccess, animated: true, completion: nil)
                 }
@@ -175,5 +160,6 @@ extension HomeVC: UITableViewDelegate, UITableViewDataSource {
             
         }
     }
+    
     
 }

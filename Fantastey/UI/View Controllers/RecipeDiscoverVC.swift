@@ -155,6 +155,10 @@ extension RecipeDiscoverVC: UITableViewDelegate, UITableViewDataSource {
         return "Recipes Found"
     }
     
+    func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
+        return "Total Recipes: \(recipes.count)"
+    }
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         performSegue(withIdentifier: "discoverDetailsSegue", sender: recipes[indexPath.row])
