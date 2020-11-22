@@ -230,7 +230,7 @@ class RecipeDetailsVC: UITableViewController {
         // Add local notification
         let notificationType = "Hi~ Fantastey!"
         
-        self.notifications.scheduleNotification(notificationType: notificationType, body: "You have been followed " + authorName + " for a week! Check out new recipes on Fantastey!" )
+        self.notifications.scheduleNotification(notificationType: notificationType, body: "You have been following " + authorName + " for a week! Check out new recipes on Fantastey!" )
     }
     
     

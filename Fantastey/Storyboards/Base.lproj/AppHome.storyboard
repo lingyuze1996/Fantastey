@@ -699,6 +699,7 @@
                         <outlet property="addRecipeButton" destination="QHX-UI-aht" id="jYe-ep-tVP"/>
                         <outlet property="tableView" destination="w5t-Pe-Fz3" id="zVc-EQ-NdA"/>
                         <segue destination="VIN-XZ-F4z" kind="show" identifier="myRecipeDetailsSegue" id="sCY-M3-EuN"/>
+                        <segue destination="wo1-I7-z8c" kind="show" identifier="editRecipeSegue" id="NWI-l3-dI8"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BS8-XG-RVX" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -1207,7 +1208,8 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="tmt-X1-Hqy"/>
-        <segue reference="0KV-cF-iP8"/>
+        <segue reference="NWI-l3-dI8"/>
+        <segue reference="sCY-M3-EuN"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="cube" catalog="system" width="128" height="124"/>
