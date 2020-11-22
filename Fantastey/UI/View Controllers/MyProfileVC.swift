@@ -91,6 +91,26 @@ class MyProfileVC: UIViewController, UITableViewDelegate, UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return "My Following Authors"
-    }    
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        
+        let authorId = followings[indexPath.row]
+        
+        performSegue(withIdentifier: "visitAuthorSegue", sender: authorId)
+    }
+    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    // MARK: - Navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "visitAuthorSegue" {
+            let destinationVC = segue.destination as! HomeVC
+            destinationVC.authorId = sender as? String
+        }
+    }
 
 }

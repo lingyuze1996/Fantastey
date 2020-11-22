@@ -15,7 +15,8 @@ class RecipeTitleCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        followButton.setTitle("Followed", for: .disabled)
+        followButton.setTitleColor(UIColor.systemBlue, for: .disabled)
     }
     @IBAction func followAuthor(_ sender: Any) {
     }

@@ -135,13 +135,13 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Author: Unknown" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xe0-qf-h3m">
-                                            <rect key="frame" x="20" y="60.5" width="255" height="30"/>
+                                            <rect key="frame" x="20" y="60.5" width="225" height="30"/>
                                             <fontDescription key="fontDescription" type="italicSystem" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pay-tH-hcO">
-                                            <rect key="frame" x="295" y="60.5" width="60" height="30"/>
+                                            <rect key="frame" x="265" y="60.5" width="90" height="30"/>
                                             <color key="backgroundColor" systemColor="systemTealColor"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                             <state key="normal" title="Follow">
@@ -154,7 +154,7 @@
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="otl-a3-kPV" firstAttribute="leading" secondItem="Xe0-qf-h3m" secondAttribute="leading" constant="40" id="4Z0-By-G9D"/>
-                                        <constraint firstAttribute="trailing" secondItem="Xe0-qf-h3m" secondAttribute="trailing" constant="100" id="DsR-PB-NLA"/>
+                                        <constraint firstAttribute="trailing" secondItem="Xe0-qf-h3m" secondAttribute="trailing" constant="130" id="DsR-PB-NLA"/>
                                         <constraint firstItem="pay-tH-hcO" firstAttribute="trailing" secondItem="otl-a3-kPV" secondAttribute="trailing" constant="40" id="G4P-MR-dn5"/>
                                         <constraint firstItem="otl-a3-kPV" firstAttribute="top" secondItem="tkb-YO-fYa" secondAttribute="top" constant="16" id="euq-sn-PfJ"/>
                                         <constraint firstItem="pay-tH-hcO" firstAttribute="leading" secondItem="Xe0-qf-h3m" secondAttribute="trailing" constant="20" id="hSx-CS-vxw"/>
@@ -668,6 +668,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="addRecipeButton" destination="QHX-UI-aht" id="jYe-ep-tVP"/>
                         <outlet property="tableView" destination="w5t-Pe-Fz3" id="zVc-EQ-NdA"/>
                         <segue destination="VIN-XZ-F4z" kind="show" identifier="myRecipeDetailsSegue" id="sCY-M3-EuN"/>
                     </connections>
@@ -844,6 +845,7 @@
                         <outlet property="emailAccountLabel" destination="V8J-WF-IJD" id="j8X-UI-s40"/>
                         <outlet property="followingAuthorsTable" destination="5Ab-61-C0q" id="gAh-1g-2RC"/>
                         <outlet property="preferredNameLabel" destination="rQm-t4-47r" id="ZfX-m7-4Zv"/>
+                        <segue destination="iWO-bB-W39" kind="show" identifier="visitAuthorSegue" id="tmt-X1-Hqy"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rNC-E3-B4b" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -981,7 +983,8 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="M6u-A2-can"/>
+        <segue reference="tmt-X1-Hqy"/>
+        <segue reference="sCY-M3-EuN"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="cube" catalog="system" width="128" height="124"/>

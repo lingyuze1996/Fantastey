@@ -152,6 +152,11 @@ class RecipeDetailsVC: UITableViewController {
         let alert = UIAlertController(title: "Success", message: "Add to Following Authors Successfully!", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         self.present(alert, animated: true, completion: nil)
+        
+        if let button = sender as? UIButton {
+            button.isEnabled = false
+            button.backgroundColor = UIColor.systemGray5
+        }
     }
     
     func shareToTwitter() {
@@ -160,7 +165,7 @@ class RecipeDetailsVC: UITableViewController {
         let url = URL(string: "Fantastey://")!
         swifter.authorize(withCallback: url, presentingFrom: self, success: { (token, response) in
             // Post tweet with recipe title and image
-            swifter.postTweet(status: "\(self.recipe!.title) from Fantastey!\n", media: self.imageData!)
+            swifter.postTweet(status: "\(self.recipe!.title) from Fantastey! Come and have a look!", media: self.imageData!)
             
             // Success Message
             let alert = UIAlertController(title: "Success", message: "Recipe is shared to Twitter successfully!", preferredStyle: .alert)
@@ -214,7 +219,14 @@ class RecipeDetailsVC: UITableViewController {
                 if authorId == Auth.auth().currentUser!.uid {
                     titleCell.followButton.isHidden = true
                 } else {
-                    titleCell.followButton.addTarget(self, action: #selector(self.followAuthor(_:)), for: .touchUpInside)
+                    dbController.retrieveCurrentUser(id: Auth.auth().currentUser!.uid)
+                    
+                    if !dbController.currentUser!.followings.contains(authorId) {
+                        titleCell.followButton.addTarget(self, action: #selector(self.followAuthor(_:)), for: .touchUpInside)
+                    } else {
+                        titleCell.followButton.isEnabled = false
+                        titleCell.followButton.backgroundColor = UIColor.systemGray5
+                    }
                 }
                 
                 Firestore.firestore().collection("users").document(authorId).getDocument { (document, error) in

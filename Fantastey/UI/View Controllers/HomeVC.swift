@@ -10,13 +10,14 @@ import UIKit
 import FirebaseAuth
 
 class HomeVC: UIViewController {
-    
-    
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var addRecipeButton: UIBarButtonItem!
     
     var dbController: FirebaseController!
     
     var recipes = [Recipe]()
+    
+    var authorId: String!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,7 +31,22 @@ class HomeVC: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        dbController.recipesCollection.whereField("authorId", isEqualTo: Auth.auth().currentUser!.uid).getDocuments() { (snapshot, error) in
+        
+        if authorId == nil {
+            authorId = Auth.auth().currentUser!.uid
+        } else {
+            addRecipeButton.isEnabled = false
+            addRecipeButton.tintColor = UIColor.clear
+            
+            dbController.usersCollection.document(authorId).getDocument { (document, error) in
+                if let document = document, document.exists {
+                    let nickname = document.get("nickname") as! String
+                    self.navigationItem.title = "\(nickname)'s Home"
+                }
+            }
+        }
+        
+        dbController.recipesCollection.whereField("authorId", isEqualTo: authorId!).getDocuments() { (snapshot, error) in
             if let err = error {
                 print(err)
                 return
