@@ -10,7 +10,7 @@ import UIKit
 import FirebaseStorage
 import FirebaseAuth
 
-class NewRecipeVC: UIViewController {
+class NewRecipeVC: UIViewController,UITextFieldDelegate {
     @IBOutlet weak var titleTextField: UITextField!
     @IBOutlet weak var difficultySC: UISegmentedControl!
     
@@ -22,6 +22,8 @@ class NewRecipeVC: UIViewController {
     private final var SECTION_INSTRUCTIONS = 1
     
     var dbController: FirebaseController!
+    
+    
     
     var steps = [String]()
     var ingredients = [Ingredient]()
@@ -36,6 +38,9 @@ class NewRecipeVC: UIViewController {
         
         tableView.dataSource = self
         tableView.delegate = self
+        
+        //for dismiss keyborad- zoe
+        titleTextField.delegate = self
         
         dbController = (UIApplication.shared.delegate as! AppDelegate).dbController
     }
@@ -356,5 +361,11 @@ extension NewRecipeVC: UITableViewDelegate, UITableViewDataSource {
         }
         
         return "Total Instructions: \(steps.count)"
+    }
+    
+    //for dismiss keyboard. reference:tutorial
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
 }

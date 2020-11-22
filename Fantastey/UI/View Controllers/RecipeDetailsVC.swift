@@ -24,6 +24,10 @@ class RecipeDetailsVC: UITableViewController {
     
     var dbController: FirebaseController!
     
+    //for local notification
+    let notifications = Notifications()
+    var authorName:String = ""
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -72,7 +76,7 @@ class RecipeDetailsVC: UITableViewController {
                 }
                 
                 if alert.textFields![0].text!.count > 100  {
-                    msg += "- Comment shouldn't exceed 100 characters!"
+                    msg += "- Comment shouldn't xexceed 100 characters!"
                     valid = false
                 }
                 
@@ -152,6 +156,14 @@ class RecipeDetailsVC: UITableViewController {
         let alert = UIAlertController(title: "Success", message: "Add to Following Authors Successfully!", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         self.present(alert, animated: true, completion: nil)
+        
+        //for local notification
+        let notificationType = "Hi~ Fantastey!"
+        
+       
+        
+        
+        self.notifications.scheduleNotification(notificationType: notificationType, body: "You have been followed " + authorName + " for a week! Check out new recipes on Fantastey!" )
     }
     
     func shareToTwitter() {
@@ -205,6 +217,8 @@ class RecipeDetailsVC: UITableViewController {
                 titleCell.authorLabel.text = "Author: Spoonacular"
                 titleCell.titleLabel.text = basics.title
                 titleCell.followButton.isHidden = true
+                //for local notification
+                authorName = "Spoonacular"
             }
             
             // From Firebase
@@ -222,6 +236,7 @@ class RecipeDetailsVC: UITableViewController {
                         if document.exists {
                             if let nickname = document.get("nickname") as? String {
                                 titleCell.authorLabel.text = "Author: \(nickname)"
+                                self.authorName = nickname
                             }
                         }
                     }

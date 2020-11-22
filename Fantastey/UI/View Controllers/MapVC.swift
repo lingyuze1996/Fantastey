@@ -207,7 +207,7 @@ extension MapVC : MKMapViewDelegate {
     }
     
     func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl){
-        let theSelectedPinBefore = selectedPin
+        //let theSelectedPinBefore = selectedPin
         var theCoordinate:CLLocationCoordinate2D? = nil
         
         theCoordinate = view.annotation!.coordinate

@@ -11,10 +11,15 @@ import Firebase
 import GoogleSignIn
 import Swifter
 
+//reference:https://medium.com/quick-code/local-notifications-with-swift-4-b32e7ad93c2
+//import UserNotifications
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
     var dbController: FirebaseController!
-
+    
+    let notifications = Notifications()
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 
         FirebaseApp.configure()
@@ -22,6 +27,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
         
         GIDSignIn.sharedInstance()?.clientID = FirebaseApp.app()?.options.clientID
         GIDSignIn.sharedInstance()?.delegate = self
+        
+//        //for local notification -zoe
+//        let options: UNAuthorizationOptions = [.alert, .sound, .badge]
+//        notificationCenter.requestAuthorization(options: options) {
+//            (didAllow, error) in
+//            if !didAllow {
+//                print("User has declined notifications")
+//            }
+//        }
+        notifications.notificationCenter.delegate = notifications
+        notifications.notificationRequest()
+        
         return true
     }
     
@@ -61,6 +78,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
             self.dbController.retrieveCurrentUser(id: id)
         }
     }
-
+    
 }
 
+//for local notification -zoe
+//extension AppDelegate: UNUserNotificationCenterDelegate {
+//    
+//   
+//}

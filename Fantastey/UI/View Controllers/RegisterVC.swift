@@ -9,7 +9,7 @@
 import UIKit
 import FirebaseAuth
 
-class RegisterVC: UIViewController {//},UITextFieldDelegate  {
+class RegisterVC: UIViewController ,UITextFieldDelegate  {
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var pwTextField1: UITextField!
     @IBOutlet weak var pwTextField2: UITextField!
@@ -20,13 +20,13 @@ class RegisterVC: UIViewController {//},UITextFieldDelegate  {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //emailTextField.delegate = self
-        //pwTextField1.delegate = self
-        //pwTextField2.delegate = self
-        //nameTextField.delegate = self
+        emailTextField.delegate = self
+        pwTextField1.delegate = self
+        pwTextField2.delegate = self
+        nameTextField.delegate = self
         
         
-        //self.hideKeyboardWhenTappedAround()
+        self.hideKeyboardWhenTappedAround()
         
         dbController = (UIApplication.shared.delegate as! AppDelegate).dbController
     }
@@ -96,11 +96,11 @@ class RegisterVC: UIViewController {//},UITextFieldDelegate  {
         return true
     }
 
-/*
+
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
-    }*/
+    }
     
     //pop up the alert window
     private func popAlertWindow(_ title:String, _ message:String, _ returnToRootVC:Bool){
@@ -114,7 +114,7 @@ class RegisterVC: UIViewController {//},UITextFieldDelegate  {
     }
 }
 
-/*
+
 //https://stackoverflow.com/questions/24126678/close-ios-keyboard-by-touching-anywhere-using-swift
 extension UIViewController {
     func hideKeyboardWhenTappedAround() {
@@ -127,4 +127,4 @@ extension UIViewController {
         view.endEditing(true)
     }
 }
- */
+ 
