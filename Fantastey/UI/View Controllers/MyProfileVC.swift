@@ -37,6 +37,9 @@ class MyProfileVC: UIViewController, UITableViewDelegate, UITableViewDataSource{
         
         followingAuthorsTable.delegate = self
         followingAuthorsTable.dataSource = self
+        
+        followingAuthorsTable.layer.borderWidth = 1
+        followingAuthorsTable.layer.borderColor = UIColor.systemGray.cgColor
     }
     
     override func viewWillAppear(_ animated: Bool) {

@@ -19,6 +19,7 @@
 		C8EEA8102553955F007B2717 /* RecipeImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8EEA80E2553955F007B2717 /* RecipeImageCell.swift */; };
 		DB0971D3253BDFB60040748F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = DB0971D2253BDFB60040748F /* GoogleService-Info.plist */; };
 		DB0F64712540441000F0929A /* customButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0F64702540441000F0929A /* customButton.swift */; };
+		DB2BBF68256A348700FDEBB2 /* EditProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB2BBF67256A348700FDEBB2 /* EditProfileVC.swift */; };
 		DB49EB2625407216008EEB2C /* RegisterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB49EB2525407216008EEB2C /* RegisterVC.swift */; };
 		DB4EB2B2253F10BC007D4D24 /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB4EB2B1253F10BC007D4D24 /* LoginVC.swift */; };
 		DB4EB2B8253F285F007D4D24 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DB4EB2BA253F285F007D4D24 /* Main.storyboard */; };
@@ -63,6 +64,7 @@
 		C8EEA80E2553955F007B2717 /* RecipeImageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecipeImageCell.swift; sourceTree = "<group>"; };
 		DB0971D2253BDFB60040748F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		DB0F64702540441000F0929A /* customButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = customButton.swift; sourceTree = "<group>"; };
+		DB2BBF67256A348700FDEBB2 /* EditProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileVC.swift; sourceTree = "<group>"; };
 		DB49EB2525407216008EEB2C /* RegisterVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterVC.swift; sourceTree = "<group>"; };
 		DB4EB2B1253F10BC007D4D24 /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
 		DB4EB2B9253F285F007D4D24 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -171,6 +173,7 @@
 				C8BA951325679B60004FA0F3 /* LocationSearchTableVC.swift */,
 				DB91460E25690F7700E67B20 /* RecipeDiscoverVC.swift */,
 				DB86BD3D256A0EF400FEA001 /* FavouritesVC.swift */,
+				DB2BBF67256A348700FDEBB2 /* EditProfileVC.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -430,6 +433,7 @@
 				DB86BD3E256A0EF400FEA001 /* FavouritesVC.swift in Sources */,
 				DBDCBD242567AEDD002F5C69 /* MulticastDelegate.swift in Sources */,
 				DB4EB2B2253F10BC007D4D24 /* LoginVC.swift in Sources */,
+				DB2BBF68256A348700FDEBB2 /* EditProfileVC.swift in Sources */,
 				DBA8AB6C25518E5200811AD9 /* Recipe.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

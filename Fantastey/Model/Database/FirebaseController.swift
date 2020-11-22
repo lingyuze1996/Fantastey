@@ -69,8 +69,6 @@ class FirebaseController: NSObject {
             print(err)
         }
     }
-    
-    // Upload Recipe Image to Storage
-    
+       
 
 }
