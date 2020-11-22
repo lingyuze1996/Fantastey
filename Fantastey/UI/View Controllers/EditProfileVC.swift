@@ -33,6 +33,9 @@ class EditProfileVC: UIViewController {
         } else if dbController.currentUser?.cookingLevel == "Beginner" {
             levelSC.selectedSegmentIndex = 0
         }
+        
+        //to beautify the background - zoe
+        view.backgroundColor = UIColor(patternImage:UIImage(named:"fantasteyBackground.png")!)
     }
     
     @IBAction func changePassword(_ sender: Any) {

@@ -37,7 +37,7 @@ class RecipeResultsVC: UIViewController{
         
         performSearch(searchText: searchText)
         
-        //to beautify the background
+        //to beautify the background - zoe
         collectionView.backgroundColor = UIColor(patternImage:UIImage(named:"fantasteyBackground.png")!)
     }
     

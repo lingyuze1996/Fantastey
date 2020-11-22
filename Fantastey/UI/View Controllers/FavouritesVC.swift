@@ -22,6 +22,9 @@ class FavouritesVC: UIViewController {
         
         tableView.dataSource = self
         tableView.delegate = self
+        
+        //to beautify the background - zoe
+        view.backgroundColor = UIColor(patternImage:UIImage(named:"fantasteyBackground.png")!)
     }
     
     override func viewWillAppear(_ animated: Bool) {

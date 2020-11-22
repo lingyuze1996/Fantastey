@@ -37,6 +37,9 @@ class RecipeDiscoverVC: UIViewController {
         navigationItem.searchController = searchController
         navigationItem.hidesSearchBarWhenScrolling = false
         definesPresentationContext = true
+        
+        //to beautify the background - zoe
+        view.backgroundColor = UIColor(patternImage:UIImage(named:"fantasteyBackground.png")!)
     }
     
     override func viewWillAppear(_ animated: Bool) {

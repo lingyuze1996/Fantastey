@@ -40,6 +40,9 @@ class MyProfileVC: UIViewController, UITableViewDelegate, UITableViewDataSource{
         
         followingAuthorsTable.layer.borderWidth = 1
         followingAuthorsTable.layer.borderColor = UIColor.systemGray.cgColor
+        
+        //to beautify the background - zoe
+        view.backgroundColor = UIColor(patternImage:UIImage(named:"fantasteyBackground.png")!)
     }
     
     override func viewWillAppear(_ animated: Bool) {

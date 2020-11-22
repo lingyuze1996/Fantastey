@@ -46,6 +46,9 @@ class NewRecipeVC: UIViewController,UITextFieldDelegate {
         
         dbController = (UIApplication.shared.delegate as! AppDelegate).dbController
         
+        //to beautify the background - zoe
+        view.backgroundColor = UIColor(patternImage:UIImage(named:"fantasteyBackground.png")!)
+        
         // Editing
         if let recipe = recipe {
             navigationItem.title = "Edit Recipe"

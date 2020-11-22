@@ -2,7 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="11j-kO-Yb4">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17504.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -17,17 +17,17 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="4TA-ji-Q1W">
-                                <rect key="frame" x="30" y="280" width="354" height="34"/>
+                                <rect key="frame" x="30" y="260" width="354" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <textInputTraits key="textInputTraits" textContentType="email"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="kS7-c7-Voe">
-                                <rect key="frame" x="30" y="344" width="354" height="34"/>
+                                <rect key="frame" x="30" y="324" width="354" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <textInputTraits key="textInputTraits" secureTextEntry="YES" textContentType="password"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="u4x-0v-rW5" customClass="RoundButton" customModule="Fantastey" customModuleProvider="target">
-                                <rect key="frame" x="30" y="418" width="354" height="34"/>
+                                <rect key="frame" x="30" y="398" width="354" height="34"/>
                                 <color key="backgroundColor" systemColor="systemPinkColor"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                                 <state key="normal" title="Sign In">
@@ -44,29 +44,37 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Don't have an account?" textAlignment="natural" lineBreakMode="clip" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ay2-19-DnZ">
-                                <rect key="frame" x="91.5" y="533" width="161" height="30"/>
+                                <rect key="frame" x="91.5" y="513" width="161" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pxr-RE-QG2">
-                                <rect key="frame" x="260.5" y="533" width="52" height="30"/>
+                                <rect key="frame" x="260.5" y="513" width="52" height="30"/>
                                 <state key="normal" title="Sign up"/>
                                 <connections>
                                     <segue destination="V7b-kN-lf1" kind="show" identifier="registerSegue" id="Ypn-pm-Iw2"/>
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mkb-Dt-D5N" customClass="GIDSignInButton">
-                                <rect key="frame" x="30" y="472" width="354" height="41"/>
+                                <rect key="frame" x="30" y="452" width="354" height="41"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="fantastey" translatesAutoresizingMaskIntoConstraints="NO" id="P0q-aj-qCa">
+                                <rect key="frame" x="184.5" y="195" width="45" height="45"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="45" id="40F-6L-WVk"/>
+                                    <constraint firstAttribute="height" constant="45" id="rXE-Vl-p1C"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="ono-9W-FHc"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="P0q-aj-qCa" firstAttribute="centerX" secondItem="PbN-y2-vHQ" secondAttribute="centerX" id="2iB-Ru-WmL"/>
                             <constraint firstItem="u4x-0v-rW5" firstAttribute="top" secondItem="kS7-c7-Voe" secondAttribute="bottom" constant="40" id="3qF-4v-Mtl"/>
                             <constraint firstItem="ono-9W-FHc" firstAttribute="trailing" secondItem="u4x-0v-rW5" secondAttribute="trailing" constant="30" id="GAU-k8-wcV"/>
-                            <constraint firstItem="4TA-ji-Q1W" firstAttribute="top" secondItem="UqU-nr-WdF" secondAttribute="bottom" constant="100" id="Jt5-Vx-d8q"/>
+                            <constraint firstItem="P0q-aj-qCa" firstAttribute="top" secondItem="UqU-nr-WdF" secondAttribute="bottom" constant="15" id="HAg-gD-V0h"/>
                             <constraint firstItem="mkb-Dt-D5N" firstAttribute="trailing" secondItem="u4x-0v-rW5" secondAttribute="trailing" id="LAv-Jn-ckt"/>
                             <constraint firstItem="pxr-RE-QG2" firstAttribute="top" secondItem="ay2-19-DnZ" secondAttribute="top" id="N4R-Yx-c7b"/>
                             <constraint firstItem="mkb-Dt-D5N" firstAttribute="top" secondItem="u4x-0v-rW5" secondAttribute="bottom" constant="20" id="QbD-nP-p04"/>
@@ -76,6 +84,7 @@
                             <constraint firstItem="ono-9W-FHc" firstAttribute="trailing" secondItem="4TA-ji-Q1W" secondAttribute="trailing" constant="30" id="Wqu-9r-g9y"/>
                             <constraint firstItem="UqU-nr-WdF" firstAttribute="leading" secondItem="ono-9W-FHc" secondAttribute="leading" constant="20" id="Zfv-dD-xjN"/>
                             <constraint firstItem="UqU-nr-WdF" firstAttribute="top" secondItem="ono-9W-FHc" secondAttribute="top" constant="100" id="bLS-vM-ySD"/>
+                            <constraint firstItem="4TA-ji-Q1W" firstAttribute="top" secondItem="P0q-aj-qCa" secondAttribute="bottom" constant="20" id="diD-uB-gdE"/>
                             <constraint firstItem="kS7-c7-Voe" firstAttribute="top" secondItem="4TA-ji-Q1W" secondAttribute="bottom" constant="30" id="eBQ-WA-XBH"/>
                             <constraint firstItem="ay2-19-DnZ" firstAttribute="centerX" secondItem="PbN-y2-vHQ" secondAttribute="centerX" constant="-35" id="iKE-7a-ZGU"/>
                             <constraint firstItem="mkb-Dt-D5N" firstAttribute="leading" secondItem="u4x-0v-rW5" secondAttribute="leading" id="imk-jV-2D5"/>
@@ -97,7 +106,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5MO-yX-Oik" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-6045" y="-1802"/>
+            <point key="canvasLocation" x="-6046.376811594203" y="-1802.0089285714284"/>
         </scene>
         <!--AppHome-->
         <scene sceneID="p98-7g-PG8">
@@ -272,6 +281,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="fantastey" width="40" height="40"/>
         <systemColor name="linkColor">
             <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>

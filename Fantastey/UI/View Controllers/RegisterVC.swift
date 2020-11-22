@@ -29,6 +29,9 @@ class RegisterVC: UIViewController ,UITextFieldDelegate  {
         self.hideKeyboardWhenTappedAround()
         
         dbController = (UIApplication.shared.delegate as! AppDelegate).dbController
+        
+        //to beautify the background - zoe
+        view.backgroundColor = UIColor(patternImage:UIImage(named:"fantasteyBackground.png")!)
     }
     
 

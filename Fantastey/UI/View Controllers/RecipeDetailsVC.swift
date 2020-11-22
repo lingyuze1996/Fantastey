@@ -44,6 +44,9 @@ class RecipeDetailsVC: UITableViewController {
             retrieveIngredients(id: recipeId)
             retrieveInstructions(id: recipeId)
         }
+        
+        //to beautify the background - zoe
+        view.backgroundColor = UIColor(patternImage:UIImage(named:"fantasteyBackground.png")!)
     }
     
     override func viewWillAppear(_ animated: Bool) {

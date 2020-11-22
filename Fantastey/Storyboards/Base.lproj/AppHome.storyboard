@@ -457,7 +457,7 @@
                     <tabBar key="tabBar" contentMode="scaleToFill" id="W28-zg-YXA">
                         <rect key="frame" x="0.0" y="975" width="768" height="49"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="selectedImageTintColor" systemColor="linkColor"/>
                     </tabBar>
                     <connections>
                         <segue destination="v0x-5j-oQc" kind="relationship" relationship="viewControllers" id="u7Y-xg-7CH"/>
@@ -1215,9 +1215,9 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="tmt-X1-Hqy"/>
+        <segue reference="csA-Tm-XLq"/>
         <segue reference="NWI-l3-dI8"/>
-        <segue reference="sCY-M3-EuN"/>
+        <segue reference="M6u-A2-can"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="cube" catalog="system" width="128" height="124"/>

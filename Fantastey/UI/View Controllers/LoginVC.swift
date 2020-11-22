@@ -32,6 +32,10 @@ class LoginVC: UIViewController {
         
         loginWithGoogleButton.colorScheme = .dark
         loginWithGoogleButton.style = .wide
+        
+        //change navigation bar color - zoe
+//        guard navigationController != nil else{return}
+//        navigationController!.navigationBar.barTintColor = UIColor.yellow
     }
     
     @IBAction func login(_ sender: Any) {
