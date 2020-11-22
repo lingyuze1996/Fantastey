@@ -37,6 +37,14 @@ class Recipe: NSObject, Codable {
         self.comments = []
     }
     
+    func setTitle(title: String) {
+        self.title = title
+    }
+    
+    func setImageURL(url: String) {
+        imageURL = url
+    }
+    
     func setDifficulty(difficulty: String) {
         self.difficulty = difficulty
     }

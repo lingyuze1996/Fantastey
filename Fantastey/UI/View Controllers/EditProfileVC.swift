@@ -7,18 +7,32 @@
 //
 
 import UIKit
+import FirebaseAuth
+import FirebaseFirestore
 
 class EditProfileVC: UIViewController {
     @IBOutlet weak var saveButton: RoundButton!
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var levelSC: UISegmentedControl!
+    @IBOutlet weak var emailLabel: UILabel!
     
-    var newPassword: String?
+    var dbController: FirebaseController!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        dbController = (UIApplication.shared.delegate as! AppDelegate).dbController
         saveButton.backgroundColor = UIColor.systemTeal
+        
+        emailLabel.text = Auth.auth().currentUser!.email
+        
+        nameTextField.text = dbController.currentUser?.nickname
+        levelSC.selectedSegmentIndex = 1
+        
+        if dbController.currentUser?.cookingLevel == "Advanced" {
+            levelSC.selectedSegmentIndex = 2
+        } else if dbController.currentUser?.cookingLevel == "Beginner" {
+            levelSC.selectedSegmentIndex = 0
+        }
     }
     
     @IBAction func changePassword(_ sender: Any) {
@@ -47,21 +61,63 @@ class EditProfileVC: UIViewController {
                 self.present(alertError, animated: true, completion: nil)
                 return
             }
+            
+            Auth.auth().currentUser!.updatePassword(to: pw1) { (error) in
+                if let err = error {
+                    let alertError = UIAlertController(title: "Error", message: "\(err.localizedDescription)", preferredStyle: .alert)
+                    alertError.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                    self.present(alertError, animated: true, completion: nil)
+                    return
+                }
+                
+                let alertSuccess = UIAlertController(title: "Success", message: "Password Updated!", preferredStyle: .alert)
+                alertSuccess.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                self.present(alertSuccess, animated: true, completion: nil)
+            }
         }))
         
         present(alert, animated: true, completion: nil)
     }
+    
     @IBAction func save(_ sender: Any) {
+        guard validateEntries() else {
+            return
+        }
+        
+        let nickname = nameTextField.text!
+        let level = levelSC.titleForSegment(at: levelSC.selectedSegmentIndex)!
+        let uid = Auth.auth().currentUser!.uid
+        
+        dbController.usersCollection.document(uid).updateData(["level" : level, "nickname": nickname])
+        
+        let alert = UIAlertController(title: "Success", message: "Information Saved!", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default) { (action) in
+            self.navigationController?.popViewController(animated: true)
+        })
+        
+        present(alert, animated: true, completion: nil)
     }
     
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    private func validateEntries() -> Bool {
+        var msg = ""
+        
+        if nameTextField.text!.count == 0 {
+            msg += "- Preferred Name is Empty!\n"
+        }
+        
+        if levelSC.selectedSegmentIndex == -1 {
+            msg += "Cooking Level Not Selected!"
+        }
+        
+        if msg.count == 0 {
+            return true
+        }
+        
+        let alert = UIAlertController(title: "Error", message: msg, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        self.present(alert, animated: true, completion: nil)
+        
+        return false
     }
-    */
 
 }

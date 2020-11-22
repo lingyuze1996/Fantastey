@@ -707,6 +707,7 @@
                         <outlet property="addRecipeButton" destination="QHX-UI-aht" id="jYe-ep-tVP"/>
                         <outlet property="tableView" destination="w5t-Pe-Fz3" id="zVc-EQ-NdA"/>
                         <segue destination="VIN-XZ-F4z" kind="show" identifier="myRecipeDetailsSegue" id="sCY-M3-EuN"/>
+                        <segue destination="wo1-I7-z8c" kind="show" identifier="editRecipeSegue" id="NWI-l3-dI8"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BS8-XG-RVX" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -1022,8 +1023,9 @@
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="k7x-4s-b8G">
                                 <rect key="frame" x="20" y="305" width="335" height="32"/>
                                 <segments>
-                                    <segment title="First"/>
-                                    <segment title="Second"/>
+                                    <segment title="Beginner"/>
+                                    <segment title="Intermediate"/>
+                                    <segment title="Advanced"/>
                                 </segments>
                             </segmentedControl>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3hb-2u-50w" customClass="RoundButton" customModule="Fantastey" customModuleProvider="target">
@@ -1072,6 +1074,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="Edit Profile" id="HcX-Xu-a4C"/>
                     <connections>
+                        <outlet property="emailLabel" destination="Y4Y-26-VxQ" id="k97-5P-9ZX"/>
                         <outlet property="levelSC" destination="k7x-4s-b8G" id="VeS-HY-AnZ"/>
                         <outlet property="nameTextField" destination="PGa-eW-rdA" id="04N-Ri-aPX"/>
                         <outlet property="saveButton" destination="3hb-2u-50w" id="wdc-7u-2LY"/>
@@ -1213,7 +1216,8 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="tmt-X1-Hqy"/>
-        <segue reference="9lS-cW-4jL"/>
+        <segue reference="NWI-l3-dI8"/>
+        <segue reference="sCY-M3-EuN"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="cube" catalog="system" width="128" height="124"/>

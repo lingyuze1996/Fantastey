@@ -23,7 +23,9 @@ class NewRecipeVC: UIViewController,UITextFieldDelegate {
     
     var dbController: FirebaseController!
     
+    weak var recipe: Recipe?
     
+    var imageAltered = false
     
     var steps = [String]()
     var ingredients = [Ingredient]()
@@ -39,10 +41,40 @@ class NewRecipeVC: UIViewController,UITextFieldDelegate {
         tableView.dataSource = self
         tableView.delegate = self
         
-        //for dismiss keyborad- zoe
+        // For dismiss keyboard - zoe
         titleTextField.delegate = self
         
         dbController = (UIApplication.shared.delegate as! AppDelegate).dbController
+        
+        // Editing
+        if let recipe = recipe {
+            navigationItem.title = "Edit Recipe"
+            
+            titleTextField.text = recipe.title
+            difficultySC.selectedSegmentIndex = 1
+            
+            if recipe.difficulty == "Easy" {
+                difficultySC.selectedSegmentIndex = 0
+            } else if recipe.difficulty == "Hard" {
+                difficultySC.selectedSegmentIndex = 2
+            }
+            
+            steps = recipe.steps
+            ingredients = recipe.ingredients
+            tableView.reloadData()
+            
+            if let imageURL = recipe.imageURL {
+                let storageRef = dbController.storage.reference().child("images/" + imageURL)
+                storageRef.getData(maxSize: 5 * 1024 * 1024) { (data, error) in
+                    if let err = error {
+                        print(err)
+                        return
+                    }
+                    
+                    self.recipeImage.image = UIImage(data: data!)
+                }
+            }
+        }
     }
     
     @IBAction func selectImage(_ sender: Any) {
@@ -50,10 +82,6 @@ class NewRecipeVC: UIViewController,UITextFieldDelegate {
         imagePicker.allowsEditing = false
         imagePicker.delegate = self
         let actionSheet = UIAlertController(title: nil, message: "Select Option: ", preferredStyle: .actionSheet)
-        
-        // For iPad
-        //actionSheet.popoverPresentationController?.sourceView = self.tableView
-        //actionSheet.popoverPresentationController?.sourceRect = CGRect(x: self.tableView.bounds.midX, y: self.tableView.bounds.minY, width: 0, height: 0)
         
         let cameraAction = UIAlertAction(title: "Camera", style: .default) { action in
             imagePicker.sourceType = .camera
@@ -76,11 +104,6 @@ class NewRecipeVC: UIViewController,UITextFieldDelegate {
     
     @IBAction func recipeAction(_ sender: Any) {
         let actionSheet = UIAlertController(title: nil, message: "Select Option: ", preferredStyle: .actionSheet)
-        
-        // For iPad
-        //actionSheet.popoverPresentationController?.sourceView = self.tableView
-        //actionSheet.popoverPresentationController?.sourceRect = CGRect(x: self.tableView.bounds.midX, y: self.tableView.bounds.minY, width: 20, height: 20)
-        
         let addIngredientAction = UIAlertAction(title: "Add Ingredient", style: .default) { action in
             let alert = UIAlertController(title: "New Ingredient", message: nil, preferredStyle: .alert)
             alert.addTextField(configurationHandler: nil)
@@ -164,22 +187,73 @@ class NewRecipeVC: UIViewController,UITextFieldDelegate {
         let saveAction = UIAlertAction(title: "Save Recipe", style: .destructive) { (action) in
             guard self.validateRecipe() else { return }
             
-            let title = self.titleTextField.text
-            let difficulty = self.difficultySC.titleForSegment(at: self.difficultySC.selectedSegmentIndex)!
-            
-            let date = UInt(Date().timeIntervalSince1970)
-            let imageURL = "\(date)\(Auth.auth().currentUser!.uid).jpg"
-            
-            let recipe = Recipe(id: nil, title: title!, imageURL: imageURL)
-            recipe.setDifficulty(difficulty: difficulty)
-            recipe.setIngredients(ingredients: self.ingredients)
-            recipe.setSteps(steps: self.steps)
-            
             self.indicator.startAnimating()
             self.indicator.backgroundColor = UIColor.clear
             
-            self.dbController.uploadRecipeDetails(recipe: recipe)
-            self.uploadRecipeImage(imageURL: recipe.imageURL!, data: self.recipeImage.image!.jpegData(compressionQuality: 0.6)!)
+            let title = self.titleTextField.text
+            let difficulty = self.difficultySC.titleForSegment(at: self.difficultySC.selectedSegmentIndex)!
+            
+            // For New Recipe
+            if self.navigationItem.title != "Edit Recipe" {
+                let date = UInt(Date().timeIntervalSince1970)
+                let imageURL = "\(date)\(Auth.auth().currentUser!.uid).jpg"
+                let newRecipe = Recipe(id: nil, title: title!, imageURL: imageURL)
+                newRecipe.setDifficulty(difficulty: difficulty)
+                newRecipe.setIngredients(ingredients: self.ingredients)
+                newRecipe.setSteps(steps: self.steps)
+                self.dbController.uploadRecipeDetails(recipe: newRecipe)
+                self.uploadRecipeImage(imageURL: newRecipe.imageURL!, data: self.recipeImage.image!.jpegData(compressionQuality: 0.6)!)
+            }
+            
+            // For Recipe Editing
+            else {
+                self.recipe?.setTitle(title: title!)
+                self.recipe?.setDifficulty(difficulty: difficulty)
+                self.recipe?.setSteps(steps: self.steps)
+                self.recipe?.setIngredients(ingredients: self.ingredients)
+                
+                // Image Not Changed
+                if !self.imageAltered {
+                    let encoder = JSONEncoder()
+                    do {
+                        let recipeJSON = try encoder.encode(self.recipe)
+                        let recipeDictionary = try JSONSerialization.jsonObject(with: recipeJSON, options: []) as! [String: Any]
+                        self.dbController.recipesCollection.document(self.recipe!.id!).setData(recipeDictionary) { (error) in
+                            if let err = error {
+                                print(err)
+                            }
+                            
+                            let alert = UIAlertController(title: "Success", message: "Upload recipe successfully!", preferredStyle: .alert)
+                            alert.addAction(UIAlertAction(title: "OK", style: .default) { (action) in
+                                self.navigationController!.popViewController(animated: true)
+                            })
+                            
+                            self.indicator.stopAnimating()
+                            self.indicator.hidesWhenStopped = true
+                            self.navigationController!.present(alert, animated: true)
+                        }
+                    } catch let err {
+                        print(err)
+                    }
+                }
+                
+                // Image Changed
+                else {
+                    self.uploadRecipeImage(imageURL: self.recipe!.imageURL!, data: self.recipeImage.image!.jpegData(compressionQuality: 0.6)!)
+                    let encoder = JSONEncoder()
+                    do {
+                        let recipeJSON = try encoder.encode(self.recipe)
+                        let recipeDictionary = try JSONSerialization.jsonObject(with: recipeJSON, options: []) as! [String: Any]
+                        self.dbController.recipesCollection.document(self.recipe!.id!).setData(recipeDictionary) { (error) in
+                            if let err = error {
+                                print(err)
+                            }
+                        }
+                    } catch let err {
+                        print(err)
+                    }
+                }
+            }
         }
         
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
@@ -229,6 +303,7 @@ class NewRecipeVC: UIViewController,UITextFieldDelegate {
     }
     
     private func uploadRecipeImage(imageURL: String, data: Data) {
+        guard imageAltered else {return}
         let storageRef = Storage.storage().reference().child("images/" + imageURL)
         storageRef.putData(data, metadata: nil) { (metadata, error) in
             if let err = error {
@@ -243,7 +318,7 @@ class NewRecipeVC: UIViewController,UITextFieldDelegate {
             self.indicator.stopAnimating()
             self.indicator.hidesWhenStopped = true
             
-            let alert = UIAlertController(title: "Success", message: "Create recipe successfully!", preferredStyle: .alert)
+            let alert = UIAlertController(title: "Success", message: "Upload recipe successfully!", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "OK", style: .default) { (action) in
                 self.navigationController!.popViewController(animated: true)
             })
@@ -252,22 +327,13 @@ class NewRecipeVC: UIViewController,UITextFieldDelegate {
         }
     }
     
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destination.
-     // Pass the selected object to the new view controller.
-     }
-     */
-    
 }
 // MARK: - Image Picker Controller Delegate Function
 extension NewRecipeVC: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let pickedImage = info[.originalImage] as? UIImage {
             recipeImage.image = pickedImage
+            imageAltered = true
         }
         dismiss(animated: true, completion: nil)
     }
@@ -318,23 +384,41 @@ extension NewRecipeVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        if indexPath.section == SECTION_INGREDIENTS {
-            return true
-        }
-        
-        return false
+        return true
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             
+            // Section Instructions
+            if indexPath.section == SECTION_INSTRUCTIONS {
+                let alert = UIAlertController(title: "Confirmation", message: "Sure to delete this step?", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "No", style: .default, handler: nil))
+                alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (action) in
+                    // Delete the row from the data source
+                    
+                    self.steps.remove(at: indexPath.row)
+                    tableView.reloadSections([indexPath.section], with: .automatic)
+                    
+                    let alertSuccess = UIAlertController(title: "Success", message: "Step Deleted Successfully!", preferredStyle: .alert)
+                    alertSuccess.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                    self.present(alertSuccess, animated: true, completion: nil)
+                }
+                ))
+                
+                present(alert, animated: true, completion: nil)
+                
+                return
+            }
+            
+            // Section Ingredients
             let alert = UIAlertController(title: "Confirmation", message: "Sure to delete this ingredient?", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "No", style: .default, handler: nil))
             alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (action) in
                 // Delete the row from the data source
                 
                 self.ingredients.remove(at: indexPath.row)
-                tableView.deleteRows(at: [indexPath], with: .fade)
+                tableView.reloadSections([indexPath.section], with: .automatic)
                 
                 let alertSuccess = UIAlertController(title: "Success", message: "Ingredient Deleted Successfully!", preferredStyle: .alert)
                 alertSuccess.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))

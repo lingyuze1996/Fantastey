@@ -102,6 +102,11 @@ class HomeVC: UIViewController {
             let destinationVC = segue.destination as! RecipeDetailsVC
             destinationVC.recipe = sender as? Recipe
         }
+        
+        if segue.identifier == "editRecipeSegue" {
+            let destinationVC = segue.destination as! NewRecipeVC
+            destinationVC.recipe = sender as? Recipe
+        }
     }
 }
 
@@ -141,7 +146,36 @@ extension HomeVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        if authorId != Auth.auth().currentUser!.uid {
+            return false
+        }
+        
         return true
+    }
+    
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        
+        // Navigate to Edit Page
+        let viewAction = UIContextualAction(style: .normal, title: "Edit") {(action, view, completionHandler) in
+            self.performSegue(withIdentifier: "editRecipeSegue", sender: self.recipes[indexPath.row])
+            completionHandler(true)
+        }
+                
+        
+        let deleteAction = UIContextualAction(style: .destructive, title: "Delete") {(action, view, completionHandler) in
+            self.tableView(tableView, commit: .delete, forRowAt: indexPath)
+            completionHandler(true)
+        }
+        
+        viewAction.backgroundColor = UIColor.systemGray
+        deleteAction.backgroundColor = UIColor.systemRed
+        
+        let actions = [deleteAction, viewAction]
+        
+        let swipeActionsConfiguration = UISwipeActionsConfiguration(actions: actions)
+        swipeActionsConfiguration.performsFirstActionWithFullSwipe = true
+        
+        return swipeActionsConfiguration
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
