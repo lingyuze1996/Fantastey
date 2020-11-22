@@ -32,6 +32,9 @@ class RecipeResultsVC: UIViewController {
         guard let searchText = searchText else { return }
         
         performSearch(searchText: searchText)
+        
+        //to beautify the background
+        collectionView.backgroundColor = UIColor(patternImage:UIImage(named:"fantasteyBackground.png")!)
     }
     
     
@@ -128,10 +131,29 @@ extension RecipeResultsVC: UICollectionViewDataSource {
 extension RecipeResultsVC: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let recipeBasics = recipes[indexPath.row]
-        performSegue(withIdentifier: "recipeDetailsSegue", sender: recipeBasics)
+        
+        //for beautifying
+            let cell = collectionView.cellForItem(at: indexPath)
+
+            //Briefly fade the cell on selection
+            UIView.animate(withDuration: 0.5,
+                           animations: {
+                            //Fade-out
+                            cell?.alpha = 0.5
+            }) { (completed) in
+                UIView.animate(withDuration: 0.5,
+                               animations: {
+                                //Fade-out
+                                cell?.alpha = 1
+                })
+                let recipeBasics = self.recipes[indexPath.row]
+                self.performSegue(withIdentifier: "recipeDetailsSegue", sender: recipeBasics)
+            }
+
+        
+       
     }
-     
+    
     
     /*
      // Uncomment this method to specify if the specified item should be selected
