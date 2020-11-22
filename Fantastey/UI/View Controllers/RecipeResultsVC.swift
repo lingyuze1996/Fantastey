@@ -8,7 +8,7 @@
 
 import UIKit
 
-class RecipeResultsVC: UIViewController {
+class RecipeResultsVC: UIViewController{
     
     @IBOutlet weak var collectionView: UICollectionView!
     
@@ -18,6 +18,10 @@ class RecipeResultsVC: UIViewController {
     var searchText: String!
     var indicator = UIActivityIndicatorView()
     var recipes = [RecipeBasics]()
+    
+    //for sizing
+    var cellSizes: [CGSize]!
+    //var isLongText:Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -108,6 +112,11 @@ extension RecipeResultsVC: UICollectionViewDataSource {
         let recipe = recipes[indexPath.row]
         cell.recipeTitle.text = recipe.title
         
+//        if cell.recipeTitle.text!.count >= 36 {
+//            isLongText = true
+//        }
+        
+        
         if let imageURL = recipe.imageURL {
             let jsonURL = URL(string: imageURL.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!)
             let task = URLSession.shared.dataTask(with: jsonURL!) { (data, response, error) in
@@ -122,6 +131,15 @@ extension RecipeResultsVC: UICollectionViewDataSource {
             
             task.resume()
         }
+        
+        //for changing the cell size base on the text length
+        // Calculates the height
+                cell.setNeedsLayout()
+                cell.layoutIfNeeded()
+        //cellSizes[cell.size] = cell.contentView.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)
+        cell.recipeTitle.adjustsFontSizeToFitWidth = true
+        cell.recipeTitle.minimumScaleFactor = 0.5
+        
         
         return cell
     }
@@ -184,7 +202,12 @@ extension RecipeResultsVC: UICollectionViewDelegateFlowLayout {
         let paddingSpace = sectionInsets.left * (itemsPerRow + 1)
         let availableWidth = view.frame.width - paddingSpace
         let widthPerItem = availableWidth / itemsPerRow
+//        if self.isLongText == true{
+//            self.isLongText = false
+//            return CGSize(width: widthPerItem, height: widthPerItem * 1.50)
+//        }else{
         return CGSize(width: widthPerItem, height: widthPerItem * 1.25)
+        //}
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
@@ -194,5 +217,16 @@ extension RecipeResultsVC: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return sectionInsets.left
     }
+    
+    //for changing the cell based on text lable
+    // MARK: - UICollectionViewDelegateFlowLayout
+
+        func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
+            NSLog("\(self), collectionView:layout:sizeForItemAtIndexPath")
+            
+//            cellSizes[indexPath.item] = cell.contentView.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)
+            
+            return cellSizes[indexPath.item]
+        }
 }
 
