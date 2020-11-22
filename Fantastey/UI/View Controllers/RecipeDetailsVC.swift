@@ -17,7 +17,9 @@ class RecipeDetailsVC: UITableViewController {
     private final var SECTION_IMAGE = 1
     private final var SECTION_INGREDIENTS = 2
     private final var SECTION_INSTRUCTIONS = 3
+    private final var SECTION_COMMENTS = 4
     
+    @IBOutlet weak var videoButton: UIButton!
     weak var recipeBasics: RecipeBasics?
     var recipe: Recipe?
     var imageData: Data?
@@ -42,20 +44,71 @@ class RecipeDetailsVC: UITableViewController {
             retrieveIngredients(id: recipeId)
             retrieveInstructions(id: recipeId)
         }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         
         // From Firebase
-        else {
+        if recipeBasics == nil {
             guard self.recipe != nil else { return }
+            videoButton.isHidden = true
             tableView.reloadData()
         }
+    }
+    @IBAction func watchVideo(_ sender: Any) {
+        // Set query URL for recipe video search from spoonacular API
+        guard let title = recipeBasics?.title else { return }
+        
+        var queryURL = "https://api.spoonacular.com/food/videos/search?query="
+        queryURL += "\(title)"
+        queryURL += "&number=1&apiKey="
+        queryURL += Secret.SPOONACULAR_API_KEY
+        
+        let jsonURL = URL(string: queryURL.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!)
+        
+        let task = URLSession.shared.dataTask(with: jsonURL!) { (data, response, error) in
+            
+            if let error = error {
+                print(error)
+                return
+            }
+            
+            
+            do {
+                let jsonRoot = try JSONSerialization.jsonObject(with: data!, options: []) as! [String: Any]
+                if let videos = jsonRoot["videos"] as? [Any], videos.count != 0 {
+                    if let video = videos[0] as? [String: Any] {
+                        if let youtubeId = video["youTubeId"] as? String {
+                            let urlString = "https://www.youtube.com/watch?v=\(youtubeId)"
+                            
+                            guard let url = URL(string: urlString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!) else { return }
+                            DispatchQueue.main.async {
+                                // Open Video URL
+                                UIApplication.shared.open(url)
+                            }
+                            return
+                        }
+                    }
+                }
+                
+            } catch let err {
+                print(err)
+            }
+            
+            DispatchQueue.main.async {
+                // Video Not Found
+                let alert = UIAlertController(title: "Error", message: "Recipe Video doesn't Exist!", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                self.present(alert, animated: true, completion: nil)
+            }
+        }
+        
+        task.resume()
     }
     
     @IBAction func actionList(_ sender: Any) {
         let actionSheet = UIAlertController(title: nil, message: "Select Option: ", preferredStyle: .actionSheet)
-        
-        // For iPad
-        //actionSheet.popoverPresentationController?.sourceView = self.tableView
-        //actionSheet.popoverPresentationController?.sourceRect = CGRect(x: self.tableView.bounds.midX, y: self.tableView.bounds.minY, width: 20, height: 20)
         
         let addCommentAction = UIAlertAction(title: "Add a Comment", style: .default) { action in
             let alert = UIAlertController(title: "New Comment", message: nil, preferredStyle: .alert)
@@ -71,7 +124,7 @@ class RecipeDetailsVC: UITableViewController {
                 var msg = ""
                 
                 if alert.textFields![0].text!.count == 0  {
-                    msg += "- Name is empty!\n"
+                    msg += "- Comment is empty!\n"
                     valid = false
                 }
                 
@@ -87,9 +140,15 @@ class RecipeDetailsVC: UITableViewController {
                     return
                 }
                     
-                let comment = alert.textFields![0].text!
-                print("success")
-                //self.recipe.comment
+                let comment = "\(alert.textFields![0].text!)&By \(self.dbController.currentUser!.nickname)"
+                self.recipe?.comments?.append(comment)
+                self.tableView.reloadSections([self.SECTION_COMMENTS], with: .automatic)
+                
+                self.dbController.recipesCollection.document(self.recipe!.id!).updateData(["comments": FieldValue.arrayUnion([comment])])
+                
+                let alertSuccess = UIAlertController(title: "Success", message: "Comment Added!", preferredStyle: .alert)
+                alertSuccess.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                self.present(alertSuccess, animated: true, completion: nil)
             }))
             alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
             
@@ -100,7 +159,18 @@ class RecipeDetailsVC: UITableViewController {
             let alert = UIAlertController(title: "Confirmation", message: "Add this recipe to Favourites?", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "No", style: .default, handler: nil))
             alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (action) in
-                print("233")
+                
+                self.dbController.usersCollection.document(Auth.auth().currentUser!.uid).updateData(["favourites": FieldValue.arrayUnion([self.recipe!.id!])]) { error in
+                    if let err = error {
+                        print(err)
+                        return
+                    }
+                    
+                    let alertSuccess = UIAlertController(title: "Success", message: "Recipe Added to Favourites!", preferredStyle: .alert)
+                    alertSuccess.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                    self.present(alertSuccess, animated: true, completion: nil)
+                }
+                
             }))
             
             self.present(alert, animated: true, completion: nil)
@@ -116,35 +186,16 @@ class RecipeDetailsVC: UITableViewController {
             self.present(alert, animated: true, completion: nil)
         }
         
-        /*
-        let saveAction = UIAlertAction(title: "Save Recipe", style: .destructive) { (action) in
-            guard self.validateRecipe() else { return }
-            
-            let title = self.titleTextField.text
-            let difficulty = self.difficultySC.titleForSegment(at: self.difficultySC.selectedSegmentIndex)!
-            
-            let date = UInt(Date().timeIntervalSince1970)
-            let imageURL = "\(date)\(Auth.auth().currentUser!.uid).jpg"
-            
-            let recipe = Recipe(id: nil, title: title!, imageURL: imageURL)
-            recipe.setDifficulty(difficulty: difficulty)
-            recipe.setIngredients(ingredients: self.ingredients)
-            recipe.setSteps(steps: self.steps)
-            
-            self.indicator.startAnimating()
-            self.indicator.backgroundColor = UIColor.clear
-            
-            self.dbController.uploadRecipeDetails(recipe: recipe)
-            self.uploadRecipeImage(imageURL: recipe.imageURL!, data: self.recipeImage.image!.jpegData(compressionQuality: 0.6)!)
+        let mapAction = UIAlertAction(title: "View Map for Ingredients", style: .default) { (action) in
+            self.performSegue(withIdentifier: "mapSegue", sender: nil)
         }
- */
         
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         
         actionSheet.addAction(addCommentAction)
         actionSheet.addAction(addToFavouritesAction)
-        //actionSheet.addAction(saveAction)
         actionSheet.addAction(twitterShareAction)
+        actionSheet.addAction(mapAction)
         actionSheet.addAction(cancelAction)
         self.present(actionSheet, animated: true, completion: nil)
         
@@ -157,6 +208,10 @@ class RecipeDetailsVC: UITableViewController {
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         self.present(alert, animated: true, completion: nil)
         
+        if let button = sender as? UIButton {
+            button.isEnabled = false
+            button.backgroundColor = UIColor.systemGray5
+        }
         //for local notification
         let notificationType = "Hi~ Fantastey!"
         
@@ -164,6 +219,7 @@ class RecipeDetailsVC: UITableViewController {
         
         
         self.notifications.scheduleNotification(notificationType: notificationType, body: "You have been followed " + authorName + " for a week! Check out new recipes on Fantastey!" )
+        }
     }
     
     func shareToTwitter() {
@@ -172,7 +228,7 @@ class RecipeDetailsVC: UITableViewController {
         let url = URL(string: "Fantastey://")!
         swifter.authorize(withCallback: url, presentingFrom: self, success: { (token, response) in
             // Post tweet with recipe title and image
-            swifter.postTweet(status: "\(self.recipe!.title) from Fantastey!\n", media: self.imageData!)
+            swifter.postTweet(status: "\(self.recipe!.title) from Fantastey! Come and have a look!", media: self.imageData!)
             
             // Success Message
             let alert = UIAlertController(title: "Success", message: "Recipe is shared to Twitter successfully!", preferredStyle: .alert)
@@ -190,7 +246,7 @@ class RecipeDetailsVC: UITableViewController {
     // MARK: - Table view data source
     
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 4
+        return 5
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -200,6 +256,10 @@ class RecipeDetailsVC: UITableViewController {
         
         if section == SECTION_INSTRUCTIONS {
             return recipe?.steps.count ?? 0
+        }
+        
+        if section == SECTION_COMMENTS {
+            return recipe?.comments?.count ?? 0
         }
         
         return 1
@@ -228,7 +288,14 @@ class RecipeDetailsVC: UITableViewController {
                 if authorId == Auth.auth().currentUser!.uid {
                     titleCell.followButton.isHidden = true
                 } else {
-                    titleCell.followButton.addTarget(self, action: #selector(self.followAuthor(_:)), for: .touchUpInside)
+                    dbController.retrieveCurrentUser(id: Auth.auth().currentUser!.uid)
+                    
+                    if !dbController.currentUser!.followings.contains(authorId) {
+                        titleCell.followButton.addTarget(self, action: #selector(self.followAuthor(_:)), for: .touchUpInside)
+                    } else {
+                        titleCell.followButton.isEnabled = false
+                        titleCell.followButton.backgroundColor = UIColor.systemGray5
+                    }
                 }
                 
                 Firestore.firestore().collection("users").document(authorId).getDocument { (document, error) in
@@ -274,7 +341,7 @@ class RecipeDetailsVC: UITableViewController {
             else {
                 if let imageURL = recipe?.imageURL {
                     let storageRef = Storage.storage().reference().child("images/" + imageURL)
-                    storageRef.getData(maxSize: 10 * 1024 * 1024) { (data, error) in
+                    storageRef.getData(maxSize: 5 * 1024 * 1024) { (data, error) in
                         if let err = error {
                             print(err)
                             return
@@ -299,6 +366,22 @@ class RecipeDetailsVC: UITableViewController {
             return ingredientCell
         }
         
+        // Section Comments
+        if indexPath.section == SECTION_COMMENTS {
+            let commentCell = tableView.dequeueReusableCell(withIdentifier: "recipeCommentCell", for: indexPath)
+            if let comments = recipe?.comments {
+                let comment = comments[indexPath.row]
+                commentCell.textLabel?.numberOfLines = 0
+                commentCell.textLabel?.lineBreakMode = .byWordWrapping
+                
+                let contents = comment.split(separator: "&")
+                
+                commentCell.textLabel?.text = String(contents[0])
+                commentCell.detailTextLabel?.text = String(contents[1])
+            }
+            return commentCell
+        }
+        
         // Section Instructions
         let instructionCell = tableView.dequeueReusableCell(withIdentifier: "recipeInstructionCell", for: indexPath)
         let step = recipe?.steps[indexPath.row]
@@ -321,21 +404,21 @@ class RecipeDetailsVC: UITableViewController {
             return "Instructions"
         }
         
+        if section == SECTION_COMMENTS && recipeBasics == nil {
+            return "Comments"
+        }
+        
         return nil
     }
     
     
-    /*
-     // Override to support editing the table view.
-     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-     if editingStyle == .delete {
-     // Delete the row from the data source
-     tableView.deleteRows(at: [indexPath], with: .fade)
-     } else if editingStyle == .insert {
-     // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-     }
-     }
-     */
+    override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
+        if section == SECTION_COMMENTS && recipeBasics == nil {
+            return "Total Comments: \(recipe!.comments!.count)"
+        }
+        
+        return nil
+    }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         

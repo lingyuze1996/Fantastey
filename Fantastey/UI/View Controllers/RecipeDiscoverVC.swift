@@ -26,8 +26,6 @@ class RecipeDiscoverVC: UIViewController {
         tableView.dataSource = self
         
         dbController = (UIApplication.shared.delegate as! AppDelegate).dbController
-        
-        recommendRecipes()
 
         let searchController = UISearchController(searchResultsController: nil)
         
@@ -41,7 +39,14 @@ class RecipeDiscoverVC: UIViewController {
         definesPresentationContext = true
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        recommendRecipes()
+    }
+    
     private func recommendRecipes() {
+        auto = true
+        
         let id = dbController.currentUser!.id
         let level = dbController.currentUser!.cookingLevel
         
@@ -148,6 +153,10 @@ extension RecipeDiscoverVC: UITableViewDelegate, UITableViewDataSource {
         }
         
         return "Recipes Found"
+    }
+    
+    func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
+        return "Total Recipes: \(recipes.count)"
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
