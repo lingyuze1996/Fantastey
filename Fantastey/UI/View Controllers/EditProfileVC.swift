@@ -10,7 +10,7 @@ import UIKit
 import FirebaseAuth
 import FirebaseFirestore
 
-class EditProfileVC: UIViewController {
+class EditProfileVC: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var saveButton: RoundButton!
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var levelSC: UISegmentedControl!
@@ -20,12 +20,16 @@ class EditProfileVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        nameTextField.delegate = self
+        
         dbController = (UIApplication.shared.delegate as! AppDelegate).dbController
         saveButton.backgroundColor = UIColor.systemTeal
         
         emailLabel.text = Auth.auth().currentUser!.email
         
         nameTextField.text = dbController.currentUser?.nickname
+        levelSC.selectedSegmentTintColor = UIColor.systemGreen
         levelSC.selectedSegmentIndex = 1
         
         if dbController.currentUser?.cookingLevel == "Advanced" {
@@ -36,6 +40,15 @@ class EditProfileVC: UIViewController {
         
         //to beautify the background - zoe
         view.backgroundColor = UIColor(patternImage:UIImage(named:"fantasteyBackground.png")!)
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        view.endEditing(true)
     }
     
     @IBAction func changePassword(_ sender: Any) {
@@ -51,6 +64,9 @@ class EditProfileVC: UIViewController {
         alert.textFields![1].placeholder = "Please Enter New Password Again"
         
         alert.addAction(UIAlertAction(title: "Confirm", style: .destructive, handler: { (action) in
+            
+            // Validation For Password
+            
             guard let pw1 = alert.textFields![0].text, let pw2 = alert.textFields![1].text, pw1.count >= 6, pw2.count >= 6 else {
                 let alertError = UIAlertController(title: "Error", message: "Password Length must be at least 6!", preferredStyle: .alert)
                 alertError.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
@@ -65,6 +81,7 @@ class EditProfileVC: UIViewController {
                 return
             }
             
+            // Update Password
             Auth.auth().currentUser!.updatePassword(to: pw1) { (error) in
                 if let err = error {
                     let alertError = UIAlertController(title: "Error", message: "\(err.localizedDescription)", preferredStyle: .alert)
@@ -82,6 +99,7 @@ class EditProfileVC: UIViewController {
         present(alert, animated: true, completion: nil)
     }
     
+    // Save Information
     @IBAction func save(_ sender: Any) {
         guard validateEntries() else {
             return
@@ -101,6 +119,7 @@ class EditProfileVC: UIViewController {
         present(alert, animated: true, completion: nil)
     }
     
+    // Validation for user inputs
     private func validateEntries() -> Bool {
         var msg = ""
         

@@ -41,7 +41,7 @@ class RecipeSearchVC: UIViewController {
     
 }
 
-// MARK: - UISearchBar Delegate
+// MARK: - UISearchBar Delegate Function
 extension RecipeSearchVC: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         guard let searchText = searchBar.text, searchText.count > 0 else { return }

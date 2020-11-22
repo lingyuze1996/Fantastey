@@ -24,7 +24,7 @@ class RegisterVC: UIViewController ,UITextFieldDelegate  {
         pwTextField1.delegate = self
         pwTextField2.delegate = self
         nameTextField.delegate = self
-        
+        cookingLevelSC.selectedSegmentTintColor = UIColor.systemGreen
         
         self.hideKeyboardWhenTappedAround()
         
@@ -100,12 +100,17 @@ class RegisterVC: UIViewController ,UITextFieldDelegate  {
     }
 
 
+    // MARK: - Text Field Delegate Function
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
     }
     
-    //pop up the alert window
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        view.endEditing(true)
+    }
+    
+    // Pop up the alert window
     private func popAlertWindow(_ title:String, _ message:String, _ returnToRootVC:Bool){
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         if returnToRootVC == true{

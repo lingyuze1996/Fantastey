@@ -34,19 +34,12 @@ class MapVC: UIViewController {
         super.viewDidLoad()
         
         navigationController?.isNavigationBarHidden = false
-        //        var location = LocationAnnotation(title: "Monash Uni - Caulfield", subtitle: "The Caufield Campus of the Uni", lat: -37.877623, long: 145.045374)
-        //geofence
-        geofence = CLCircularRegion(center: CLLocationCoordinate2D(latitude: -37.877623, longitude: 145.045374), radius: 500, identifier: "geofence")
-        geofence?.notifyOnExit = true
         
         locationManager.delegate = self
         //locationManager.requestAlwaysAuthorization()
-        //or kCLLocationAccuracyHundredMeters
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.requestAlwaysAuthorization()
         locationManager.requestLocation()
-        
-        locationManager.startMonitoring(for: geofence!)
         
         //mapView.selectAnnotation(annotation, animated: true)
         guard let locValue: CLLocationCoordinate2D = locationManager.location?.coordinate else { return }

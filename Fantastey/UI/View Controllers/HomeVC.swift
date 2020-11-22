@@ -51,6 +51,8 @@ class HomeVC: UIViewController {
             }
         }
         
+        
+        // Parsing my recipes data
         dbController.recipesCollection.whereField("authorId", isEqualTo: authorId!).getDocuments() { (snapshot, error) in
             if let err = error {
                 print(err)
@@ -130,7 +132,7 @@ extension HomeVC: UITableViewDelegate, UITableViewDataSource {
         
         if let imageURL = recipe.imageURL {
             let storageRef = dbController.storage.reference().child("images/" + imageURL)
-            storageRef.getData(maxSize: 10 * 1024 * 1024) { (data, error) in
+            storageRef.getData(maxSize: 5 * 1024 * 1024) { (data, error) in
                 if let err = error {
                     print(err)
                     return

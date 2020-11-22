@@ -142,8 +142,8 @@ class MyProfileVC: UIViewController, UITableViewDelegate, UITableViewDataSource{
             let alert = UIAlertController(title: "Confirmation", message: "Stop to follow this author?", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "No", style: .default, handler: nil))
             alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (action) in
-                // Delete the row from the data source
                 
+                // Update data to Firebase
                 self.dbController.usersCollection.document(Auth.auth().currentUser!.uid).updateData(["followings": FieldValue.arrayRemove([self.followings[indexPath.row]])])
                 
                 self.followings.remove(at: indexPath.row)

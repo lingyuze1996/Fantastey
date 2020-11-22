@@ -32,6 +32,7 @@ class FavouritesVC: UIViewController {
         
         let id = Auth.auth().currentUser!.uid
         
+        // Retrieve favourite recipes
         dbController.usersCollection.document(id).getDocument { (snapshot, error) in
             if let snapshot = snapshot {
                 if snapshot.exists {
@@ -141,6 +142,7 @@ extension FavouritesVC: UITableViewDataSource, UITableViewDelegate {
                 // Delete the row from the data source
                 let recipe = self.recipes[indexPath.row]
                 
+                // Update User Information to Firebase
                 self.dbController.usersCollection.document(Auth.auth().currentUser!.uid).updateData(["favourites" : FieldValue.arrayRemove([recipe.id!])]) { error in
                     if let err = error {
                         print(err)

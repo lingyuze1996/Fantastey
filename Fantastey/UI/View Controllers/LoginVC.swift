@@ -10,10 +10,7 @@ import UIKit
 import FirebaseAuth
 import GoogleSignIn
 
-class LoginVC: UIViewController {
-    //just for testing
-    @IBOutlet weak var testmapBtn: UIButton!
-    
+class LoginVC: UIViewController, UITextFieldDelegate {
     
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var pwTextField: UITextField!
@@ -25,6 +22,9 @@ class LoginVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        emailTextField.delegate = self
+        pwTextField.delegate = self
         
         dbController = (UIApplication.shared.delegate as! AppDelegate).dbController
         
@@ -38,10 +38,20 @@ class LoginVC: UIViewController {
 //        navigationController!.navigationBar.barTintColor = UIColor.yellow
     }
     
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        view.endEditing(true)
+    }
+    
     @IBAction func login(_ sender: Any) {
         guard let email = emailTextField.text else {return}
         guard let password = pwTextField.text else {return}
         
+        // Sign In with Email
         Auth.auth().signIn(withEmail: email, password: password) { (result, error) in
             if let error = error {
                 let alert = UIAlertController(title: "Login Failed", message: "\(error.localizedDescription)", preferredStyle: .alert)

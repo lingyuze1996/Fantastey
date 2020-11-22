@@ -2,7 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="11j-kO-Yb4">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17504.1"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -37,7 +37,7 @@
                                     <action selector="login:" destination="YCV-6k-Qgy" eventType="touchUpInside" id="p8Y-fT-kPo"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome to Fantastey" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UqU-nr-WdF">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome to Fantastey" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UqU-nr-WdF">
                                 <rect key="frame" x="20" y="144" width="374" height="36"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                 <nil key="textColor"/>
@@ -60,21 +60,12 @@
                                 <rect key="frame" x="30" y="452" width="354" height="41"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="fantastey" translatesAutoresizingMaskIntoConstraints="NO" id="P0q-aj-qCa">
-                                <rect key="frame" x="184.5" y="195" width="45" height="45"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="45" id="40F-6L-WVk"/>
-                                    <constraint firstAttribute="height" constant="45" id="rXE-Vl-p1C"/>
-                                </constraints>
-                            </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="ono-9W-FHc"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="P0q-aj-qCa" firstAttribute="centerX" secondItem="PbN-y2-vHQ" secondAttribute="centerX" id="2iB-Ru-WmL"/>
                             <constraint firstItem="u4x-0v-rW5" firstAttribute="top" secondItem="kS7-c7-Voe" secondAttribute="bottom" constant="40" id="3qF-4v-Mtl"/>
                             <constraint firstItem="ono-9W-FHc" firstAttribute="trailing" secondItem="u4x-0v-rW5" secondAttribute="trailing" constant="30" id="GAU-k8-wcV"/>
-                            <constraint firstItem="P0q-aj-qCa" firstAttribute="top" secondItem="UqU-nr-WdF" secondAttribute="bottom" constant="15" id="HAg-gD-V0h"/>
                             <constraint firstItem="mkb-Dt-D5N" firstAttribute="trailing" secondItem="u4x-0v-rW5" secondAttribute="trailing" id="LAv-Jn-ckt"/>
                             <constraint firstItem="pxr-RE-QG2" firstAttribute="top" secondItem="ay2-19-DnZ" secondAttribute="top" id="N4R-Yx-c7b"/>
                             <constraint firstItem="mkb-Dt-D5N" firstAttribute="top" secondItem="u4x-0v-rW5" secondAttribute="bottom" constant="20" id="QbD-nP-p04"/>
@@ -84,7 +75,6 @@
                             <constraint firstItem="ono-9W-FHc" firstAttribute="trailing" secondItem="4TA-ji-Q1W" secondAttribute="trailing" constant="30" id="Wqu-9r-g9y"/>
                             <constraint firstItem="UqU-nr-WdF" firstAttribute="leading" secondItem="ono-9W-FHc" secondAttribute="leading" constant="20" id="Zfv-dD-xjN"/>
                             <constraint firstItem="UqU-nr-WdF" firstAttribute="top" secondItem="ono-9W-FHc" secondAttribute="top" constant="100" id="bLS-vM-ySD"/>
-                            <constraint firstItem="4TA-ji-Q1W" firstAttribute="top" secondItem="P0q-aj-qCa" secondAttribute="bottom" constant="20" id="diD-uB-gdE"/>
                             <constraint firstItem="kS7-c7-Voe" firstAttribute="top" secondItem="4TA-ji-Q1W" secondAttribute="bottom" constant="30" id="eBQ-WA-XBH"/>
                             <constraint firstItem="ay2-19-DnZ" firstAttribute="centerX" secondItem="PbN-y2-vHQ" secondAttribute="centerX" constant="-35" id="iKE-7a-ZGU"/>
                             <constraint firstItem="mkb-Dt-D5N" firstAttribute="leading" secondItem="u4x-0v-rW5" secondAttribute="leading" id="imk-jV-2D5"/>
@@ -94,6 +84,7 @@
                             <constraint firstItem="pxr-RE-QG2" firstAttribute="bottom" secondItem="ay2-19-DnZ" secondAttribute="bottom" id="qxo-df-awr"/>
                             <constraint firstItem="ay2-19-DnZ" firstAttribute="top" secondItem="mkb-Dt-D5N" secondAttribute="bottom" constant="20" id="svM-fM-0ih"/>
                             <constraint firstItem="ono-9W-FHc" firstAttribute="trailing" secondItem="UqU-nr-WdF" secondAttribute="trailing" constant="20" id="t52-fi-kLt"/>
+                            <constraint firstItem="4TA-ji-Q1W" firstAttribute="top" secondItem="UqU-nr-WdF" secondAttribute="bottom" constant="80" id="vvj-g7-Fdl"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="O4p-aL-Gbg"/>
@@ -281,7 +272,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="fantastey" width="40" height="40"/>
         <systemColor name="linkColor">
             <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>

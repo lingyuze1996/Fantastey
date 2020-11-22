@@ -28,11 +28,12 @@ class RecipeDetailsVC: UITableViewController {
     
     //for local notification
     let notifications = Notifications()
+    
     var authorName:String = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         dbController = (UIApplication.shared.delegate as! AppDelegate).dbController
         
         // From Spoonacular API
@@ -123,6 +124,7 @@ class RecipeDetailsVC: UITableViewController {
             
             alert.addAction(UIAlertAction(title: "Save Comment", style: .destructive, handler: { (action) in
                 
+                // Entry Validation For Comment
                 var valid = true
                 var msg = ""
                 
@@ -196,9 +198,13 @@ class RecipeDetailsVC: UITableViewController {
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         
         self.dbController.usersCollection.document(Auth.auth().currentUser!.uid).getDocument { (document, error) in
-            actionSheet.addAction(addCommentAction)
+            if self.recipeBasics == nil {
+                // Add comment only for recipe from Firebase
+                actionSheet.addAction(addCommentAction)
+            }
             
-            if let document = document {
+            // Add to favourite only for recipe from Firebase & author not current user
+            if let document = document, self.recipeBasics == nil {
                 if document.exists {
                     if let favourites = document.get("favourites") as? [String] {
                         if !favourites.contains(self.recipe!.id!) {
@@ -209,6 +215,7 @@ class RecipeDetailsVC: UITableViewController {
                 }
             }
             
+            // Common actions for recipes from both Spoonacular and Firebase
             actionSheet.addAction(twitterShareAction)
             actionSheet.addAction(mapAction)
             actionSheet.addAction(cancelAction)
@@ -217,7 +224,10 @@ class RecipeDetailsVC: UITableViewController {
         }
     }
     
+    // MARK: - Function to follow a new author
     @IBAction func followAuthor(_ sender: Any) {
+        
+        // Update information to Firebase
         dbController.usersCollection.document(Auth.auth().currentUser!.uid).updateData(["followings": FieldValue.arrayUnion([recipe!.authorId!])])
         
         let alert = UIAlertController(title: "Success", message: "Add to Following Authors Successfully!", preferredStyle: .alert)
@@ -230,18 +240,19 @@ class RecipeDetailsVC: UITableViewController {
         }
         
         
-        // Add local notification
+        // Set up local notification
         let notificationType = "Hi~ Fantastey!"
         
         self.notifications.scheduleNotification(notificationType: notificationType, body: "You have been following " + authorName + " for a week! Check out new recipes on Fantastey!" )
     }
     
-    
+    // MARK: - Function to share recipe to Twitter
     func shareToTwitter() {
         let swifter = Swifter(consumerKey: Secret.TWITTER_CONSUMER_KEY, consumerSecret: Secret.TWITTER_CONSUMER_SECRET)
         
         let url = URL(string: "Fantastey://")!
         swifter.authorize(withCallback: url, presentingFrom: self, success: { (token, response) in
+            
             // Post tweet with recipe title and image
             swifter.postTweet(status: "\(self.recipe!.title) from Fantastey! Come and have a look!", media: self.imageData!)
             
@@ -407,9 +418,6 @@ class RecipeDetailsVC: UITableViewController {
         return instructionCell
     }
     
-    
-    
-    // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if section == SECTION_INGREDIENTS {
             return "Ingredients"
@@ -437,6 +445,8 @@ class RecipeDetailsVC: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
+        // Visit Woolworths Website for ingredient details
+        
         tableView.deselectRow(at: indexPath, animated: true)
         
         guard indexPath.section == SECTION_INGREDIENTS else { return }
@@ -451,11 +461,6 @@ class RecipeDetailsVC: UITableViewController {
     }
     
     
-    // MARK: - Navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
-    }
-    
     // MARK: - Recipe Ingredients Retrieval From Spooncular
     private func retrieveIngredients(id: Int) {
         // Set query URL for recipe search from spoonacular API
@@ -467,11 +472,6 @@ class RecipeDetailsVC: UITableViewController {
         let jsonURL = URL(string: queryURL.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!)
         
         let task = URLSession.shared.dataTask(with: jsonURL!) { (data, response, error) in
-            /*
-             DispatchQueue.main.async {
-             self.indicator.stopAnimating()
-             self.indicator.hidesWhenStopped = true
-             }*/
             
             if let error = error {
                 print(error)
@@ -515,6 +515,7 @@ class RecipeDetailsVC: UITableViewController {
                 return
             }
             
+            // JSON Data Parsing
             let jsonRoot = try? JSONSerialization.jsonObject(with: data!, options: [])
             if let root = jsonRoot as? [Any] {
                 if root.count > 0, let rootDictionary = root[0] as? [String: Any] {
