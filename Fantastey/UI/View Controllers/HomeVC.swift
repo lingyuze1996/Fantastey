@@ -64,9 +64,14 @@ class HomeVC: UIViewController {
                     let steps = document.get("steps") as! [String]
                     let ingredients = document.get("ingredients") as! [[String: Any]]
                     let author = document.get("authorId") as! String
+                    let comments = document.get("comments") as! [String]
                     
                     let recipe = Recipe(id: id, title: title, imageURL: imageURL, difficulty: difficulty)
                     recipe.authorId = author
+                    
+                    for comment in comments {
+                        recipe.comments?.append(comment)
+                    }
                     
                     for step in steps {
                         recipe.steps.append(step)
