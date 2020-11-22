@@ -19,6 +19,7 @@ class RecipeDetailsVC: UITableViewController {
     private final var SECTION_INSTRUCTIONS = 3
     private final var SECTION_COMMENTS = 4
     
+    @IBOutlet weak var videoButton: UIButton!
     weak var recipeBasics: RecipeBasics?
     var recipe: Recipe?
     var imageData: Data?
@@ -47,8 +48,59 @@ class RecipeDetailsVC: UITableViewController {
         // From Firebase
         if recipeBasics == nil {
             guard self.recipe != nil else { return }
+            videoButton.isHidden = true
             tableView.reloadData()
         }
+    }
+    @IBAction func watchVideo(_ sender: Any) {
+        // Set query URL for recipe video search from spoonacular API
+        guard let title = recipeBasics?.title else { return }
+        
+        var queryURL = "https://api.spoonacular.com/food/videos/search?query="
+        queryURL += "\(title)"
+        queryURL += "&number=1&apiKey="
+        queryURL += Secret.SPOONACULAR_API_KEY
+        
+        let jsonURL = URL(string: queryURL.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!)
+        
+        let task = URLSession.shared.dataTask(with: jsonURL!) { (data, response, error) in
+            
+            if let error = error {
+                print(error)
+                return
+            }
+            
+            
+            do {
+                let jsonRoot = try JSONSerialization.jsonObject(with: data!, options: []) as! [String: Any]
+                if let videos = jsonRoot["videos"] as? [Any], videos.count != 0 {
+                    if let video = videos[0] as? [String: Any] {
+                        if let youtubeId = video["youTubeId"] as? String {
+                            let urlString = "https://www.youtube.com/watch?v=\(youtubeId)"
+                            
+                            guard let url = URL(string: urlString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!) else { return }
+                            DispatchQueue.main.async {
+                                // Open Video URL
+                                UIApplication.shared.open(url)
+                            }
+                            return
+                        }
+                    }
+                }
+                
+            } catch let err {
+                print(err)
+            }
+            
+            DispatchQueue.main.async {
+                // Video Not Found
+                let alert = UIAlertController(title: "Error", message: "Recipe Video doesn't Exist!", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                self.present(alert, animated: true, completion: nil)
+            }
+        }
+        
+        task.resume()
     }
     
     @IBAction func actionList(_ sender: Any) {
@@ -130,11 +182,16 @@ class RecipeDetailsVC: UITableViewController {
             self.present(alert, animated: true, completion: nil)
         }
         
+        let mapAction = UIAlertAction(title: "View Map for Ingredients", style: .default) { (action) in
+            self.performSegue(withIdentifier: "mapSegue", sender: nil)
+        }
+        
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         
         actionSheet.addAction(addCommentAction)
         actionSheet.addAction(addToFavouritesAction)
         actionSheet.addAction(twitterShareAction)
+        actionSheet.addAction(mapAction)
         actionSheet.addAction(cancelAction)
         self.present(actionSheet, animated: true, completion: nil)
         

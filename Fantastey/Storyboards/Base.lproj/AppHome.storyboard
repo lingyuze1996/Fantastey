@@ -113,11 +113,11 @@
                             <rect key="frame" x="0.0" y="656.5" width="375" height="44"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" systemColor="linkColor"/>
-                            <state key="normal" title="View Map">
+                            <state key="normal" title="Watch Recipe Video">
                                 <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </state>
                             <connections>
-                                <segue destination="dNI-0X-Mm4" kind="show" id="ydM-TG-ESA"/>
+                                <action selector="watchVideo:" destination="VIN-XZ-F4z" eventType="touchUpInside" id="eR2-iq-MfA"/>
                             </connections>
                         </button>
                         <prototypes>
@@ -277,10 +277,14 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="videoButton" destination="PK8-r3-tdM" id="Ufi-To-hZP"/>
+                        <segue destination="dNI-0X-Mm4" kind="show" identifier="mapSegue" id="4df-tR-U74"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sJI-GV-hOk" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-3250" y="768"/>
+            <point key="canvasLocation" x="-3250.4000000000001" y="767.76611694152928"/>
         </scene>
         <!--Map-->
         <scene sceneID="4Hs-IH-dg3">
@@ -290,7 +294,7 @@
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Sfa-Cs-Qo9" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-3488" y="1444"/>
+            <point key="canvasLocation" x="-3251" y="1329"/>
         </scene>
         <!--Create Recipe-->
         <scene sceneID="mv9-7K-ekl">
