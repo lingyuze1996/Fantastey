@@ -29,6 +29,8 @@ class MyProfileVC: UIViewController, UITableViewDelegate, UITableViewDataSource{
         
         indicator.style = UIActivityIndicatorView.Style.large
         indicator.center = followingAuthorsTable.center
+        indicator.hidesWhenStopped = true
+        indicator.backgroundColor = UIColor.clear
         view.addSubview(indicator)
         
         aboutUsButton.backgroundColor = UIColor.systemTeal
@@ -45,14 +47,15 @@ class MyProfileVC: UIViewController, UITableViewDelegate, UITableViewDataSource{
         view.backgroundColor = UIColor(patternImage:UIImage(named:"fantasteyBackground.png")!)
     }
     
+    @IBAction func refresh(_ sender: Any) {
+        followingAuthorsTable.reloadData()
+    }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         indicator.startAnimating()
-        indicator.backgroundColor = UIColor.clear
-        
+       
         emailAccountLabel.text = Auth.auth().currentUser?.email
-        
         
         dbController.usersCollection.document(Auth.auth().currentUser!.uid).getDocument { (document, error) in
             if let document = document {
@@ -68,7 +71,7 @@ class MyProfileVC: UIViewController, UITableViewDelegate, UITableViewDataSource{
                 }
                 
                 self.indicator.stopAnimating()
-                self.indicator.hidesWhenStopped = true
+                
             }
         }
         
@@ -115,8 +118,11 @@ class MyProfileVC: UIViewController, UITableViewDelegate, UITableViewDataSource{
                 
                 let level = document.get("level") as! String
                 cell.detailTextLabel?.text = "Level: \(level)"
+                
+     
             }
         }
+
         return cell
     }
     

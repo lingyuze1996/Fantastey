@@ -38,7 +38,6 @@ class MapVC: UIViewController {
         locationManager.delegate = self
         //locationManager.requestAlwaysAuthorization()
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        locationManager.requestAlwaysAuthorization()
         locationManager.requestLocation()
         
         //mapView.selectAnnotation(annotation, animated: true)
