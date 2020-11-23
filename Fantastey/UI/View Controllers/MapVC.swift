@@ -43,7 +43,7 @@ class MapVC: UIViewController {
         
         //mapView.selectAnnotation(annotation, animated: true)
         guard let locValue: CLLocationCoordinate2D = locationManager.location?.coordinate else { return }
-        let zoomRegion = MKCoordinateRegion(center:locValue, latitudinalMeters: 1000,longitudinalMeters:1000)
+        let zoomRegion = MKCoordinateRegion(center:locValue, latitudinalMeters: 800,longitudinalMeters:800)
         mapView.setRegion(mapView.regionThatFits(zoomRegion), animated: true)
         
         //for the search bar
@@ -174,7 +174,7 @@ extension MapVC: HandleMapSearch {
             mapView.addAnnotation(annotation)
         }
         //https://stackoverflow.com/questions/59127876/mkcoordinatespanmake-error-xcode-11-ios-13-2
-        let span = MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)
+        let span = MKCoordinateSpan(latitudeDelta: 0.03, longitudeDelta: 0.03)
         let region = MKCoordinateRegion(center: placemarks.first!.coordinate, span: span)
         mapView.setRegion(region, animated: true)
     }

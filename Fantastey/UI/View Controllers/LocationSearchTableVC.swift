@@ -18,7 +18,7 @@ class LocationSearchTableVC: UITableViewController {
     //for dropping the pin mark on map
     var handleMapSearchDelegate:HandleMapSearch? = nil
     
-    var didPutWoolworthPins = false
+    //var didPutWoolworthPins = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,17 +26,6 @@ class LocationSearchTableVC: UITableViewController {
     }
     
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        self.definesPresentationContext = true
-        
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(true)
-        //UIApplication.endBackgroundTask(_:)
-        self.definesPresentationContext = false
-    }
     func parseAddress(selectedItem:MKPlacemark) -> String {
         // put a space between "4" and "Melrose Place"
         let firstSpace = (selectedItem.subThoroughfare != nil && selectedItem.thoroughfare != nil) ? " " : ""
@@ -82,9 +71,9 @@ extension LocationSearchTableVC : UISearchResultsUpdating {
             self.matchingItems = response.mapItems
             self.tableView.reloadData()
             
-            if didPutWoolworthPins == false {
+            //if didPutWoolworthPins == false {
                 self.initialSearchResults(for: searchController)
-            }
+            //}
         }
     }
     
@@ -113,7 +102,7 @@ extension LocationSearchTableVC : UISearchResultsUpdating {
                 matchingPlacemarks!.append(thePlacemark)}
         }
         handleMapSearchDelegate?.dropPinsZoomIn(placemarks: matchingPlacemarks!)
-        didPutWoolworthPins = true
+        //didPutWoolworthPins = true
     }
     
 }
