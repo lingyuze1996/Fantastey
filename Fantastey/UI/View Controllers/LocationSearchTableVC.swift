@@ -26,7 +26,17 @@ class LocationSearchTableVC: UITableViewController {
     }
     
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.definesPresentationContext = true
+        
+    }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(true)
+        //UIApplication.endBackgroundTask(_:)
+        self.definesPresentationContext = false
+    }
     func parseAddress(selectedItem:MKPlacemark) -> String {
         // put a space between "4" and "Melrose Place"
         let firstSpace = (selectedItem.subThoroughfare != nil && selectedItem.thoroughfare != nil) ? " " : ""
@@ -56,6 +66,9 @@ class LocationSearchTableVC: UITableViewController {
 //https://www.thorntech.com/2016/01/how-to-search-for-location-using-apples-mapkit/
 extension LocationSearchTableVC : UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
+//        if didPutWoolworthPins == false {
+//            searchController.searchBar.text = "Woolworths"
+//        }
         guard let mapView = mapView,
               let searchBarText = searchController.searchBar.text else { return }
         let request = MKLocalSearch.Request()

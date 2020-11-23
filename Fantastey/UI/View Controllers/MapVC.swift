@@ -52,13 +52,16 @@ class MapVC: UIViewController {
         resultSearchController?.searchResultsUpdater = locationSearchTable
         
         let searchBar = resultSearchController!.searchBar
-        searchBar.sizeToFit()
-        searchBar.placeholder = "supermarket name"
-        searchBar.text = "Woolworths"
+        //searchBar.sizeToFit()
+        //searchBar.placeholder = "supermarket name"
+        searchBar.text = "supermarket"
+        //searchBar.isUserInteractionEnabled = true
+       
+        
         locationSearchTable.mapView = mapView
         locationSearchTable.updateSearchResults(for: resultSearchController!)
         
-        navigationItem.titleView = resultSearchController?.searchBar
+        //navigationItem.titleView = resultSearchController?.searchBar
         
         resultSearchController?.hidesNavigationBarDuringPresentation = false
         resultSearchController?.obscuresBackgroundDuringPresentation = true
@@ -71,12 +74,14 @@ class MapVC: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        self.definesPresentationContext = true
         
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(true)
         //UIApplication.endBackgroundTask(_:)
+        self.definesPresentationContext = false
     }
     
     //    func focusOn(coordinate:CLLocationCoordinate2D)
