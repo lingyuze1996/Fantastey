@@ -965,6 +965,11 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="My Profile" id="O0i-ZL-X4F">
+                        <barButtonItem key="leftBarButtonItem" systemItem="refresh" id="Cy5-zM-tgo">
+                            <connections>
+                                <action selector="refresh:" destination="cGX-pS-Ooi" id="7Wu-e6-n0V"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="edit" id="363-zh-gVQ">
                             <connections>
                                 <segue destination="KAx-Yr-nKi" kind="show" id="d8l-R6-ieY"/>

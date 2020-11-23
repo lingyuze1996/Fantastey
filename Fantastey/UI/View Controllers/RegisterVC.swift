@@ -26,7 +26,9 @@ class RegisterVC: UIViewController ,UITextFieldDelegate  {
         nameTextField.delegate = self
         cookingLevelSC.selectedSegmentTintColor = UIColor.systemGreen
         
-        self.hideKeyboardWhenTappedAround()
+        //self.hideKeyboardWhenTappedAround()
+        pwTextField1.isSecureTextEntry = true
+        pwTextField2.isSecureTextEntry = true
         
         dbController = (UIApplication.shared.delegate as! AppDelegate).dbController
         
@@ -123,6 +125,8 @@ class RegisterVC: UIViewController ,UITextFieldDelegate  {
 }
 
 
+/*
+
 //https://stackoverflow.com/questions/24126678/close-ios-keyboard-by-touching-anywhere-using-swift
 extension UIViewController {
     func hideKeyboardWhenTappedAround() {
@@ -136,3 +140,4 @@ extension UIViewController {
     }
 }
  
+*/
